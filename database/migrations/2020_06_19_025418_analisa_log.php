@@ -16,7 +16,7 @@ class AnalisaLog extends Migration
         Schema::create('analisa_log', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("message");
-            $table->timestamps();
+            $table->timestamps(0);
         });
     }
 

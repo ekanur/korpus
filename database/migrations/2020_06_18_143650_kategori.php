@@ -18,7 +18,7 @@ class Kategori extends Migration
             $table->foreignId("korpus_id")->constrained("korpus");
             $table->string("kategori");
             $table->integer("parent_id");
-            $table->timestamps();
+            $table->timestamps(0);
         });
     }
 

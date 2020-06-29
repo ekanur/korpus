@@ -18,7 +18,7 @@ class Pencarian extends Migration
             $table->foreignId("korpus_id")->constrained("korpus");
             $table->string("keyword");
             $table->integer("total");
-            $table->timestamps();
+            $table->timestamps(0);
         });
     }
 

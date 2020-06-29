@@ -21,7 +21,7 @@ class Kolokasi extends Migration
             $table->decimal("frekuensi_kata_persen")->nullable();
             $table->decimal("frekuensi_dokumen")->nullable();
             $table->decimal("frekuensi_dokumen_persen")->nullable();
-            $table->timestamps();
+            $table->timestamps(0);
             $table->softDeletes();
         });
     }

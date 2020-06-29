@@ -21,7 +21,7 @@ class Token extends Migration
             $table->decimal("frekuensi_token_persen")->nullable();
             $table->decimal("frekuensi_dokumen")->nullable();
             $table->decimal("frekuensi_dokumen_persen")->nullable();
-            $table->timestamps();
+            $table->timestamps(0);
             $table->softDeletes();
         });
     }

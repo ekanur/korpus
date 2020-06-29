@@ -18,3 +18,4 @@ Route::get('/', "IndexController@index");
 Route::get('dashboard', "DashboardController@index");
 
 Route::get("tes", "ReadDocController@index");
+Route::post('upload', "ReadDocController@upload");

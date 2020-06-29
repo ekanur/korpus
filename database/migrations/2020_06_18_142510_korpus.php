@@ -21,7 +21,7 @@ class Korpus extends Migration
             $table->integer("kata_dasar");
             $table->integer("token");
             $table->foreignId("user_id")->constrained();
-            $table->timestamps();
+            $table->timestamps(0);
         });
     }
 
