@@ -19,8 +19,8 @@ class Literatur extends Migration
             $table->foreignId("kategori_id")->constrained("kategori");
             $table->string("path");
             $table->string("judul");
-            $table->string("tahun_terbit");
-            $table->json("konten")->nullable();
+            $table->year("tahun_terbit");
+            $table->mediumText("konten")->nullable();
             $table->integer("uploaded_by");
             $table->timestamp("analyze_on")->nullable();
             $table->timestamps(0);
