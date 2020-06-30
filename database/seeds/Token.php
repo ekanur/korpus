@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class setting extends Seeder
+class Token extends Seeder
 {
     /**
      * Run the database seeds.

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class token extends Seeder
+class Pencarian extends Seeder
 {
     /**
      * Run the database seeds.

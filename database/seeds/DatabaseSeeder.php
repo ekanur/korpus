@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(user::class); //admin & pic
+        $this->call(User::class); //admin & pic
         // $this->call(korpus::class);
         factory(App\Korpus::class, 5)->create()->each(function($korpus){
             $korpus->kategori()->saveMany(factory(App\Kategori::class, 5)->make());

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class analisa_log extends Seeder
+class Setting extends Seeder
 {
     /**
      * Run the database seeds.

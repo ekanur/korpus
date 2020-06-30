@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class kolokasi extends Seeder
+class AnalisaLog extends Seeder
 {
     /**
      * Run the database seeds.

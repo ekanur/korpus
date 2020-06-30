@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class kata_dasar extends Seeder
+class Kategori extends Seeder
 {
     /**
      * Run the database seeds.

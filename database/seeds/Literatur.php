@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class kategori extends Seeder
+class Literatur extends Seeder
 {
     /**
      * Run the database seeds.
