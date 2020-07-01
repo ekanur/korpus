@@ -13,9 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', "IndexController@index");
+Route::get('/', "KorpusController@index");
+Route::get('/korpus/{korpus_id}', "KorpusController@setKorpus");
+Route::get('pilih_korpus', "KorpusController@pilihKorpus");
 
-Route::get('dashboard', "DashboardController@index");
+Route::get('dashboard', "KorpusController@dashboard");
+Route::get('kata', "KorpusController@kata");
+Route::get('kolokasi', "KorpusController@kolokasi");
+Route::get('literatur', "KorpusController@literatur");
+
+Route::get('cari/{keyword}', "KorpusController@cari");
 
 Route::get("tes", "ReadDocController@index");
 Route::post('upload', "ReadDocController@upload");

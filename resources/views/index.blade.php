@@ -113,13 +113,14 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-xl-3 col-md-6">
+                    @foreach ($korpus as $korpus)
+                    <div class="@if(strlen($korpus->jenis)>7) col-xl-3 @else col-xl-2 @endif col-md-6">
                         <div class="card card-stats bg-primary">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 class="card-title text-uppercase mb-0  text-muted">342 Literatur</h5>
-                                        <span class="h2 font-weight-bold mb-0" style="color:#10375c">Indonesia</span>
+                                        <h5 class="card-title text-uppercase mb-0  text-muted">{{$korpus->jumlah_literatur}} Literatur</h5>
+                                        <span class="h2 font-weight-bold mb-0" style="color:#10375c">{{$korpus->jenis}}</span>
                                     </div>
                                     <div class="col-auto">
                                         <!-- <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -128,91 +129,13 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 mb-0 text-md">
-                                    <a href="{{url('dashboard')}}">Detail &raquo;</a>
+                                    <a href="{{url('/korpus'.'/'.$korpus->id)}}">Detail &raquo;</a>
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-md-6">
-                        <div class="card card-stats bg-primary">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase mb-0 text-muted">223 Literatur</h5>
-                                        <span class="h2 font-weight-bold mb-0" style="color: #10375c;">Inggris</span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <!-- <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                                <i class="ni ni-active-40"></i>
-                                            </div> -->
-                                    </div>
-                                </div>
-                                <p class="mt-3 mb-0 text-md">
-                                    <a href="{{url('dashboard')}}">Detail &raquo;</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6">
-                        <div class="card card-stats bg-primary">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase mb-0 text-muted">20 Literatur</h5>
-                                        <span class="h2 font-weight-bold mb-0" style="color: #10375c;">Arab</span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <!-- <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                                <i class="ni ni-active-40"></i>
-                                            </div> -->
-                                    </div>
-                                </div>
-                                <p class="mt-3 mb-0 text-md">
-                                    <a href="{{url('dashboard')}}">Detail &raquo;</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6">
-                        <div class="card card-stats bg-primary">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase mb-0 text-muted">1037 Literatur</h5>
-                                        <span class="h2 font-weight-bold mb-0" style="color: #10375c;">Jerman</span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <!-- <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                                <i class="ni ni-active-40"></i>
-                                            </div> -->
-                                    </div>
-                                </div>
-                                <p class="mt-3 mb-0 text-md">
-                                    <a href="{{url('dashboard')}}">Detail &raquo;</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card card-stats bg-primary">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase mb-0 text-muted">205 Literatur</h5>
-                                        <span class="h2 font-weight-bold mb-0" style="color: #10375c;">Seni Desain</span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <!-- <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                                <i class="ni ni-active-40"></i>
-                                            </div> -->
-                                    </div>
-                                </div>
-                                <p class="mt-3 mb-0 text-md">
-                                    <a href="{{url('dashboard')}}">Detail &raquo;</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
                     <!-- <div class="col-xl-2 col-md-6">
                         <div class="card card-stats">
                             <div class="card-body">

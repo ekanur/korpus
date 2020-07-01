@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class korpus extends Seeder
+class Korpus extends Seeder
 {
     /**
      * Run the database seeds.

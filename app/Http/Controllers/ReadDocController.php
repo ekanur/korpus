@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Kategori;
 use Illuminate\Http\Request;
 use App\Literatur;
 use NlpTools\Tokenizers\WhitespaceTokenizer;
@@ -10,11 +11,12 @@ use PhpOffice\PhpWord\IOFactory;
 
 class ReadDocController extends Controller
 {
-    //
+
 
     public function index()
     {
-        return view("admin/tes");
+        $kategori = Kategori::where('korpus_id', session('korpus_id'))->get();
+        return view("admin/tes")->with('kategori', $kategori);
     }
 
     public function upload(Request $request)
@@ -26,19 +28,18 @@ class ReadDocController extends Controller
         $fullpath = "../storage/app/".$path;
         $command = "unzip -p ".$fullpath." word/document.xml | sed -e 's/<[^>]\{1,\}>//g; s/[^[:print:]]\{1,\}//g'";
         // dd($command);
-        // $text = shell_exec($command);
-        dd(shell_exec($command));
-        // $name = basename(__FILE__, '.php');
-        // $source = __DIR__ . "/resources/{$name}.docx";
-        // dd(storage_path($path));
+        $text = shell_exec($command);
+        // dd($text);
 
-        // $phpWord = \PhpOffice\PhpWord\IOFactory::load($path);
 
-        // $literatur = new Literatur;
-        // $literatur->korpus_id = 2;
-        // $literatur->kategori_id = 10;
-        // $literatur->uploaded_by = 9;
-        // $literatur->path = $path;
-        // $literatur->save();
+        $literatur = new Literatur;
+        $literatur->korpus_id = session('korpus_id',1);
+        $literatur->kategori_id = $request->kategori_id;
+        $literatur->path = $path;
+        $literatur->judul = $request->judul;
+        $literatur->tahun_terbit = $request->tahun_terbit;
+        $literatur->konten = $text;
+        $literatur->uploaded_by = session('user_id', 1);
+        $literatur->save();
    }
 }
