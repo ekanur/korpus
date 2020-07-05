@@ -22,6 +22,8 @@ class Literatur extends Migration
             $table->year("tahun_terbit");
             $table->mediumText("konten")->nullable();
             $table->integer("uploaded_by");
+            $table->integer("jumlah_kata")->nullable();
+            $table->integer("kata_dasar")->nullable();
             $table->timestamp("analyze_on")->nullable();
             $table->timestamps(0);
             $table->softDeletes();

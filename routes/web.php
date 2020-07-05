@@ -26,3 +26,12 @@ Route::get('cari/{keyword}', "KorpusController@cari");
 
 Route::get("tes", "ReadDocController@index");
 Route::post('upload', "ReadDocController@upload");
+
+Route::namespace("Admin")->prefix("admin")->group(function(){
+    Route::get("literatur", "LiteraturController@index");
+    Route::post("literatur", "LiteraturController@save");
+});
+
+Route::get("login", function(){
+    return view("login");
+});

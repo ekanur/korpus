@@ -48,53 +48,7 @@
 
 
                     <!-- Navbar links -->
-                    <ul class="navbar-nav align-items-center  ml-md-auto">
-                        <li class="nav-item dropdown">
-                            <!-- <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="media align-items-center">
-                                <div class="media-body  ml-2  d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">Administrator</span>
-                                </div>
-                            </div>
-                        </a> -->
-                            <button type="button" class="btn-icon-clipboard" data-toggle="dropdown" data-clipboard-text="single-02" title="" data-original-title="Hello, Administrator" style="padding:.5rem">
-                            <div>
-                              <i class="ni ni-single-02"></i>
-                              <span>Administrator</span>
-                            </div>
-                          </button>
-                            <div class="dropdown-menu  dropdown-menu-right ">
-                                <div class="dropdown-header noti-title">
-                                    <h6 class="text-overflow m-0"></h6>
-                                </div>
-                                <a href="admin_{{url('dashboard')}}" class="dropdown-item">
-                                    <i class="ni ni-app"></i>
-                                    <span>Admin Panel</span>
-                                </a>
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ni ni-single-02"></i>
-                                    <span>Profile</span>
-                                </a>
-                                <!-- <a href="#!" class="dropdown-item">
-                                <i class="ni ni-settings-gear-65"></i>
-                                <span>Settings</span>
-                            </a>
-                            <a href="#!" class="dropdown-item">
-                                <i class="ni ni-calendar-grid-58"></i>
-                                <span>Activity</span>
-                            </a> -->
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ni ni-support-16"></i>
-                                    <span>Support</span>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ni ni-user-run"></i>
-                                    <span>Logout</span>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
+                    @include("template.adminmenu")
                 </div>
         </nav>
         <!-- Header -->
@@ -228,32 +182,9 @@
 
 
             <!-- Footer -->
-            <footer class="footer pt-0" style="background-color: transparent;">
-                <div class="row align-items-center justify-content-lg-between">
-                    <div class="col-lg-6">
-                        <div class="copyright text-center  text-lg-left  text-muted">
-                            &copy; 2020
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Tentang</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">Anggota</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <!-- <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a> -->
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </footer>
+                    @include("template.footer")
         </div>
+
         </div>
         <!-- Argon Scripts -->
         <!-- Core -->
