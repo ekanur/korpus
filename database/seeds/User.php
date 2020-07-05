@@ -22,6 +22,7 @@ class User extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
+            'role' => "admin",
             'issued_by' => 0
         ]);
 
@@ -35,6 +36,7 @@ class User extends Seeder
                     'email_verified_at' => now(),
                     'password' => Hash::make('pass_ind'),
                     'remember_token' => Str::random(10),
+                    'role' => "pic",
                     'issued_by' => 1
                 ],
                 [
@@ -43,6 +45,7 @@ class User extends Seeder
                     'email_verified_at' => now(),
                     'password' => Hash::make('pass_ing'),
                     'remember_token' => Str::random(10),
+                    'role' => "pic",
                     'issued_by' => 1
                 ],
                 [
@@ -51,6 +54,7 @@ class User extends Seeder
                     'email_verified_at' => now(),
                     'password' => Hash::make('pass_arab'),
                     'remember_token' => Str::random(10),
+                    'role' => "pic",                    
                     'issued_by' => 1
                 ],
                 [
@@ -59,6 +63,7 @@ class User extends Seeder
                     'email_verified_at' => now(),
                     'password' => Hash::make('pass_arab'),
                     'remember_token' => Str::random(10),
+                    'role' => "pic",                    
                     'issued_by' => 1
                 ],
                 [
@@ -67,6 +72,7 @@ class User extends Seeder
                     'email_verified_at' => now(),
                     'password' => Hash::make('pass_senibudaya'),
                     'remember_token' => Str::random(10),
+                    'role' => "pic",                    
                     'issued_by' => 1
                 ],
             ]);
