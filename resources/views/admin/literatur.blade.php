@@ -268,19 +268,16 @@
                     </div>
                     <div class="col-lg-6">
                         <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Tentang</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">Anggota</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Administrator</a>
-                            </li>
-                            <li class="nav-item">
-                                <!-- <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a> -->
-                            </li>
-                        </ul>
+                <li class="nav-item">
+                    <a href="#!" class="nav-link" target="">Tentang</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link" target="_blank">Anggota</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url("")}}" class="nav-link" target="">Lihat Korpus</a>
+                </li>
+            </ul>
                     </div>
                 </div>
             </footer>

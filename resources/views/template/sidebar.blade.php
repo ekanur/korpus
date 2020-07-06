@@ -2,7 +2,7 @@
         <div class="scrollbar-inner">
             <!-- Brand -->
             <div class="sidenav-header  align-items-center">
-                <a class="navbar-brand" style="font-size: 1rem;color:rgba(255, 255, 255, .95);" href="{{url("/")}}">
+                <a class="navbar-brand" style="font-size: 1rem;color:rgba(255, 255, 255, .95);" href="{{url("/pilih_korpus")}}">
                         ← Kembali
                     </a>
             </div>
