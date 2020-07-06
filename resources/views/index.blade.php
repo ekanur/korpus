@@ -178,7 +178,7 @@
             </div>
         </div>
         <!-- Page content -->
-        <div class="container-fluid mt--6 fixed-bottom">
+        <div class="container-fluid mt--6">
 
 
             <!-- Footer -->
