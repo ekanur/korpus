@@ -235,8 +235,8 @@
                                         <label class="form-control-label" for="input-username">Korpus</label>
                                         <!--<input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">-->
                                         <select name="korpus" class="form-control">
-                                            @foreach($korpus as $korpus)
-                                            <option value="{{$korpus->id}}">{{$korpus->jenis}}</option>
+                                            @foreach($korpus as $korpus_data)
+                                            <option value="{{$korpus_data->id}}">{{$korpus_data->jenis}}</option>
                                             @endforeach
                                         </select>
                                       </div>
