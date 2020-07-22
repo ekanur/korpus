@@ -48,7 +48,9 @@
 
 
                     <!-- Navbar links -->
-                    @include("template.adminmenu")
+                    @if (Auth::check())
+                        @include("template.adminmenu")
+                    @endif
                 </div>
         </nav>
         <!-- Header -->
@@ -178,7 +180,7 @@
             </div>
         </div>
         <!-- Page content -->
-        <div class="container-fluid mt--6">
+        <div class="container-fluid mt--6" style="padding-top: 12em;">
 
 
             <!-- Footer -->
