@@ -27,11 +27,25 @@ Route::get('cari/{keyword}', "KorpusController@cari");
 Route::get("tes", "ReadDocController@index");
 Route::post('upload', "ReadDocController@upload");
 
-Route::namespace("Admin")->prefix("admin")->group(function(){
-    Route::get("literatur", "LiteraturController@index");
-    Route::post("literatur", "LiteraturController@save");
+Route::prefix("admin")->middleware("admin")->group(function(){
+    Route::get("/", "AdminController@index")->name("admin");
+    Route::get("/kolokasi", "AdminController@kolokasi");
 });
 
 Route::get("login", function(){
     return view("login");
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix("member")->middleware("member")->group(function(){
+    Route::get("", "MemberController@index")->name("member");
+    Route::get("literatur", "LiteraturController@index");
+    Route::post("literatur", "LiteraturController@save");
+});
+
+Route::prefix("pic")->middleware("pic")->group(function(){
+    Route::get("", "PICController@index")->name("pic");
 });

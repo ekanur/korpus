@@ -65,25 +65,38 @@
                     <div class="col-lg-5 col-md-7">
                         <div class="card bg-secondary border-0 mb-0">
                             <div class="card-body px-lg-5 py-lg-5">
-                                <form role="form">
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
                                     <div class="form-group mb-3">
                                         <div class="input-group input-group-merge input-group-alternative">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                                             </div>
-                                            <input class="form-control" placeholder="Username" type="text">
+                                            <input class="form-control" placeholder="Username" type="text" name="name">
                                         </div>
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group input-group-merge input-group-alternative">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                             </div>
-                                            <input class="form-control" placeholder="Password" type="password">
+                                            <input class="form-control" placeholder="Password" type="password" name="password">
                                         </div>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-success my-4">Sign in</button>
+                                        <button type="submit" class="btn btn-success my-4">
+                                            {{ __('Login') }}
+                                        </button>
                                     </div>
                                 </form>
                             </div>

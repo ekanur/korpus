@@ -18,6 +18,7 @@ class User extends Seeder
 
         DB::table('users')->insert([
             'name' => "admin",
+            'username' => "admin",
             'email' => "admin@korpus.com",
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
@@ -32,6 +33,7 @@ class User extends Seeder
             DB::table('users')->insert([
                 [
                     'name' => "korpus_ind",
+                    'username' => "korpus_ind",
                     'email' => "korpus_ind@korpus.com",
                     'email_verified_at' => now(),
                     'password' => Hash::make('pass_ind'),
@@ -41,6 +43,7 @@ class User extends Seeder
                 ],
                 [
                     'name' => "korpus_ing",
+                    'username' => "korpus_ing",
                     'email' => "korpus_ing@korpus.com",
                     'email_verified_at' => now(),
                     'password' => Hash::make('pass_ing'),
@@ -50,29 +53,32 @@ class User extends Seeder
                 ],
                 [
                     'name' => "korpus_arab",
+                    'username' => "korpus_arab",
                     'email' => "korpus_arab@korpus.com",
                     'email_verified_at' => now(),
                     'password' => Hash::make('pass_arab'),
                     'remember_token' => Str::random(10),
-                    'role' => "pic",                    
+                    'role' => "pic",
                     'issued_by' => 1
                 ],
                 [
                     'name' => "korpus_jerman",
+                    'username' => "korpus_jerman",
                     'email' => "korpus_jerman@korpus.com",
                     'email_verified_at' => now(),
                     'password' => Hash::make('pass_arab'),
                     'remember_token' => Str::random(10),
-                    'role' => "pic",                    
+                    'role' => "pic",
                     'issued_by' => 1
                 ],
                 [
                     'name' => "korpus_senibudaya",
+                    'username' => "korpus_senibudaya",
                     'email' => "korpus_senibudaya@korpus.com",
                     'email_verified_at' => now(),
                     'password' => Hash::make('pass_senibudaya'),
                     'remember_token' => Str::random(10),
-                    'role' => "pic",                    
+                    'role' => "pic",
                     'issued_by' => 1
                 ],
             ]);

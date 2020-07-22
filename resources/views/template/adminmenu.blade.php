@@ -9,17 +9,19 @@
         </a> -->
                             <button type="button" class="btn-icon-clipboard" data-toggle="dropdown" title="" data-original-title="Hello, Administrator" style="padding:.5rem">
             <div>
-              <i class="ni ni-single-02"></i>
-              <span>Administrator</span>
+                <i class="ni ni-single-02"></i>
+                <span>
+                    {{strtoupper(Auth::user()->role)}}
+                </span>
             </div>
           </button>
                             <div class="dropdown-menu  dropdown-menu-right ">
                                 <div class="dropdown-header noti-title">
                                     <h6 class="text-overflow m-0"></h6>
                                 </div>
-                                <a href="{{url("admin/literatur")}}" class="dropdown-item">
+                                <a href="{{route(Auth::user()->role)}}" class="dropdown-item">
                                     <i class="ni ni-app"></i>
-                                    <span>Admin Panel</span>
+                                    <span>Dashboard</span>
                                 </a>
                                 <a href="#!" class="dropdown-item">
                                     <i class="ni ni-single-02"></i>
@@ -38,10 +40,15 @@
                                     <span>Support</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="#!" class="dropdown-item">
-                                    <i class="ni ni-user-run"></i>
-                                    <span>Logout</span>
-                                </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                             </div>
                         </li>
                     </ul>
