@@ -30,6 +30,9 @@ Route::post('upload', "ReadDocController@upload");
 Route::prefix("admin")->middleware("admin")->group(function(){
     Route::get("/", "AdminController@index")->name("admin");
     Route::get("/kolokasi", "AdminController@kolokasi");
+    Route::post('/kolokasi', "AdminController@simpanKolokasi");
+    Route::get("/kolokasi/{id}", "AdminController@editKolokasi");
+    Route::post("/update_kolokasi", "AdminController@updateKolokasi");
 });
 
 Route::get("login", function(){

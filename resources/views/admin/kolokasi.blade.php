@@ -130,6 +130,14 @@
                     <div class="row">
 
                         <div class="col-xl-12 order-xl-1">
+                            @if (null != session('msg_success'))
+                                @component('template.notif')
+                                    @slot('type')
+                                        success
+                                    @endslot
+                                    {{session('msg_success')}}
+                                @endcomponent
+                            @endif
                             <div class="card">
                                 <!-- Card header -->
                                 <div class="card-header border-0 shadow">
@@ -144,6 +152,7 @@
                                 </div>
                                 <!-- Light table -->
                                 <div class="table-responsive">
+
                                     <table class="table align-items-center table-flush">
                                         <thead class="thead-light">
                                             <tr>
@@ -160,7 +169,7 @@
                                                     {{$loop->iteration}}
                                                 </td>
                                                 <td>
-                                                    <a href="#">{{$kolokasi->kolokasi}}</a>
+                                                <a href="{{url("/admin/kolokasi/".$kolokasi->id)}}">{{$kolokasi->kolokasi}}</a>
                                                 </td>
                                                 <td>
                                                     {{$kolokasi->korpus->jenis}}
@@ -196,7 +205,6 @@
                     <div class="col-lg-6">
                         <div class="copyright text-center  text-lg-left  text-muted">
                             &copy; 2020
-                            <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank"></a>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -205,7 +213,7 @@
                     <a href="#!" class="nav-link" target="">Tentang</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link" target="_blank">Anggota</a>
+                    <a href="" class="nav-link">Anggota</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{url("")}}" class="nav-link" target="">Lihat Korpus</a>
