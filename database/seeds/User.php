@@ -36,7 +36,7 @@ class User extends Seeder
                     'username' => "korpus_ind",
                     'email' => "korpus_ind@korpus.com",
                     'email_verified_at' => now(),
-                    'password' => Hash::make('pass_ind'),
+                    'password' => Hash::make('password'),
                     'remember_token' => Str::random(10),
                     'role' => "pic",
                     'issued_by' => 1
@@ -46,7 +46,7 @@ class User extends Seeder
                     'username' => "korpus_ing",
                     'email' => "korpus_ing@korpus.com",
                     'email_verified_at' => now(),
-                    'password' => Hash::make('pass_ing'),
+                    'password' => Hash::make('password'),
                     'remember_token' => Str::random(10),
                     'role' => "pic",
                     'issued_by' => 1
@@ -56,7 +56,7 @@ class User extends Seeder
                     'username' => "korpus_arab",
                     'email' => "korpus_arab@korpus.com",
                     'email_verified_at' => now(),
-                    'password' => Hash::make('pass_arab'),
+                    'password' => Hash::make('password'),
                     'remember_token' => Str::random(10),
                     'role' => "pic",
                     'issued_by' => 1
@@ -66,7 +66,7 @@ class User extends Seeder
                     'username' => "korpus_jerman",
                     'email' => "korpus_jerman@korpus.com",
                     'email_verified_at' => now(),
-                    'password' => Hash::make('pass_arab'),
+                    'password' => Hash::make('password'),
                     'remember_token' => Str::random(10),
                     'role' => "pic",
                     'issued_by' => 1
@@ -76,7 +76,7 @@ class User extends Seeder
                     'username' => "korpus_senibudaya",
                     'email' => "korpus_senibudaya@korpus.com",
                     'email_verified_at' => now(),
-                    'password' => Hash::make('pass_senibudaya'),
+                    'password' => Hash::make('password'),
                     'remember_token' => Str::random(10),
                     'role' => "pic",
                     'issued_by' => 1
