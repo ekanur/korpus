@@ -72,7 +72,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                                             </div>
-                                            <input class="form-control" placeholder="Username" type="text" name="name">
+                                            <input class="form-control" placeholder="Username" type="text" name="username">
                                         </div>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
