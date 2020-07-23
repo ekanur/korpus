@@ -45,4 +45,11 @@ class AdminController extends Controller
 
         return redirect()->back()->with("msg_success", "Berhasil mengubah Kolokasi");
     }
+
+    public function hapusKolokasi(Request $request)
+    {
+        Kolokasi::destroy($request->id);
+
+        return redirect()->back()->with("msg_success", "Berhasil menghapus Kolokasi");
+    }
 }

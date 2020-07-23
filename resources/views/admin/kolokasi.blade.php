@@ -129,7 +129,7 @@
                     <!-- Card stats -->
                     <div class="row">
 
-                        <div class="col-xl-12 order-xl-1">
+                        <div class="col-xl-8 order-xl-1">
                             @if (null != session('msg_success'))
                                 @component('template.notif')
                                     @slot('type')
@@ -175,7 +175,7 @@
                                                     {{$kolokasi->korpus->jenis}}
                                                 </td>
                                                 <td>
-
+                                                <a href="#" data-toggle="modal" data-target="#hapus" data-id={{$kolokasi->id}} data-kolokasi="{{$kolokasi->kolokasi}}" class="btn btn-danger btn-sm">Hapus</a>
                                                 </td>
 
                                             </tr>
@@ -224,8 +224,9 @@
             </footer>
         </div>
         </div>
-        <div class="modal fade" id="baru" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-modal="true" >
-            <div class="modal-dialog modal- modal-dialog-centered" role="document">
+
+        <div class="modal fade" id="baru" role="dialog" aria-labelledby="modal-form" aria-modal="true" >
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
 
                     <div class="modal-body p-0">
@@ -236,7 +237,6 @@
                             <form action="{{url("admin/kolokasi")}}" method="post" enctype="">
                                 <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
                                 {{ csrf_field() }}
-                                <div class="pl-lg-4">
                                   <div class="row">
                                     <div class="col-lg-6">
                                       <div class="form-group">
@@ -265,42 +265,35 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-modal="true" >
-            <div class="modal-dialog modal- modal-dialog-centered" role="document">
+
+        <div class="modal fade" id="hapus" role="dialog" aria-labelledby="modal-form" aria-modal="true" >
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
 
                     <div class="modal-body p-0">
                         <div class="card-body px-lg-5 py-lg-4">
-                            <div class="text-center text-muted mb-4">
-                               Edit Kolokasi
+                            <div class="text-center mb-4">
+                                <h3>Apakah anda akan menghapus Kolokasi <strong id="kolokasi"></strong> ?</h3>
                             </div>
-                            <form action="{{url("admin/edit_kolokasi")}}" method="post" enctype="">
+
+                            <form action="{{url("admin/hapus_kolokasi")}}" method="post" enctype="">
                                 <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
                                 {{ csrf_field() }}
-                                <div class="pl-lg-4">
-                                  <div class="row">
-                                    <div class="col-lg-6">
-                                      <div class="form-group">
-                                        <label class="form-control-label" for="input-username">Korpus</label>
-                                        <!--<input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">-->
-                                        <select name="korpus" class="form-control">
-                                            @foreach($korpus as $korpus)
-                                            <option value="{{$korpus->id}}">{{$korpus->jenis}}</option>
-                                            @endforeach
-                                        </select>
-                                      </div>
+                                <input type="hidden" name="id" value="">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <button data-dismiss="modal" class="form-control btn btn-primary">Tidak</button>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                      <div class="form-group">
-                                        <label class="form-control-label" for="input-first-name">Kolokasi</label>
-                                        <input type="text" name="kolokasi" id="input-first-name" class="form-control" placeholder="Kolokasi" value="">
-                                      </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <input type="submit" class="form-control btn btn-success" name="simpan" value="Ya"/>
+                                        </div>
                                     </div>
                                 </div>
-                                  <div class="form-group">
-                                      <input type="submit" class="form-control btn btn-success" name="simpan" value="Simpan"/>
-                                  </div>
-                              </form>
+
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -320,22 +313,15 @@
         <script src="../assets/js/argon.js?v=1.2.0"></script>
         <script>
             $(document).ready(function(){
-                $("select[name='korpus']").change(function(){
-                    var korpus_id = $(this).val();
-                    $.get("{{url('api/korpus')}}/"+korpus_id+"/kategori", function(data){
+                $('#hapus').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget)
+                    var id = button.data('id')
+                    var kolokasi = button.data('kolokasi')
 
-                    })
-                            .done(function(data){
-                                var items = [];
-                                $.each(data, function(index, value){
-//                                console.log(value);
-
-                                    items.push("<option value='"+value.id+"'>"+value.kategori+"</option>");
-                                });
-                                $("select[name='kategori']").empty();
-                                $(items.join("")).appendTo("select[name='kategori']");
-                            });
-                });
+                    var modal = $(this)
+                    modal.find("input[name='id']").val(id)
+                    modal.find('#kolokasi').text(kolokasi)
+                })
             });
         </script>
 </body>

@@ -33,6 +33,7 @@ Route::prefix("admin")->middleware("admin")->group(function(){
     Route::post('/kolokasi', "AdminController@simpanKolokasi");
     Route::get("/kolokasi/{id}", "AdminController@editKolokasi");
     Route::post("/update_kolokasi", "AdminController@updateKolokasi");
+    Route::post("/hapus_kolokasi", "AdminController@hapusKolokasi");
 });
 
 Route::get("login", function(){
