@@ -34,6 +34,9 @@ Route::prefix("admin")->middleware("admin")->group(function(){
     Route::get("/kolokasi/{id}", "AdminController@editKolokasi");
     Route::post("/update_kolokasi", "AdminController@updateKolokasi");
     Route::post("/hapus_kolokasi", "AdminController@hapusKolokasi");
+    Route::get('/user', "AdminController@user");
+    Route::get('/user/{id}', "AdminController@editUser");
+    Route::get('/korpus/{id}', "AdminController@korpus");
 });
 
 Route::get("login", function(){

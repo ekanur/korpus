@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Kolokasi;
 use Illuminate\Http\Request;
 use App\Korpus;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -51,5 +52,15 @@ class AdminController extends Controller
         Kolokasi::destroy($request->id);
 
         return redirect()->back()->with("msg_success", "Berhasil menghapus Kolokasi");
+    }
+
+    public function korpus($id)
+    {
+        return view("admin.korpus")->with('korpus', Korpus::find($id));
+    }
+
+    public function user()
+    {
+        return view("admin.user")->with('pic', User::where("role", "pic")->get());
     }
 }

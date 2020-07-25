@@ -32,7 +32,7 @@ class User extends Seeder
         // for ($i=0; $i < count($user); $i++) {
             DB::table('users')->insert([
                 [
-                    'name' => "korpus_ind",
+                    'name' => "Febri Taufiqurrahman , S.Hum., M.Hum.",
                     'username' => "korpus_ind",
                     'email' => "korpus_ind@korpus.com",
                     'email_verified_at' => now(),
@@ -42,7 +42,7 @@ class User extends Seeder
                     'issued_by' => 1
                 ],
                 [
-                    'name' => "korpus_ing",
+                    'name' => " Prof. Dr. Yazid Basthomi , M.A.",
                     'username' => "korpus_ing",
                     'email' => "korpus_ing@korpus.com",
                     'email_verified_at' => now(),
@@ -52,7 +52,7 @@ class User extends Seeder
                     'issued_by' => 1
                 ],
                 [
-                    'name' => "korpus_arab",
+                    'name' => "Dr. Yusuf Hanafi, M.Fil.I",
                     'username' => "korpus_arab",
                     'email' => "korpus_arab@korpus.com",
                     'email_verified_at' => now(),
@@ -62,7 +62,7 @@ class User extends Seeder
                     'issued_by' => 1
                 ],
                 [
-                    'name' => "korpus_jerman",
+                    'name' => "Dr. Herri Akhmad Bukhori, M.A., M.Hum",
                     'username' => "korpus_jerman",
                     'email' => "korpus_jerman@korpus.com",
                     'email_verified_at' => now(),
@@ -72,7 +72,7 @@ class User extends Seeder
                     'issued_by' => 1
                 ],
                 [
-                    'name' => "korpus_senibudaya",
+                    'name' => "Joko Samudro, S.Kom., M.Kom",
                     'username' => "korpus_senibudaya",
                     'email' => "korpus_senibudaya@korpus.com",
                     'email_verified_at' => now(),

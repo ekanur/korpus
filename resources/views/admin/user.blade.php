@@ -11,7 +11,7 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header border-0 shadow">
-                <h3 class="mb-0">Korpus</h3>
+                <h3 class="mb-0">Penanggung Jawab</h3>
             </div>
             <!-- Light table -->
             <div class="table-responsive">
@@ -19,26 +19,29 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col" class="sort" data-sort="no">No</th>
-                            <th scope="col" class="sort" data-sort="kata">Korpus</th>
-                            <th scope="col" class="sort" data-sort="frekuensi">Dianalisa Pada</th>
-                            <th scope="col" class="sort" data-sort="frekuensi"></th>
+                            <th scope="col" class="sort" data-sort="frekuensi">Nama Lengkap</th>
+                            <th scope="col" class="sort" data-sort="status">Email</th>
+                            <th scope="col" class="sort" data-sort="status">PJ Korpus</th>
+                            <th scope="col" class="sort" data-sort="status"></th>
                         </tr>
                     </thead>
                     <tbody class="list">
-                        @foreach ($korpus as $korpus)
+                        @foreach ($pic as $pic)
                         <tr>
                             <td>
                                 {{$loop->iteration}}
                             </td>
                             <td>
-                                {{$korpus->jenis}}
+                                {{$pic->name}}
                             </td>
                             <td>
-                                {{$korpus->updated_at}}
+                                {{$pic->email}}
                             </td>
                             <td>
-                                <a href="{{url("admin/analisa_korpus/".$korpus->id)}}" class="btn btn-sm btn-primary">Analisa</a>
-                                <a href="{{url("admin/report_korpus/".$korpus->id)}}" class="btn btn-sm btn-default">Report</a>
+                                {{$pic->korpus->jenis}}
+                            </td>
+                            <td>
+                            <a href="{{url("admin/user/".$pic->id)}}" class="btn btn-sm btn-primary">Edit</a>
                             </td>
 
                         </tr>
@@ -67,24 +70,6 @@
 
 @section('js')
 <script>
-    $(document).ready(function(){
-        $("select[name='korpus']").change(function(){
-            var korpus_id = $(this).val();
-            $.get("{{url('api/korpus')}}/"+korpus_id+"/kategori", function(data){
 
-            })
-                    .done(function(data){
-                        var items = [];
-                        $.each(data, function(index, value){
-//                                console.log(value);
-
-                            items.push("<option value='"+value.id+"'>"+value.kategori+"</option>");
-                        });
-                        $("select[name='kategori']").empty();
-                        $(items.join("")).appendTo("select[name='kategori']");
-                    });
-        });
-    });
 </script>
 @endsection
-
