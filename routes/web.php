@@ -30,14 +30,20 @@ Route::post('upload', "ReadDocController@upload");
 Route::prefix("admin")->middleware("admin")->group(function(){
     Route::get("/", "AdminController@index")->name("admin");
     Route::get("/kolokasi", "AdminController@kolokasi");
+    Route::post('/kolokasi', "AdminController@simpanKolokasi");
+    Route::get("/kolokasi/{id}", "AdminController@editKolokasi");
+    Route::post("/update_kolokasi", "AdminController@updateKolokasi");
+    Route::post("/hapus_kolokasi", "AdminController@hapusKolokasi");
+    Route::get('/user', "AdminController@user");
+    Route::get('/user/{id}', "AdminController@editUser");
+    Route::get('/korpus/{id}', "AdminController@korpus");
+    Route::post('/korpus', "AdminController@editKorpus");
+    Route::post('/edit_user', "AdminController@updateUser");
     Route::get("/kata_dasar", "AdminController@kata_dasar");
     Route::post("/kata_dasar", "AdminController@kata_dasar_save");
     Route::get("/token", "AdminController@token");
 });
 
-Route::get("login", function(){
-    return view("login");
-});
 
 Auth::routes();
 

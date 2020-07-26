@@ -27,12 +27,12 @@ class User extends Seeder
             'issued_by' => 0
         ]);
 
-        // $user = ["pic_indonesia", "pic_inggris", "pic_arab", "pic_jerman", "pic_senibudaya"];
+        // $user = ["pic_indonesia", "pic_inggris", "pic_arab", "pic_jerman", "pic_seni"];
 
         // for ($i=0; $i < count($user); $i++) {
             DB::table('users')->insert([
                 [
-                    'name' => "korpus_ind",
+                    'name' => "Febri Taufiqurrahman , S.Hum., M.Hum.",
                     'username' => "korpus_ind",
                     'email' => "korpus_ind@korpus.com",
                     'email_verified_at' => now(),
@@ -42,7 +42,7 @@ class User extends Seeder
                     'issued_by' => 1
                 ],
                 [
-                    'name' => "korpus_ing",
+                    'name' => " Prof. Dr. Yazid Basthomi , M.A.",
                     'username' => "korpus_ing",
                     'email' => "korpus_ing@korpus.com",
                     'email_verified_at' => now(),
@@ -52,7 +52,7 @@ class User extends Seeder
                     'issued_by' => 1
                 ],
                 [
-                    'name' => "korpus_arab",
+                    'name' => "Dr. Yusuf Hanafi, M.Fil.I",
                     'username' => "korpus_arab",
                     'email' => "korpus_arab@korpus.com",
                     'email_verified_at' => now(),
@@ -62,7 +62,7 @@ class User extends Seeder
                     'issued_by' => 1
                 ],
                 [
-                    'name' => "korpus_jerman",
+                    'name' => "Dr. Herri Akhmad Bukhori, M.A., M.Hum",
                     'username' => "korpus_jerman",
                     'email' => "korpus_jerman@korpus.com",
                     'email_verified_at' => now(),
@@ -72,9 +72,9 @@ class User extends Seeder
                     'issued_by' => 1
                 ],
                 [
-                    'name' => "korpus_senibudaya",
-                    'username' => "korpus_senibudaya",
-                    'email' => "korpus_senibudaya@korpus.com",
+                    'name' => "Joko Samudro, S.Kom., M.Kom",
+                    'username' => "korpus_seni",
+                    'email' => "korpus_seni@korpus.com",
                     'email_verified_at' => now(),
                     'password' => Hash::make('password'),
                     'remember_token' => Str::random(10),

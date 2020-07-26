@@ -12,7 +12,7 @@ class KorpusController extends Controller
 {
     public function index()
     {
-        $korpus = Korpus::all();
+        $korpus = Korpus::all()->sortBy('urutan');
         return view("index")->with("korpus", $korpus);
     }
 
@@ -34,25 +34,25 @@ class KorpusController extends Controller
 //        dd($korpus);
         return view("dashboard")->with("korpus", $korpus);
     }
-    
+
     function kata() {
         $korpus = Korpus::findOrFail(session("korpus_id"));
         $kata = KataDasar::where("korpus_id", session("korpus_id"))->get();
-        
+
         return view("kata")->with(["kata" => $kata, "korpus"=>$korpus, "judul"=>"Kata"]);
     }
-    
+
     function kolokasi() {
         $korpus = Korpus::findOrFail(session("korpus_id"));
         $kata = Kolokasi::where("korpus_id", session("korpus_id"))->get();
-        
+
         return view("kata")->with(["kata" => $kata, "korpus"=>$korpus, "judul"=>"Kolokasi"]);
     }
-    
+
     function literatur() {
         $korpus = Korpus::findOrFail(session("korpus_id"));
         $literatur = Literatur::where("korpus_id", session("korpus_id"))->get();
-    
+
         return view("literatur")->with(["literatur" => $literatur, "korpus"=>$korpus]);
     }
 

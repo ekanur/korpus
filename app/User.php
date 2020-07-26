@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany("App\Literatur");
     }
+
+    public function korpus()
+    {
+        return $this->hasOne("App\Korpus");
+    }
 }
