@@ -43,7 +43,7 @@
                     <li class="nav-item">
                         <a class="nav-link @if(\Request::is('admin/user/*')  or \Request::is('admin/user')) active @endif" href="{{url("admin/user")}}" target="">
                             <i class="ni ni-single-02"></i>
-                            <span class="nav-link-text">Penanggun Jawab</span>
+                            <span class="nav-link-text">Penanggung Jawab</span>
                         </a>
                     </li>
                 </ul>

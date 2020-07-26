@@ -38,7 +38,7 @@
                                 {{$pic->email}}
                             </td>
                             <td>
-                                {{$pic->korpus->jenis}}
+                                {{$pic->korpus->jenis ?? ''}}
                             </td>
                             <td>
                             <a href="{{url("admin/user/".$pic->id)}}" class="btn btn-sm btn-primary">Edit</a>

@@ -37,11 +37,10 @@ Route::prefix("admin")->middleware("admin")->group(function(){
     Route::get('/user', "AdminController@user");
     Route::get('/user/{id}', "AdminController@editUser");
     Route::get('/korpus/{id}', "AdminController@korpus");
+    Route::post('/korpus', "AdminController@editKorpus");
+    Route::post('/edit_user', "AdminController@updateUser");
 });
 
-Route::get("login", function(){
-    return view("login");
-});
 
 Auth::routes();
 

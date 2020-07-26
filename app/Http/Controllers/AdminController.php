@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view("admin.index")->with('korpus', Korpus::all());
+        return view("admin.index")->with('korpus', Korpus::all()->sortBy('urutan'));
     }
 
     public function kolokasi(){
@@ -59,8 +59,51 @@ class AdminController extends Controller
         return view("admin.korpus")->with('korpus', Korpus::find($id));
     }
 
+    public function editKorpus(Request $request)
+    {
+        $korpus = Korpus::find($request->id);
+        $korpus->jenis = $request->korpus;
+        $korpus->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil memperbarui Korpus");
+    }
+
     public function user()
     {
-        return view("admin.user")->with('pic', User::where("role", "pic")->get());
+        return view("admin.user")->with('pic', User::whereRole("pic")->get());
+    }
+
+    public function editUser($id)
+    {
+        return view("admin.edit_user")->with('pic', User::whereRole('pic')->findOrFail($id))->with('korpus', Korpus::all());
+    }
+
+    public function updateUser(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+
+        if(!$user->save()){
+            return redirect()->back()->with('msg_error', "Kesalahan saat menyimpan PIC");
+        }
+        if(null != $request->korpus_lama){
+            $korpus = Korpus::find($request->korpus_lama);
+            $korpus->user_id = 1;
+
+            if(!$korpus->save()){
+                return redirect()->back()->with('msg_error', "Kesalahan saat mengubah PJ");
+            }
+        }
+
+
+        $korpus = Korpus::find($request->korpus);
+        $korpus->user_id = $request->id;
+        if(!$korpus->save()){
+            return redirect()->back()->with('msg_error', "Kesalahan saat memperbarui PJ");
+        }
+
+        return redirect()->back()->with('msg_success', "Berhasil memperbarui PIC");
     }
 }

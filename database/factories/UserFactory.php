@@ -32,6 +32,7 @@ $factory->define(User::class, function (Faker $faker) {
 
 $factory->define(App\Korpus::class, function(Faker $faker){
     return [
+        'urutan' => $faker->unique()->randomElement($array = array(1,2,3,4,5)),
         'jenis' => $faker->unique()->randomElement($array = array("Indonesia", "Inggris", "Jerman", "Arab", "Seni Desain")),
         'jumlah_literatur' => $faker->numberBetween(5, 100),
         'jumlah_kata' => $faker->numberBetween(1, 3000),

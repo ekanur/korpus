@@ -15,6 +15,7 @@ class Korpus extends Migration
     {
         Schema::create('korpus', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('urutan')->unique();
             $table->string("jenis");
             $table->integer("jumlah_literatur");
             $table->integer("jumlah_kata");
