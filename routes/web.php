@@ -40,8 +40,13 @@ Route::prefix("admin")->middleware("admin")->group(function(){
     Route::post('/korpus', "AdminController@editKorpus");
     Route::post('/edit_user', "AdminController@updateUser");
     Route::get("/kata_dasar", "AdminController@kata_dasar");
-    Route::post("/kata_dasar", "AdminController@kata_dasar_save");
+    Route::post("/kata_dasar", "AdminController@simpanKataDasar");
+    Route::post("/hapus_kataDasar", "AdminController@hapusKataDasar");
+    
     Route::get("/token", "AdminController@token");
+    Route::post("/token", "AdminController@simpanToken");
+    Route::post("/hapus_token", "AdminController@hapusToken");
+    
 });
 
 
