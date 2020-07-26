@@ -2,7 +2,7 @@
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
-            <a href="{{url("/")}}" class="btn-lihat-korpus text-blue" style="background: #F8F9FE; ">
+            <a href="{{url("/pilih_korpus")}}" class="btn-lihat-korpus text-blue" style="background: #F8F9FE; ">
                 <div>
                     <i class="ni ni-books text-blue"></i>
                     <span>Lihat Korpus</span>
