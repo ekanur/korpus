@@ -27,10 +27,9 @@
         <!-- Topnav -->
         <nav class="navbar navbar-top navbar-expand navbar-dark border-bottom">
             <div class="container-fluid">
+                    <img src="{{asset("assets/img/brand/logo.jpg")}}" alt="" srcset="" class="img img-fluid d-inline-block align-top" width="30">
+                    <strong>Korpus</strong>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Search form -->
-
-
 
                     <!-- Navbar links -->
                     @if (Auth::check())
@@ -47,6 +46,7 @@
                     <!-- Card stats -->
                     <div class="row align-items-center py-4">
                         <div class="col-lg-12 col-12">
+
                             <h6 class="h2 mb-0 text-center">Korpus Fakultas Sastra - Universitas Negeri Malang</h6>
                         </div>
 

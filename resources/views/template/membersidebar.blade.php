@@ -4,7 +4,7 @@
         <div class="sidenav-header  align-items-center">
             <a href="{{url("/pilih_korpus")}}" class="btn-lihat-korpus text-blue" style="background: #F8F9FE; ">
                 <div>
-                    <i class="ni ni-books text-blue"></i>
+                    <img src="{{asset("assets/img/brand/logo.jpg")}}" alt="" srcset="" class="img img-fluid d-inline-block align-top" width="30">
                     <span>Lihat Korpus</span>
                 </div>
             </a>

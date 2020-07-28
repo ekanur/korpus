@@ -48,8 +48,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix("member")->middleware("member")->group(function(){
     Route::get("", "MemberController@index")->name("member");
-    Route::get("literatur", "LiteraturController@index");
-    Route::post("literatur", "LiteraturController@save");
+    Route::get("literatur", "MemberController@literatur");
+    Route::post("literatur", "MemberController@simpanLiteratur");
 });
 
 Route::prefix("pic")->middleware("pic")->group(function(){

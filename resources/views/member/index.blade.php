@@ -26,7 +26,15 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header border-0 shadow">
-                <h3 class="mb-0">Literatur Milik Saya</h3>
+                <div class="row">
+                    <div class="col">
+                        <h3>Literatur Milik Saya</h3>
+                    </div>
+                    <div class="col text-right">
+                    <a href="{{url("member/literatur")}}" class="btn btn-sm btn-primary"><i class="ni ni-fat-add"></i> Buat Baru</a>
+                    </div>
+                </div>
+
             </div>
             <!-- Light table -->
             <div class="table-responsive">
