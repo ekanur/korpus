@@ -50,6 +50,7 @@ Route::prefix("member")->middleware("member")->group(function(){
     Route::get("", "MemberController@index")->name("member");
     Route::get("literatur", "MemberController@literatur");
     Route::post("literatur", "MemberController@simpanLiteratur");
+    Route::get("/literatur/{id}", "MemberController@editLiteratur");
 });
 
 Route::prefix("pic")->middleware("pic")->group(function(){

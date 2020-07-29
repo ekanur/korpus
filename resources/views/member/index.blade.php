@@ -42,6 +42,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col" class="sort" data-sort="name" width="40%">Judul</th>
+                            <th scope="col" class="sort" data-sort="name" width="">Korpus</th>
                             <th scope="col" class="sort" data-sort="budget" width="20%">Kategori</th>
                             <!-- <th scope="col" class="sort" data-sort="status">Sub Kategori</th> -->
                             <th scope="col" width="10%">Tahun Terbit</th>
@@ -58,10 +59,13 @@
                                         <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
                                     </a> -->
                                     <div class="media-body">
-                                        <span class="name mb-0 text-sm"><a href="{{url("literatur/".$literatur->id)}}">{{$literatur->judul}}</a></span>
+                                        <span class="name mb-0 text-md text-uppercase"><a href="{{url("member/literatur/".$literatur->id)}}">{{$literatur->judul}}</a></span>
                                     </div>
                                 </div>
                             </th>
+                            <td>
+                                <h3>{{$literatur->korpus->jenis}}</h3>
+                            </td>
                             <td class="budget">
                                 {{$literatur->kategori->kategori}} - <small class="text-muted">{{$literatur->kategori->subKategori}}</small>
                             </td>

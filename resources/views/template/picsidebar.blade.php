@@ -17,9 +17,15 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::is('member/literatur/*')  or \Request::is('member')) active @endif" href="{{url("member/")}}" target="">
-                            <i class="ni ni-single-copy-04"></i>
-                            <span class="nav-link-text">Literatur</span>
+                        <a class="nav-link @if(\Request::is('pic/kategori/*')  or \Request::is('pic')) active @endif" href="{{url("pic/")}}" target="">
+                            <i class="ni ni-tag"></i>
+                            <span class="nav-link-text">Kategori</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(\Request::is('pic/member/*')  or \Request::is('pic/member')) active @endif" href="{{url("pic/member")}}" target="">
+                            <i class="ni ni-single-02"></i>
+                            <span class="nav-link-text">Member</span>
                         </a>
                     </li>
 

@@ -46,9 +46,11 @@
     {{ session('status') }}
 </div>
 @endif
-<form action="{{url("member/literatur")}}" method="post" enctype="multipart/form-data">
+<form action="{{url("member/update_literatur")}}" method="post" enctype="multipart/form-data">
 <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
 {{ csrf_field() }}
+<input type="hidden" name="id" value="{{$literatur->id}}">
+<input type="hidden" name="kategori_id" value="{{$literatur->kategori_id}}">
 <div class="pl-lg-4">
 <div class="row">
 <div class="col-lg-6">
@@ -57,7 +59,9 @@
     <!--<input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">-->
     <select name="korpus" class="form-control">
         @foreach($korpus as $korpus)
-        <option value="{{$korpus->id}}">{{$korpus->jenis}}</option>
+        <option @if ($literatur->korpus_id == $korpus->id)
+            selected
+        @endif value="{{$korpus->id}}">{{$korpus->jenis}}</option>
         @endforeach
     </select>
   </div>
@@ -135,6 +139,26 @@
 @section('js')
 <script>
     $(document).ready(function(){
+        var korpus_id = $("select[name='korpus']").val();
+        var kategori_id = $("input[name='kategori_id']").val();
+            $.get("{{url('api/korpus')}}/"+korpus_id+"/kategori", function(data){
+
+            })
+                    .done(function(data){
+                        var items = [];
+                        var isSelected="";
+                        $.each(data, function(index, value){
+//                                console.log(value);
+                            if(value.id == kategori_id){
+                                isSelected = "selected";
+                            }
+
+                            items.push("<option "+ isSelected +" value='"+value.id+"'>"+value.kategori+"</option>");
+                        });
+                        $("select[name='kategori']").empty();
+                        $(items.join("")).appendTo("select[name='kategori']");
+                    });
+
         $("select[name='korpus']").change(function(){
             var korpus_id = $(this).val();
             $.get("{{url('api/korpus')}}/"+korpus_id+"/kategori", function(data){
