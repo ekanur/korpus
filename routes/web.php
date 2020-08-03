@@ -39,6 +39,9 @@ Route::prefix("admin")->middleware("admin")->group(function(){
     Route::get('/korpus/{id}', "AdminController@korpus");
     Route::post('/korpus', "AdminController@editKorpus");
     Route::post('/edit_user', "AdminController@updateUser");
+    Route::get("/kata_dasar", "AdminController@kata_dasar");
+    Route::post("/kata_dasar", "AdminController@kata_dasar_save");
+    Route::get("/token", "AdminController@token");
 });
 
 
