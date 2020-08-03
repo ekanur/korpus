@@ -26,10 +26,6 @@ class MemberController extends Controller
         // // $path = $request->file('literatur');
         // // $filename = basename($path);
         // // dd($filename);
-        $fullpath = "../storage/app/".$path;
-        $command = "unzip -p ".$fullpath." word/document.xml | sed -e 's/<[^>]\{1,\}>//g; s/[^[:print:]]\{1,\}//g'";
-        // dd($command);
-        $text = shell_exec($command);
         // dd($text);
 
         $validatedRequest = $request->validate([
@@ -45,7 +41,7 @@ class MemberController extends Controller
             $literatur->path = $path;
             $literatur->judul = $request->judul;
             $literatur->tahun_terbit = $request->tahun_terbit;
-            $literatur->konten = $text;
+            $literatur->konten = $this->handleFile($path);
             $literatur->uploaded_by = Auth::user()->id;
             $literatur->save();
         }
@@ -53,11 +49,46 @@ class MemberController extends Controller
         return redirect()->back()->with("msg_success", "Literatur berhasil tersimpan");
     }
 
+    public function handleFile($path){
+        $fullpath = "../storage/app/".$path;
+        $command = "unzip -p ".$fullpath." word/document.xml | sed -e 's/<[^>]\{1,\}>//g; s/[^[:print:]]\{1,\}//g'";
+        // dd($command);
+        $text = shell_exec($command);
+
+        return $text;
+    }
+
     public function editLiteratur($id)
     {
         $literatur = Literatur::whereUploadedBy(Auth::user()->id)->findOrFail($id);
 
         return view("member.edit_literatur")->with('literatur', $literatur)->with('korpus', Korpus::all());
+    }
+
+    public function updateLiteratur(Request $request)
+    {
+        $validatedRequest = $request->validate([
+            'kategori' => 'required',
+            'judul' => 'required',
+            'literatur' => 'nullable | mimes:docx, doc, rtf | max: 10000'
+        ]);
+        if($validatedRequest){
+            $literatur = Literatur::find($request->id);
+            $literatur->korpus_id = $request->korpus;
+            $literatur->kategori_id = $request->kategori;
+            $literatur->judul = $request->judul;
+            $literatur->tahun_terbit = $request->tahun_terbit;
+
+            if($request->hasFile('literatur')){
+                $path = $request->file('literatur')->store("public/literatur");
+                $literatur->path = $path;
+                $literatur->konten = $this->handleFile($path);
+            }
+
+            $literatur->save();
+        }
+
+        return redirect()->back()->with("msg_success", "Literatur berhasil tersimpan");
     }
 
 

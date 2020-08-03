@@ -17,7 +17,7 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::is('member/literatur/*')  or \Request::is('member')) active @endif" href="{{url("member/")}}" target="">
+                        <a class="nav-link @if(\Request::is('member/literatur/*')  or \Request::is('member') or \Request::is('member/literatur'))) active @endif" href="{{url("member/")}}" target="">
                             <i class="ni ni-single-copy-04"></i>
                             <span class="nav-link-text">Literatur</span>
                         </a>

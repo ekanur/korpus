@@ -79,8 +79,8 @@
 <div class="row">
 <div class="col-lg-6">
   <div class="form-group">
-    <label class="form-control-label" for="input-first-name">judul</label>
-    <input type="text" name="judul" id="input-first-name" class="form-control" placeholder="Judul literatur" value="">
+    <label class="form-control-label" for="input-first-name">Judul Literatur</label>
+  <input type="text" name="judul" id="input-first-name" class="form-control" placeholder="Judul literatur" value="{{$literatur->judul}}">
   </div>
 </div>
 <div class="col-lg-6">
@@ -89,7 +89,7 @@
     <!--<input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">-->
     <select name="tahun_terbit" id="" class="form-control">
 @for ($i = date("Y"); $i >= date("Y")-80 ; $i--)
-<option value="{{$i}}">{{$i}}</option>
+<option @if($literatur->tahun_terbit == $i) selected @endif value="{{$i}}">{{$i}}</option>
 @endfor
 </select>
   </div>
@@ -148,14 +148,16 @@
                         var items = [];
                         var isSelected="";
                         $.each(data, function(index, value){
-//                                console.log(value);
+
                             if(value.id == kategori_id){
                                 isSelected = "selected";
+                            }else{
+                                isSelected = NaN;
                             }
 
                             items.push("<option "+ isSelected +" value='"+value.id+"'>"+value.kategori+"</option>");
                         });
-                        $("select[name='kategori']").empty();
+                        // $("select[name='kategori']").empty();
                         $(items.join("")).appendTo("select[name='kategori']");
                     });
 
