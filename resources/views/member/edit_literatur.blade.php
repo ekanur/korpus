@@ -118,6 +118,14 @@
 </div>
 </div>
 </form>
+<div class="row">
+    <div class="col-md-12">
+        <span class="h3">Preview Isi Literatur</span>
+        <p>
+            <em class="text-muted">{{substr($literatur->konten,0, 200)}} ...</em>
+        </p>
+    </div>
+</div>
 </div>
 </div>
 </div>

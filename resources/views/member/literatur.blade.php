@@ -75,7 +75,7 @@
 <div class="row">
 <div class="col-lg-6">
   <div class="form-group">
-    <label class="form-control-label" for="input-first-name">judul</label>
+    <label class="form-control-label" for="input-first-name">Judul Literatur</label>
     <input type="text" name="judul" id="input-first-name" class="form-control" placeholder="Judul literatur" value="">
   </div>
 </div>
