@@ -99,7 +99,6 @@ class AdminController extends Controller
             }
         }
 
-
         $korpus = Korpus::find($request->korpus);
         $korpus->user_id = $request->id;
         if(!$korpus->save()){
@@ -114,8 +113,43 @@ class AdminController extends Controller
         return view("admin.kata_dasar")->with('kata_dasar', KataDasar::all())->with('korpus', Korpus::all());
     }
     
+    public function simpanKataDasar(Request $request)
+    {
+        $kata_dasar = new KataDasar();
+        $kata_dasar->korpus_id = $request->korpus;
+        $kata_dasar->kata_dasar = $request->kata_dasar;
+        $kata_dasar->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil menyimpan Kata Dasar Baru");
+    }
+    
+    public function hapusKataDasar(Request $request)
+    {
+        KataDasar::destroy($request->id);
+
+        return redirect()->back()->with("msg_success", "Berhasil menghapus Kata Dasar");
+    }
+
     public function token(){
 
         return view("admin.token")->with('token', Token::all())->with('korpus', Korpus::all());
     }
+    
+     public function simpanToken(Request $request)
+    {
+        $token = new Token();
+        $token->korpus_id = $request->korpus;
+        $token->token = $request->token;
+        $token->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil menyimpan Token Baru");
+    }
+    
+    public function hapusToken(Request $request)
+    {
+        Token::destroy($request->id);
+
+        return redirect()->back()->with("msg_success", "Berhasil menghapus Token");
+    }
+
 }
