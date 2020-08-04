@@ -56,7 +56,7 @@
 @push('style')
 <style type="text/css">
     .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link.active {
-        background: #8e8e8e;
+        background: #7283b5;
         color: white;
         font-weight: bold !important;
     }
