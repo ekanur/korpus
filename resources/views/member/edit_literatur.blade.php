@@ -46,9 +46,11 @@
     {{ session('status') }}
 </div>
 @endif
-<form action="{{url("member/literatur")}}" method="post" enctype="multipart/form-data">
+<form action="{{url("member/update_literatur")}}" method="post" enctype="multipart/form-data">
 <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
 {{ csrf_field() }}
+<input type="hidden" name="id" value="{{$literatur->id}}">
+<input type="hidden" name="kategori_id" value="{{$literatur->kategori_id}}">
 <div class="pl-lg-4">
 <div class="row">
 <div class="col-lg-6">
@@ -57,7 +59,9 @@
     <!--<input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">-->
     <select name="korpus" class="form-control">
         @foreach($korpus as $korpus)
-        <option value="{{$korpus->id}}">{{$korpus->jenis}}</option>
+        <option @if ($literatur->korpus_id == $korpus->id)
+            selected
+        @endif value="{{$korpus->id}}">{{$korpus->jenis}}</option>
         @endforeach
     </select>
   </div>
@@ -76,7 +80,7 @@
 <div class="col-lg-6">
   <div class="form-group">
     <label class="form-control-label" for="input-first-name">Judul Literatur</label>
-    <input type="text" name="judul" id="input-first-name" class="form-control" placeholder="Judul literatur" value="">
+  <input type="text" name="judul" id="input-first-name" class="form-control" placeholder="Judul literatur" value="{{$literatur->judul}}">
   </div>
 </div>
 <div class="col-lg-6">
@@ -85,7 +89,7 @@
     <!--<input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">-->
     <select name="tahun_terbit" id="" class="form-control">
 @for ($i = date("Y"); $i >= date("Y")-80 ; $i--)
-<option value="{{$i}}">{{$i}}</option>
+<option @if($literatur->tahun_terbit == $i) selected @endif value="{{$i}}">{{$i}}</option>
 @endfor
 </select>
   </div>
@@ -114,6 +118,14 @@
 </div>
 </div>
 </form>
+<div class="row">
+    <div class="col-md-12">
+        <span class="h3">Preview Isi Literatur</span>
+        <p>
+            <em class="text-muted">{{substr($literatur->konten,0, 200)}} ...</em>
+        </p>
+    </div>
+</div>
 </div>
 </div>
 </div>
@@ -135,6 +147,28 @@
 @section('js')
 <script>
     $(document).ready(function(){
+        var korpus_id = $("select[name='korpus']").val();
+        var kategori_id = $("input[name='kategori_id']").val();
+            $.get("{{url('api/korpus')}}/"+korpus_id+"/kategori", function(data){
+
+            })
+                    .done(function(data){
+                        var items = [];
+                        var isSelected="";
+                        $.each(data, function(index, value){
+
+                            if(value.id == kategori_id){
+                                isSelected = "selected";
+                            }else{
+                                isSelected = NaN;
+                            }
+
+                            items.push("<option "+ isSelected +" value='"+value.id+"'>"+value.kategori+"</option>");
+                        });
+                        // $("select[name='kategori']").empty();
+                        $(items.join("")).appendTo("select[name='kategori']");
+                    });
+
         $("select[name='korpus']").change(function(){
             var korpus_id = $(this).val();
             $.get("{{url('api/korpus')}}/"+korpus_id+"/kategori", function(data){

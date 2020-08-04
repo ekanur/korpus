@@ -29,4 +29,9 @@ class Kategori extends Model
     {
         return $this->hasMany("App\Literatur");
     }
+
+    public function scopeParent($query)
+    {
+        return $query->where('parent_id', 0);
+    }
 }

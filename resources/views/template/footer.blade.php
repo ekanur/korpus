@@ -77,7 +77,7 @@
                                                 <ol class="list-unstyled">
                                                     <li><img class="img img-fluid rounded img-thumbnail mr-3 mt-3" width="54px" height="54px" src="{{asset("/tim/JSING Prof. Dr. Yazid Basthomi, M.A..jpg")}}"/> Prof. Dr. Yazid Basthomi , M.A. (Jurusan Sastra Inggris)</li>
                                                     <li><img class="img img-fluid rounded img-thumbnail mr-3 mt-3" width="54px" height="54px" src="{{asset("/tim/JSJ Dr. Herri Akhmad B., M.A., M.Hum.jpg")}}"/> Dr. Herri Akhmad Bukhori, M.A., M.Hum (Jurusan Sastra Jerman)</li>
-                                                    <li><img class="img img-fluid rounded img-thumbnail mr-3 mt-3" width="54px" height="54px" src="{{asset("/tim/images.jpeg")}}"/> Dr. Yusuf Hanafi, M.Fil.I (Jurusan Sastra Arab)</li>
+                                                    <li><img class="img img-fluid rounded img-thumbnail mr-3 mt-3" width="54px" height="54px" src="{{asset("/tim/Yusuf Hanafi.png")}}"/> Dr. Yusuf Hanafi, M.Fil.I (Jurusan Sastra Arab)</li>
                                                     <li><img class="img img-fluid rounded img-thumbnail mr-3 mt-3" width="54px" height="54px" src="{{asset("/tim/Febri Taufiqurrahman_199002142019031007.jpg")}}"/> Febri Taufiqurrahman , S.Hum., M.Hum. (Jurusan Sastra Indonesia)</li>
                                                     <li><img class="img img-fluid rounded img-thumbnail mr-3 mt-3" width="54px" height="54px" src="{{asset("/tim/JSD Joko Samodra, S.Kom, M.T..jpg")}}"/> Joko Samudro, S.Kom., M.Kom (Jurusan Seni dan Desain)</li>
                                                 </ol>

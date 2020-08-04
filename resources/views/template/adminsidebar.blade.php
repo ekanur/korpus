@@ -2,9 +2,9 @@
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
-            <a href="{{url("/")}}" class="btn-lihat-korpus text-blue" style="background: #F8F9FE; ">
+            <a href="{{url("/pilih_korpus")}}" class="btn-lihat-korpus text-blue" style="background: #FFF; ">
                 <div>
-                    <i class="ni ni-books text-blue"></i>
+                    <img src="{{asset("assets/img/brand/logo.jpg")}}" alt="" srcset="" class="img img-fluid d-inline-block align-top" width="30">
                     <span>Lihat Korpus</span>
                 </div>
             </a>
@@ -52,3 +52,13 @@
         </div>
     </div>
 </nav>
+
+@push('style')
+<style type="text/css">
+    .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link.active {
+        background: #8e8e8e;
+        color: white;
+        font-weight: bold !important;
+    }
+</style>
+@endpush

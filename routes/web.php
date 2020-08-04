@@ -56,10 +56,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix("member")->middleware("member")->group(function(){
     Route::get("", "MemberController@index")->name("member");
-    Route::get("literatur", "LiteraturController@index");
-    Route::post("literatur", "LiteraturController@save");
+    Route::get("literatur", "MemberController@literatur");
+    Route::post("literatur", "MemberController@simpanLiteratur");
+    Route::get("literatur/{id}", "MemberController@editLiteratur");
+    Route::post('update_literatur', "MemberController@updateLiteratur");
 });
 
 Route::prefix("pic")->middleware("pic")->group(function(){
     Route::get("", "PICController@index")->name("pic");
+    Route::get("member", "PICController@member");
 });

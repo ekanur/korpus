@@ -1,7 +1,7 @@
 @extends("template.layout")
 
 @section("header")
-@include("template.dashboard_header")
+    @include("template.dashboard_header")
 @endsection
 
 @section("content")

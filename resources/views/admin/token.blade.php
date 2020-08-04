@@ -63,6 +63,10 @@
             <div class="card-footer py-4">
 
             </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+
+            </div>
         </div>
     </div>
 

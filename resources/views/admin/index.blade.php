@@ -47,7 +47,7 @@
                                 {{$loop->iteration}}
                             </td>
                             <td>
-                            <a href="#" data-toggle="modal" data-target="#edit" class="h3" data-id={{$korpus->id}} data-jenis="{{$korpus->jenis}}">{{$korpus->jenis}}</a>
+                            <a href="#" data-toggle="modal" data-target="#edit" style="font-size:13pt" data-id={{$korpus->id}} data-jenis="{{$korpus->jenis}}">{{$korpus->jenis}}</a>
                             </td>
                             <td>
                                 @if($korpus->user->role != 'pic') - @else <a href="{{ url("/admin/user/".$korpus->user_id) }}">{{$korpus->user->name}}</a> @endif

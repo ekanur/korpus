@@ -34,7 +34,7 @@
                                                     <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
                                                 </a> -->
                                                 <div class="media-body">
-                                                    <span class="name mb-0 text-sm"><a href="{{url("literatur/".$literatur->id)}}">{{$literatur->judul}}</a></span>
+                                                    <span class="name mb-0 text-sm text-uppercase"><a href="{{url("literatur/".$literatur->id)}}">{{$literatur->judul}}</a></span>
                                                 </div>
                                             </div>
                                         </th>
@@ -54,8 +54,8 @@
 
                                     </tr>
                                     @endforeach
-                                    
-                                    
+
+
                                 </tbody>
                             </table>
                         </div>
