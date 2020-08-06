@@ -100,7 +100,7 @@
                             <div class="col-lg-6">
                               <div class="form-group">
                                 <label class="form-control-label" for="input-first-name">Kolokasi</label>
-                                <input type="text" name="kolokasi" id="input-first-name" class="form-control" placeholder="Kolokasi" value="">
+                                <input required type="text" name="kolokasi" id="input-first-name" class="form-control" placeholder="Kolokasi" value="">
                               </div>
                             </div>
                         </div>

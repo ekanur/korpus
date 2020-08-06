@@ -92,7 +92,7 @@
                             <div class="col-lg-12">
                               <div class="form-group">
                                 <label class="form-control-label" for="input-username">Korpus</label>
-                                <input type="text" name="korpus" id="korpus" class="form-control" placeholder="Jenis Korpus" value="">
+                                <input required type="text" name="korpus" id="korpus" class="form-control" placeholder="Jenis Korpus" value="">
 
                               </div>
                             </div>

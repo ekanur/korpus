@@ -39,14 +39,20 @@ Route::prefix("admin")->middleware("admin")->group(function(){
     Route::get('/korpus/{id}', "AdminController@korpus");
     Route::post('/korpus', "AdminController@editKorpus");
     Route::post('/edit_user', "AdminController@updateUser");
-    Route::get("/kata_dasar", "AdminController@kata_dasar");
+
+
+    Route::get("/kata_dasar", "AdminController@kataDasar");
+    Route::get("/kata_dasar/{id}", "AdminController@editKataDasar");
+    Route::post("/update_kata_dasar", "AdminController@updateKataDasar");
     Route::post("/kata_dasar", "AdminController@simpanKataDasar");
     Route::post("/hapus_kataDasar", "AdminController@hapusKataDasar");
-    
+
     Route::get("/token", "AdminController@token");
+    Route::get("/token/{id}", "AdminController@editToken");
     Route::post("/token", "AdminController@simpanToken");
+    Route::post("/update_token", "AdminController@updateToken");
     Route::post("/hapus_token", "AdminController@hapusToken");
-    
+
 });
 
 
@@ -65,4 +71,5 @@ Route::prefix("member")->middleware("member")->group(function(){
 Route::prefix("pic")->middleware("pic")->group(function(){
     Route::get("", "PICController@index")->name("pic");
     Route::get("member", "PICController@member");
+    Route::post('kategori', "PICController@simpanKategori");
 });

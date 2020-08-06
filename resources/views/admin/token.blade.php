@@ -46,7 +46,7 @@
                                 {{$loop->iteration}}
                             </td>
                             <td>
-                                <a href="#">{{$token->token}}</a>
+                                <a href="{{url('/admin/token/'.$token->id)}}">{{$token->token}}</a>
                             </td>
                             <td>
                                 {{$token->korpus->jenis}}
@@ -100,7 +100,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-first-name">Token</label>
-                                        <input type="text" name="token" id="input-first-name" class="form-control" placeholder="Token" value="">
+                                        <input required type="text" name="token" id="input-first-name" class="form-control" placeholder="Token" value="">
                                     </div>
                                 </div>
                             </div>

@@ -107,12 +107,30 @@ class AdminController extends Controller
 
         return redirect()->back()->with('msg_success', "Berhasil memperbarui PIC");
     }
-    
-    public function kata_dasar(){
+
+    public function kataDasar(){
 
         return view("admin.kata_dasar")->with('kata_dasar', KataDasar::all())->with('korpus', Korpus::all());
     }
-    
+
+    public function editKataDasar($id)
+    {
+        $kata_dasar = KataDasar::findOrFail($id);
+
+        return view("admin.edit_kata_dasar")->with("kata_dasar", $kata_dasar)->with("korpus", Korpus::all());
+
+    }
+
+    public function updateKataDasar(Request $request)
+    {
+        $kata_dasar = KataDasar::find($request->id);
+        $kata_dasar->kata_dasar = $request->kata_dasar;
+        $kata_dasar->korpus_id = $request->korpus;
+        $kata_dasar->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil mengubah Kata Dasar");
+    }
+
     public function simpanKataDasar(Request $request)
     {
         $kata_dasar = new KataDasar();
@@ -122,7 +140,7 @@ class AdminController extends Controller
 
         return redirect()->back()->with("msg_success", "Berhasil menyimpan Kata Dasar Baru");
     }
-    
+
     public function hapusKataDasar(Request $request)
     {
         KataDasar::destroy($request->id);
@@ -134,7 +152,24 @@ class AdminController extends Controller
 
         return view("admin.token")->with('token', Token::all())->with('korpus', Korpus::all());
     }
-    
+
+    public function editToken($id)
+    {
+        $token = Token::findOrFail($id);
+
+        return view("admin.edit_token")->with('token', $token)->with("korpus", Korpus::all());
+    }
+
+    public function updateToken(Request $request)
+    {
+        $token = Token::find($request->id);
+        $token->token = $request->token;
+        $token->korpus_id = $request->korpus;
+        $token->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil mengubah Token");
+    }
+
      public function simpanToken(Request $request)
     {
         $token = new Token();
@@ -144,7 +179,7 @@ class AdminController extends Controller
 
         return redirect()->back()->with("msg_success", "Berhasil menyimpan Token Baru");
     }
-    
+
     public function hapusToken(Request $request)
     {
         Token::destroy($request->id);

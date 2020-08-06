@@ -47,7 +47,7 @@
                                 {{$loop->iteration}}
                             </td>
                             <td>
-                                <a href="#">{{$kata_dasar->kata_dasar}}</a>
+                            <a href="{{url("admin/kata_dasar/".$kata_dasar->id)}}">{{$kata_dasar->kata_dasar}}</a>
                             </td>
                             <td>
                                 {{$kata_dasar->korpus->jenis}}
@@ -94,7 +94,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-first-name">Kata Dasar</label>
-                                        <input type="text" name="kata_dasar" id="input-first-name" class="form-control" placeholder="Kata Dasar" value="">
+                                        <input required type="text" name="kata_dasar" id="input-first-name" class="form-control" placeholder="Kata Dasar" value="">
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-first-name">Kata Dasar</label>
-                                        <input type="text" name="kata_dasar" id="input-first-name" class="form-control" placeholder="Kata Dasar" value="">
+                                        <input required type="text" name="kata_dasar" id="input-first-name" class="form-control" placeholder="Kata Dasar" value="">
                                     </div>
                                 </div>
                             </div>

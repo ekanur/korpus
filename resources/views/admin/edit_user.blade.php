@@ -46,7 +46,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Nama</label>
-                        <input id="input-address" name="name" class="form-control" placeholder="Gelar & Nama Lengkap" value="{{$pic->name}}" type="text">
+                        <input required id="input-address" name="name" class="form-control" placeholder="Gelar & Nama Lengkap" value="{{$pic->name}}" type="text">
                       </div>
                     </div>
                   </div>
@@ -54,13 +54,13 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-city">Username</label>
-                      <input type="text" name="username" id="input-city" class="form-control" placeholder="Username" value="{{$pic->username}}">
+                      <input required type="text" name="username" id="input-city" class="form-control" placeholder="Username" value="{{$pic->username}}">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-country">Email</label>
-                      <input type="email" name="email" id="" class="form-control" placeholder="email@host" value="{{$pic->email}}">
+                      <input required type="email" name="email" id="" class="form-control" placeholder="email@host" value="{{$pic->email}}">
                       </div>
                     </div>
                     <div class="col-lg-4">
