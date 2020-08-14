@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Kategori;
 use App\User;
+use App\Literatur;
+use App\Token;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,5 +60,33 @@ class PICController extends Controller
         return view("pic.edi_kategori")->with("kategori", $kategori);
     }
 
+    public function literatur(){
+        return view("pic.literatur")->with('literatur', Literatur::whereKorpusId(Auth::user()->korpus->id)->get());
+    }
 
+    public function analisaLiteratur($id)
+    {
+        // $hasil_analisa = array("jumlah_kata"=>0, "token"=>0, "kata_dasar"=>0);
+        //
+        $literatur = Literatur::whereNull("analyze_on")->where("id", $id)->firstOrFail();
+        // dd($literatur);
+        $token = Token::whereKorpusId($literatur->korpus_id)->select("token")->get()->toArray();
+        $literatur_konten = strtolower($literatur->konten);
+        $hasil = array_map(function($cari) use($literatur_konten){
+            // dd($cari->token);
+            return array("token"=>$cari['token'], "jumlah"=> substr_count($literatur_konten, $cari['token']));
+        }, $token);
+
+        $hasil_analisa = collect($hasil)->filter(function($value, $key){
+
+            return !is_null($value['jumlah']);
+        });
+
+        $literatur->jumlah_kata = str_word_count($literatur->konten);
+        $literatur->kata_dasar = (str_word_count($literatur->konten)-$hasil_analisa->count());
+        $literatur->analyze_on = Carbon::now()->toDateString();
+        $literatur->save();
+
+        return redirect()->back()->with("msg_success", "Selesai menganalisa <strong>".strtoupper($literatur->judul)."</strong>.");
+    }
 }

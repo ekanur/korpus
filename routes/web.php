@@ -66,10 +66,14 @@ Route::prefix("member")->middleware("member")->group(function(){
     Route::post("literatur", "MemberController@simpanLiteratur");
     Route::get("literatur/{id}", "MemberController@editLiteratur");
     Route::post('update_literatur', "MemberController@updateLiteratur");
+    Route::get("analisa_literatur/{id}", "MemberController@analisaLiteratur");
 });
 
 Route::prefix("pic")->middleware("pic")->group(function(){
     Route::get("", "PICController@index")->name("pic");
     Route::get("member", "PICController@member");
     Route::post('kategori', "PICController@simpanKategori");
+    Route::get("kategori/{id}", "PICController@editKategori");
+    Route::get("literatur", "PICController@literatur");
+    Route::get("literatur/{id}", "PICController@analisaLiteratur");
 });

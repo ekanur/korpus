@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Literatur;
 use App\Korpus;
+use App\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,6 +91,8 @@ class MemberController extends Controller
 
         return redirect()->back()->with("msg_success", "Literatur berhasil tersimpan");
     }
+
+
 
 
 }

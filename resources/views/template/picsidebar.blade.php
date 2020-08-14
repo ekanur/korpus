@@ -28,6 +28,12 @@
                             <span class="nav-link-text">Member</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(\Request::is('pic/literatur/*')  or \Request::is('pic/literatur')) active @endif" href="{{url("pic/literatur")}}" target="">
+                            <i class="ni ni-building"></i>
+                            <span class="nav-link-text">Analisa Literatur</span>
+                        </a>
+                    </li>
 
                 </ul>
 
