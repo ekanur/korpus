@@ -74,7 +74,7 @@
                                     Jumlah Kata : {{$literatur->jumlah_kata ?? 0}}<br/>
                                     Jumlah Kata Dasar : {{$literatur->kata_dasar ?? 0}}<br/>
                                     Jumlah Token : {{($literatur->jumlah_kata - $literatur->kata_dasar)}}<br/>
-                                    Dianalisa Pada : {{$literatur->analyze_on->format("Y.m.d") ?? 'Belum Dianalisa'}}<br/>
+                                    Dianalisa Pada : {{$literatur->analyze_on->format("d-m-Y") ?? 'Belum Dianalisa'}}<br/>
                                 </div>
                             </td>
                             <td>
