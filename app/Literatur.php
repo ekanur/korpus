@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Literatur extends Model
 {
     protected $table = "literatur";
+    protected $dates = ['created_at', 'updated_at','analyze_on'];
 
     public function korpus()
     {

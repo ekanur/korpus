@@ -68,7 +68,7 @@ class PICController extends Controller
     {
         // $hasil_analisa = array("jumlah_kata"=>0, "token"=>0, "kata_dasar"=>0);
         //
-        $literatur = Literatur::whereNull("analyze_on")->where("id", $id)->firstOrFail();
+        $literatur = Literatur::findOrFail($id);
         // dd($literatur);
         $token = Token::whereKorpusId($literatur->korpus_id)->select("token")->get()->toArray();
         $literatur_konten = strtolower($literatur->konten);

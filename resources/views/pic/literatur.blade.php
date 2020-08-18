@@ -43,7 +43,7 @@
                             <th scope="col" class="sort" data-sort="budget" width="20%">Kategori</th>
                             <!-- <th scope="col" class="sort" data-sort="status">Sub Kategori</th> -->
                             <th scope="col" width="10%">Tahun Terbit</th>
-                            <th scope="col" class="sort" width="10%" data-sort="completion">Jumlah Kata</th>
+                            <th scope="col" class="sort" width="10%" data-sort="completion">Hasil Analisa</th>
                             <th scope="col">Analisa</th>
                         </tr>
                     </thead>
@@ -62,7 +62,7 @@
                                 </div>
                             </th>
                             <td class="budget">
-                                {{$literatur->kategori->kategori}} - <small class="text-muted">{{$literatur->kategori->subKategori}}</small>
+                                {{$literatur->kategori->kategori}} - <small class="text-muted"></small>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
@@ -71,15 +71,18 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    {{$literatur->jumlah_kata ?? 0}}
+                                    Jumlah Kata : {{$literatur->jumlah_kata ?? 0}}<br/>
+                                    Jumlah Kata Dasar : {{$literatur->kata_dasar ?? 0}}<br/>
+                                    Jumlah Token : {{($literatur->jumlah_kata - $literatur->kata_dasar)}}<br/>
+                                    Dianalisa Pada : {{$literatur->analyze_on->format("Y.m.d") ?? 'Belum Dianalisa'}}<br/>
                                 </div>
                             </td>
                             <td>
-                                @if (null != $literatur->analyze_on)
+                                {{-- @if (null != $literatur->analyze_on)
                                     Dianalisa pada {{$literatur->analyze_on}}
-                                @else
+                                @else --}}
                                     <a href="{{url("pic/literatur/".$literatur->id)}}" class="btn btn-sm btn-primary">Analisa</a>
-                                @endif
+                                {{-- @endif --}}
 
                             </td>
 
