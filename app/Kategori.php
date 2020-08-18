@@ -25,6 +25,10 @@ class Kategori extends Model
         return $this->hasMany("App\Kategori", "parent_id")->with('kategori');;
     }
 
+    public function parentKategori(){
+        return $this->hasOne("App\Kategori", "parent_id")->with('kategori');;
+    }
+
     public function literatur()
     {
         return $this->hasMany("App\Literatur");

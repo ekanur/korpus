@@ -67,7 +67,7 @@
                                 <h3>{{$literatur->korpus->jenis}}</h3>
                             </td>
                             <td class="budget">
-                                {{$literatur->kategori->kategori}} - <small class="text-muted">{{$literatur->kategori->subKategori}}</small>
+                                {{$literatur->kategori->kategori}} - <small class="text-muted"></small>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
