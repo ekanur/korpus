@@ -70,17 +70,20 @@ class PICController extends Controller
         //
         $literatur = Literatur::findOrFail($id);
         // dd($literatur);
-        $token = Token::whereKorpusId($literatur->korpus_id)->select("token")->get()->toArray();
+        $token = Token::whereKorpusId($literatur->korpus_id)->select("id","token")->get()->toArray();
         $literatur_konten = strtolower($literatur->konten);
         $hasil = array_map(function($cari) use($literatur_konten){
             // dd($cari->token);
-            return array("token"=>$cari['token'], "jumlah"=> substr_count($literatur_konten, $cari['token']));
+            return array("id"=>$cari["id"], "token"=>$cari['token'], "jumlah"=> preg_match_all("/\b".$cari['token']."\b/ims", $literatur_konten));
         }, $token);
+        // dd($hasil);
 
         $hasil_analisa = collect($hasil)->filter(function($value, $key){
 
-            return !is_null($value['jumlah']);
+            return 0 != $value['jumlah'];
         });
+
+        // dd($hasil_analisa);
 
         $literatur->jumlah_kata = str_word_count($literatur->konten);
         $literatur->kata_dasar = (str_word_count($literatur->konten)-$hasil_analisa->count());
@@ -89,4 +92,9 @@ class PICController extends Controller
 
         return redirect()->back()->with("msg_success", "Selesai menganalisa <strong>".strtoupper($literatur->judul)."</strong>.");
     }
+
+
+    // public function analisaToken($array_){
+
+    // }
 }
