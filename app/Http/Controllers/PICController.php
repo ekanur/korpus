@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Kategori;
+use App\Kolokasi;
 use App\User;
 use App\Literatur;
 use App\Token;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\KataDasar;
 
 class PICController extends Controller
 {
@@ -66,27 +68,17 @@ class PICController extends Controller
 
     public function analisaLiteratur($id)
     {
-        // $hasil_analisa = array("jumlah_kata"=>0, "token"=>0, "kata_dasar"=>0);
-        //
         $literatur = Literatur::findOrFail($id);
         // dd($literatur);
         $token = Token::whereKorpusId($literatur->korpus_id)->select("id","token")->get()->toArray();
-        $literatur_konten = strtolower($literatur->konten);
-        $hasil = array_map(function($cari) use($literatur_konten){
-            // dd($cari->token);
-            return array("id"=>$cari["id"], "token"=>$cari['token'], "jumlah"=> preg_match_all("/\b".$cari['token']."\b/ims", $literatur_konten));
-        }, $token);
-        // dd($hasil);
+        $kata_dasar = KataDasar::whereKorpusId($literatur->korpus_id)->select("id","kata_dasar")->get()->toArray();
+        $kolokasi = Kolokasi::whereKorpusId($literatur->korpus_id)->select("id","kolokasi")->get()->toArray();
 
-        $hasil_analisa = collect($hasil)->filter(function($value, $key){
-
-            return 0 != $value['jumlah'];
-        });
-
-        // dd($hasil_analisa);
+        $this->analisaKataDasar($kata_dasar, $literatur->konten);
+        $this->analisaKolokasi($kolokasi, $literatur->konten);
 
         $literatur->jumlah_kata = str_word_count($literatur->konten);
-        $literatur->kata_dasar = (str_word_count($literatur->konten)-$hasil_analisa->count());
+        $literatur->kata_dasar = (str_word_count($literatur->konten)-$this->analisaToken($token, $literatur->konten));
         $literatur->analyze_on = Carbon::now()->toDateString();
         $literatur->save();
 
@@ -94,7 +86,75 @@ class PICController extends Controller
     }
 
 
-    // public function analisaToken($array_){
+    public function analisaToken(array $token, String $literatur){
+        $literatur = strtolower($literatur);
+        $hasil = array_map(function($cari) use($literatur){
+            // dd($cari->token);
+            return array("id"=>$cari["id"], "token"=>$cari['token'], "jumlah"=> preg_match_all("/\b".$cari['token']."\b/ims", $literatur));
+        }, $token);
+        // dd($hasil);
+        $hasil_analisa = collect($hasil)->filter(function($value, $key){
 
-    // }
+            return 0 != $value['jumlah'];
+        });
+        $jumlah_semua = $hasil_analisa->sum("jumlah");
+
+
+        foreach($hasil_analisa as $analisa_token){
+            $token = Token::find($analisa_token['id']);
+            $token->frekuensi_token = $token->frekuensi_token + $analisa_token['jumlah'];
+            $token->frekuensi_token_persen = $token->frekuensi_token_persen + ($analisa_token['jumlah']/$jumlah_semua);
+            $token->save();
+        }
+
+        return $hasil_analisa->count();
+    }
+
+    public function analisaKataDasar(array $kata_dasar, String $literatur){
+        $literatur = strtolower($literatur);
+        $hasil = array_map(function($cari) use($literatur){
+            // dd($cari->token);
+            return array("id"=>$cari["id"], "kata_dasar"=>$cari['kata_dasar'], "jumlah"=> preg_match_all("/\b".$cari['kata_dasar']."\b/ims", $literatur));
+        }, $kata_dasar);
+        // dd($hasil);
+        $hasil_analisa = collect($hasil)->filter(function($value, $key){
+
+            return 0 != $value['jumlah'];
+        });
+        $jumlah_semua = $hasil_analisa->sum("jumlah");
+
+
+        foreach($hasil_analisa as $analisa_kata_dasar){
+            $kata_dasar = KataDasar::find($analisa_kata_dasar['id']);
+            $kata_dasar->frekuensi_kata = $kata_dasar->frekuensi_kat + $analisa_kata_dasar['jumlah'];
+            $kata_dasar->frekuensi_kata_persen = $kata_dasar->frekuensi_kata_persen + ($analisa_kata_dasar['jumlah']/$jumlah_semua);
+            $kata_dasar->save();
+        }
+
+        return true;
+    }
+
+    public function analisaKolokasi(array $kolokasi, String $literatur){
+        $literatur = strtolower($literatur);
+        $hasil = array_map(function($cari) use($literatur){
+            // dd($cari->token);
+            return array("id"=>$cari["id"], "kolokasi"=>$cari['kolokasi'], "jumlah"=> preg_match_all("/\b".$cari['kolokasi']."\b/ims", $literatur));
+        }, $kolokasi);
+        // dd($hasil);
+        $hasil_analisa = collect($hasil)->filter(function($value, $key){
+
+            return 0 != $value['jumlah'];
+        });
+        $jumlah_semua = $hasil_analisa->sum("jumlah");
+
+
+        foreach($hasil_analisa as $analisa_kolokasi){
+            $kolokasi = Kolokasi::find($analisa_kolokasi['id']);
+            $kolokasi->frekuensi_kolokasi = $kolokasi->frekuensi_kolokasi + $analisa_kolokasi['jumlah'];
+            $kolokasi->frekuensi_kolokasi_persen = $kolokasi->frekuensi_kolokasi_persen + ($analisa_kolokasi['jumlah']/$jumlah_semua);
+            $kolokasi->save();
+        }
+
+        return true;
+    }
 }
