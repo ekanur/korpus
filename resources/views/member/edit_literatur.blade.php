@@ -122,7 +122,9 @@
     <div class="col-md-12">
         <span class="h3">Preview Isi Literatur</span>
         <p>
-            <em class="text-muted">{{substr($literatur->konten,0, 200)}} ...</em>
+            <em class="text-muted">{{substr(implode(" ", array_map(function($json){
+                return $json->kata;
+            }, json_decode($literatur->json_konten))),0, 200)}} ...</em>
         </p>
     </div>
 </div>

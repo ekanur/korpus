@@ -56,7 +56,13 @@
                                         <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
                                     </a> -->
                                     <div class="media-body">
-                                        <h4 class="name mb-0 text-md text-uppercase"><a href="{{url("pic/report_literatur/".$literatur->id)}}">{{$literatur->judul}}</a></h4>
+                                        <h4 class="name mb-0 text-md text-uppercase">
+                                            @if($literatur->analisaLiteratur()->exists())
+                                            <a href="{{url("pic/report_literatur/".$literatur->id)}}">{{$literatur->judul}}</a>
+                                            @else
+                                            {{$literatur->judul}}
+                                            @endif
+                                        </h4>
                                     <small class="text-muted">Upload oleh <strong>{{$literatur->uploadedBy->name}}</strong></small>
                                     </div>
                                 </div>
@@ -70,12 +76,17 @@
                                 </div>
                             </td>
                             <td>
+                                @if($literatur->analisaLiteratur()->exists())
                                 <div class="d-flex align-items-center">
-                                    Jumlah Kata : {{$literatur->jumlah_kata ?? 0}}<br/>
-                                    Jumlah Kata Dasar : {{$literatur->kata_dasar ?? 0}}<br/>
-                                    Jumlah Token : {{($literatur->jumlah_kata - $literatur->kata_dasar)}}<br/>
-                                    Dianalisa Pada : @if(null != $literatur->analyze_on) {{$literatur->analyze_on->format("d-m-Y")}}  @else Belum Dianalisa @endif <br/>
+                                    Jumlah Kata : {{$literatur->analisaLiteratur->jumlah_kata ?? 0}}<br/>
+                                    Jumlah Kata Dasar : {{$literatur->analisaLiteratur->jumlah_kata_dasar ?? 0}}<br/>
+                                    Jumlah Token : {{$literatur->analisaLiteratur->jumlah_token ?? 0}}<br/>
+                                    Dianalisa Pada : @if($literatur->analisaLiteratur()->exists()) {{$literatur->analisaLiteratur->analyze_on->format("d-m-Y")}}  @else Belum Dianalisa @endif <br/>
                                 </div>
+                                @else
+                                <p class="badge badge-error">Belum Dianalisa</p>
+                                @endif
+                                {{-- <a href="{{url("pic/report_literatur/".$literatur->id)}}" class="btn btn-sm btn-info">Report Analisa</a> --}}
                             </td>
                             <td>
                                 {{-- @if (null != $literatur->analyze_on)

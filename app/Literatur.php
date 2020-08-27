@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Literatur extends Model
 {
     protected $table = "literatur";
-    protected $dates = ['created_at', 'updated_at','analyze_on'];
+    protected $fillable = ["json_konten"];
 
     public function korpus()
     {
@@ -20,5 +20,10 @@ class Literatur extends Model
 
     public function uploadedBy(){
         return $this->belongsTo("App\User", "uploaded_by");
+    }
+
+    public function analisaLiteratur()
+    {
+        return $this->hasOne("App\AnalisaLiteratur");
     }
 }

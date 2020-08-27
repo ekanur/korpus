@@ -42,7 +42,7 @@ class MemberController extends Controller
             $literatur->path = $path;
             $literatur->judul = $request->judul;
             $literatur->tahun_terbit = $request->tahun_terbit;
-            $literatur->konten = $this->handleFile($path);
+            $literatur->json_konten = $this->parseJson($this->getContent($path));
             $literatur->uploaded_by = Auth::user()->id;
             $literatur->save();
         }
@@ -50,7 +50,7 @@ class MemberController extends Controller
         return redirect()->back()->with("msg_success", "Literatur berhasil tersimpan");
     }
 
-    public function handleFile($path){
+    public function getContent($path){
         $fullpath = "../storage/app/".$path;
         $command = "unzip -p ".$fullpath." word/document.xml | sed -e 's/<[^>]\{1,\}>//g; s/[^[:print:]]\{1,\}//g'";
         // dd($command);
@@ -59,10 +59,18 @@ class MemberController extends Controller
         return $text;
     }
 
+    public function parseJson($konten)
+    {
+        $json_konten = array_map(function($value){
+            return array("kata"=>$value, "tipe"=>'');
+        }, explode(" ", $konten));
+
+        return json_encode($json_konten);
+    }
+
     public function editLiteratur($id)
     {
         $literatur = Literatur::whereUploadedBy(Auth::user()->id)->findOrFail($id);
-
         return view("member.edit_literatur")->with('literatur', $literatur)->with('korpus', Korpus::all());
     }
 
@@ -83,7 +91,7 @@ class MemberController extends Controller
             if($request->hasFile('literatur')){
                 $path = $request->file('literatur')->store("public/literatur");
                 $literatur->path = $path;
-                $literatur->konten = $this->handleFile($path);
+                $literatur->json_konten = $this->parseJson($this->getContent($path));
             }
 
             $literatur->save();

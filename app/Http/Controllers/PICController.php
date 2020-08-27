@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\KataDasar;
+use App\AnalisaLiteratur;
 
 class PICController extends Controller
 {
@@ -68,93 +69,63 @@ class PICController extends Controller
 
     public function analisaLiteratur($id)
     {
-        $literatur = Literatur::findOrFail($id);
-        // dd($literatur);
-        $token = Token::whereKorpusId($literatur->korpus_id)->select("id","token")->get()->toArray();
-        $kata_dasar = KataDasar::whereKorpusId($literatur->korpus_id)->select("id","kata_dasar")->get()->toArray();
-        $kolokasi = Kolokasi::whereKorpusId($literatur->korpus_id)->select("id","kolokasi")->get()->toArray();
+        // $ = Literatur::select("json_konten")->whereId($id)->whereKorpusId(Auth::user()->korpus->id)->firstOrFail();
+        $literatur = Literatur::firstOrNew(
+            ['id' => $id, "korpus_id" => Auth::user()->korpus->id]
+        );
+        $kata_dasar = KataDasar::select("kata_dasar")->whereKorpusId(Auth::user()->korpus->id)->get();
+        $token = Token::select("token")->whereKorpusId(Auth::user()->korpus->id)->get();
+        // dd(collect($token));
+        $array_konten = json_decode($literatur->json_konten);
+        $array_konten = collect($array_konten)->map(function($value, $key) use($token, $kata_dasar){
 
-        $this->analisaKataDasar($kata_dasar, $literatur->konten);
-        $this->analisaKolokasi($kolokasi, $literatur->konten);
-
-        $literatur->jumlah_kata = str_word_count($literatur->konten);
-        $literatur->kata_dasar = (str_word_count($literatur->konten)-$this->analisaToken($token, $literatur->konten));
-        $literatur->analyze_on = Carbon::now()->toDateString();
-        $literatur->save();
-
-        return redirect()->back()->with("msg_success", "Selesai menganalisa <strong>".strtoupper($literatur->judul)."</strong>.");
-    }
-
-
-    public function analisaToken(array $token, String $literatur){
-        $literatur = strtolower($literatur);
-        $hasil = array_map(function($cari) use($literatur){
-            // dd($cari->token);
-            return array("id"=>$cari["id"], "token"=>$cari['token'], "jumlah"=> preg_match_all("/\b".$cari['token']."\b/ims", $literatur));
-        }, $token);
-        // dd($hasil);
-        $hasil_analisa = collect($hasil)->filter(function($value, $key){
-
-            return 0 != $value['jumlah'];
+            $tipe = "";
+            if($token->where("token", $value->kata)->count() != 0){
+                $tipe="t";
+            }
+            elseif($kata_dasar->where("kata_dasar", $value->kata)->count() != 0){
+                $tipe = "k";
+            }
+            return array("kata"=>$value->kata, "tipe"=> $tipe);
         });
-        $jumlah_semua = $hasil_analisa->sum("jumlah");
 
-
-        foreach($hasil_analisa as $analisa_token){
-            $token = Token::find($analisa_token['id']);
-            $token->frekuensi_token = $token->frekuensi_token + $analisa_token['jumlah'];
-            $token->frekuensi_token_persen = $token->frekuensi_token_persen + ($analisa_token['jumlah']/$jumlah_semua);
-            $token->save();
+        $literatur->json_konten = json_encode($array_konten);
+        if(!$literatur->save()){
+            return redirect()->back()->with("msg_danger", "Terjadi kesalahan mengupdate literatur.");
         }
 
-        return $hasil_analisa->count();
-    }
+        $jumlah_kata = $array_konten->count();
+        $jumlah_kata_dasar = $array_konten->where("tipe", "k")->count();
+        $jumlah_token = $array_konten->where("tipe", 't')->count();
+        // dd(["jumlah_kata"=>$jumlah_kata, "jumlah_kata_dasar"=>$jumlah_kata_dasar, "jumlah_token"=>$jumlah_token, "analyze_on"=>Carbon::now()]);
+        $analisa_literatur = AnalisaLiteratur::updateOrCreate(
+            ["literatur_id"=>$id],
+            ["jumlah_kata"=>$jumlah_kata, "jumlah_kata_dasar"=>$jumlah_kata_dasar, "jumlah_token"=>$jumlah_token, "analyze_on"=>Carbon::now()]
+        );
 
-    public function analisaKataDasar(array $kata_dasar, String $literatur){
-        $literatur = strtolower($literatur);
-        $hasil = array_map(function($cari) use($literatur){
-            // dd($cari->token);
-            return array("id"=>$cari["id"], "kata_dasar"=>$cari['kata_dasar'], "jumlah"=> preg_match_all("/\b".$cari['kata_dasar']."\b/ims", $literatur));
-        }, $kata_dasar);
-        // dd($hasil);
-        $hasil_analisa = collect($hasil)->filter(function($value, $key){
-
-            return 0 != $value['jumlah'];
-        });
-        $jumlah_semua = $hasil_analisa->sum("jumlah");
-
-
-        foreach($hasil_analisa as $analisa_kata_dasar){
-            $kata_dasar = KataDasar::find($analisa_kata_dasar['id']);
-            $kata_dasar->frekuensi_kata = $kata_dasar->frekuensi_kat + $analisa_kata_dasar['jumlah'];
-            $kata_dasar->frekuensi_kata_persen = $kata_dasar->frekuensi_kata_persen + ($analisa_kata_dasar['jumlah']/$jumlah_semua);
-            $kata_dasar->save();
+        if($analisa_literatur){
+            $msg=array("tipe"=>"success", "pesan"=>"Selesai menganalisa <strong>".strtoupper($literatur->judul)."</strong>.");
+        }else{
+            $msg=array("tipe"=>"danger", "pesan"=>"Terjadi kesalahan.");
         }
 
-        return true;
+        return redirect()->back()->with("msg_".$msg['tipe'], $msg['pesan']);
     }
 
-    public function analisaKolokasi(array $kolokasi, String $literatur){
-        $literatur = strtolower($literatur);
-        $hasil = array_map(function($cari) use($literatur){
-            // dd($cari->token);
-            return array("id"=>$cari["id"], "kolokasi"=>$cari['kolokasi'], "jumlah"=> preg_match_all("/\b".$cari['kolokasi']."\b/ims", $literatur));
-        }, $kolokasi);
-        // dd($hasil);
-        $hasil_analisa = collect($hasil)->filter(function($value, $key){
+    public function reportLiteratur($id)
+    {
+        $literatur = Literatur::whereId($id)->whereKorpusId(Auth::user()->korpus->id)->firstOrFail();
+        $daftar_kata = collect(json_decode($literatur->json_konten))->map(function($value, $key){
+            return collect($value)->put("posisi", $key);
+        })->groupBy("kata")->sortKeys();
 
-            return 0 != $value['jumlah'];
-        });
-        $jumlah_semua = $hasil_analisa->sum("jumlah");
+        // $literatur = collect($literatur)->except(['json_konten', 'path']);
+        unset($literatur->json_konten);
+        unset($literatur->path);
+        // dd($daftar_kata['yang']);
 
-
-        foreach($hasil_analisa as $analisa_kolokasi){
-            $kolokasi = Kolokasi::find($analisa_kolokasi['id']);
-            $kolokasi->frekuensi_kolokasi = $kolokasi->frekuensi_kolokasi + $analisa_kolokasi['jumlah'];
-            $kolokasi->frekuensi_kolokasi_persen = $kolokasi->frekuensi_kolokasi_persen + ($analisa_kolokasi['jumlah']/$jumlah_semua);
-            $kolokasi->save();
-        }
-
-        return true;
+        return view("pic.report_literatur")->with("literatur", $literatur)->with("daftar_kata", $daftar_kata
+    );
     }
+
 }

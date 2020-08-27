@@ -17,10 +17,10 @@ class Token extends Migration
             $table->bigIncrements('id');
             $table->foreignId('korpus_id')->constrained("korpus");
             $table->string("token");
-            $table->decimal("frekuensi_token")->nullable();
-            $table->decimal("frekuensi_token_persen")->nullable();
-            $table->decimal("frekuensi_dokumen")->nullable();
-            $table->decimal("frekuensi_dokumen_persen")->nullable();
+            // $table->decimal("frekuensi_token")->nullable();
+            // $table->decimal("frekuensi_token_persen")->nullable();
+            // $table->decimal("frekuensi_dokumen")->nullable();
+            // $table->decimal("frekuensi_dokumen_persen")->nullable();
             $table->timestamps(0);
             $table->softDeletes();
         });

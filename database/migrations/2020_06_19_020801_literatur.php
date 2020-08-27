@@ -20,11 +20,11 @@ class Literatur extends Migration
             $table->string("path");
             $table->string("judul");
             $table->year("tahun_terbit");
-            $table->mediumText("konten")->nullable();
+            $table->json("json_konten")->nullable();
             $table->integer("uploaded_by");
-            $table->integer("jumlah_kata")->nullable();
-            $table->integer("kata_dasar")->nullable();
-            $table->timestamp("analyze_on")->nullable();
+            // $table->integer("jumlah_kata")->nullable();
+            // $table->integer("kata_dasar")->nullable();
+            // $table->timestamp("analyze_on")->nullable();
             $table->timestamps(0);
             $table->softDeletes();
         });

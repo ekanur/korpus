@@ -8,6 +8,7 @@ use App\KataDasar;
 use App\Token;
 use Illuminate\Http\Request;
 use App\Korpus;
+use App\Literatur;
 use App\User;
 
 class AdminController extends Controller
@@ -185,6 +186,13 @@ class AdminController extends Controller
         Token::destroy($request->id);
 
         return redirect()->back()->with("msg_success", "Berhasil menghapus Token");
+    }
+
+    public function analisaKorpus($id)
+    {
+        $korpus = Korpus::with("literatur")->findOrFail($id);
+        $korpus->jumlah_literatur = $korpus->literatur->count();
+
     }
 
 }

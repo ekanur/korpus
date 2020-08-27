@@ -53,6 +53,8 @@ Route::prefix("admin")->middleware("admin")->group(function(){
     Route::post("/update_token", "AdminController@updateToken");
     Route::post("/hapus_token", "AdminController@hapusToken");
 
+    Route::get('/analisa_korpus/{id}', "AdminController@analisaKorpus");
+
 });
 
 
@@ -76,4 +78,5 @@ Route::prefix("pic")->middleware("pic")->group(function(){
     Route::get("kategori/{id}", "PICController@editKategori");
     Route::get("literatur", "PICController@literatur");
     Route::get("literatur/{id}", "PICController@analisaLiteratur");
+    Route::get("report_literatur/{id}", "PICController@reportLiteratur");
 });
