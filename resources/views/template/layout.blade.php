@@ -76,6 +76,22 @@
     <script src="{{ asset("assets/vendor/datatables.net-select/js/dataTables.select.min.js") }}"></script>    <!-- Argon JS -os.creative-tim.com/argon-dashboard-pro/assets/-->
     <script src="{{asset("assets/js/argon.js?v=1.2.0")}}"></script>
     @yield('js')
+    <script>
+        $(document).ready(function(){
+                var DatatableBasic=function(){
+                var e=$("table");
+                e.length&&e.on("init.dt",function(){
+                $("div.dataTables_length select")
+                .removeClass("custom-select custom-select-sm")})
+                .DataTable({keys:!0,select:{style:"multi"},language:{paginate:{previous:"<i class='fas fa-angle-left'>",next:"<i class='fas fa-angle-right'>"}}})
+                }(),
+                DatatableButtons=function(){
+                    var e,a=$("#datatable-buttons");
+                    a.length&&(e={lengthChange:!1,dom:"Bfrtip",buttons:["copy","print"],language:{paginate:{previous:"<i class='fas fa-angle-left'>",next:"<i class='fas fa-angle-right'>"
+                    }}},
+                    a.on("init.dt",function(){$(".dt-buttons .btn").removeClass("btn-secondary").addClass("btn-sm btn-default")}).DataTable(e))}()
+        });
+    </script>
 </body>
 
 </html>
