@@ -81,7 +81,7 @@ class MemberController extends Controller
     public function analisaKolokasi(int $korpus_id, String $konten)
     {
         $kolokasi = Kolokasi::select("kolokasi", "id")->whereKorpusId($korpus_id)->get()->toArray();
-        // dd($kolokasi);
+        $konten = strtolower($konten);
         $analisa_kolokasi = collect($kolokasi)->map(function($value, $key) use($konten){
             // dd($value["kolokasi"]);
             // return array("kolokasi_id"=>$value["id"], "jumlah"=>preg_match_all('/\b('.$value["kolokasi"].')\b/', $konten));
