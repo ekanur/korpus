@@ -84,7 +84,7 @@ class MemberController extends Controller
         $konten = strtolower($konten);
         // dd($kolokasi);
         $analisa_kolokasi = collect($kolokasi)->map(function($value, $key) use($konten){
-            dd(preg_match_all('(/\b\w*'.strtolower("Memberikan seseorang duduk").'\w*\b/)', $konten));
+            dd(preg_match_all('(/\b\w*'.strtolower("memberikan seseorang duduk").'\w*\b/)', $konten));
             // return array("kolokasi_id"=>$value["id"], "jumlah"=>preg_match_all('/\b('.$value["kolokasi"].')\b/', $konten));
             return array("kolokasi_id"=>$value["id"], "jumlah"=>preg_match_all('(/\b\w*'.strtolower($value["kolokasi"]).'\w*\b/)', $konten));
         })->filter(function($value, $key){
