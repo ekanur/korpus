@@ -115,7 +115,7 @@ class PICController extends Controller
     public function reportLiteratur($id)
     {
         $literatur = Literatur::whereId($id)->whereKorpusId(Auth::user()->korpus->id)->firstOrFail();
-        $literatur->analisaLiteratur()->whereJumlah("!=", "0")->get();
+        $literatur->analisaKolokasi()->where("jumlah", "!=", "0")->get();
         $daftar_kata = collect(json_decode(strtolower($literatur->json_konten)))->map(function($value, $key){
             return collect($value)->put("posisi", $key);
         })->groupBy("kata")->sortKeys();
