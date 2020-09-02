@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Kolokasi;
 use App\Literatur;
 use App\Korpus;
 use App\Token;
@@ -36,15 +37,24 @@ class MemberController extends Controller
         ]);
 
         if($validatedRequest){
-           $literatur = new Literatur;
+            $konten = $this->getContent($path);
+
+            $literatur = new Literatur;
             $literatur->korpus_id = $request->korpus;
             $literatur->kategori_id = $request->kategori;
             $literatur->path = $path;
             $literatur->judul = $request->judul;
             $literatur->tahun_terbit = $request->tahun_terbit;
-            $literatur->json_konten = $this->parseJson($this->getContent($path));
+            $literatur->json_konten = $this->parseJson($konten);
             $literatur->uploaded_by = Auth::user()->id;
-            $literatur->save();
+
+            if($literatur->save()){
+                $analisa_kolokasi = $this->analisaKolokasi($request->korpus, $konten);
+                if(0 != sizeof($analisa_kolokasi)){
+                    $literatur = Literatur::find($literatur->id);
+                    $literatur->analisaKolokasi()->createMany($analisa_kolokasi);
+                }
+            }
         }
 
         return redirect()->back()->with("msg_success", "Literatur berhasil tersimpan");
@@ -66,6 +76,20 @@ class MemberController extends Controller
         }, explode(" ", $konten));
 
         return json_encode($json_konten);
+    }
+
+    public function analisaKolokasi(int $korpus_id, String $konten)
+    {
+        // dd($kolokasi);
+        $kolokasi = Kolokasi::select("kolokasi", "id")->whereKorpusId($korpus_id)->get()->toArray();
+        $analisa_kolokasi = collect($kolokasi)->map(function($value, $key) use($konten){
+            // dd($value["kolokasi"]);
+            return array("kolokasi_id"=>$value["id"], "jumlah"=>preg_match_all("/\b".$value["kolokasi"]."\b/", $konten));
+        })->filter(function($value, $key){
+            return $value['jumlah'] != 0;
+        });
+
+        return $analisa_kolokasi;
     }
 
     public function editLiteratur($id)
@@ -90,8 +114,10 @@ class MemberController extends Controller
 
             if($request->hasFile('literatur')){
                 $path = $request->file('literatur')->store("public/literatur");
+                $konten = $this->getContent($path);
                 $literatur->path = $path;
-                $literatur->json_konten = $this->parseJson($this->getContent($path));
+                $literatur->json_konten = $this->parseJson($konten);
+                $analisa_kolokasi = $this->analisaKolokasi($request->korpus,$konten);
             }
 
             $literatur->save();

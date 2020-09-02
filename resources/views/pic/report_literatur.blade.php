@@ -176,6 +176,53 @@
 
             </div>
         </div>
+
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0 shadow">
+                <div class="row">
+                    <div class="col">
+                        <h3>Analisa Kolokasi </h3>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="sort" data-sort="name" width="15%">Kolokasi</th>
+                            <!-- <th scope="col" class="sort" data-sort="status">Sub Kategori</th> -->
+                            <th scope="col" width="10%">Frekuensi</th>
+                            <th scope="col" class="sort" width="10%" data-sort="completion">% Frekuensi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        @foreach($literatur->analisaKolokasi as $analisa_kolokasi)
+                            <tr>
+                            <td scope="row">
+                                {{$analisa_kolokasi->kolokasi->kolokasi}}
+                            </td>
+                            <td class="budget">
+                               {{$analisa_kolokasi->jumlah}}
+                            </td>
+                            <td>
+                                {{ round($analisa_kolokasi->jumlah/$literatur->analisaLiteratur->jumlah_kata, 3) }}
+                            </td>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+
+            </div>
+        </div>
     </div>
 </div>
 

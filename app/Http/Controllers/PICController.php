@@ -59,8 +59,8 @@ class PICController extends Controller
     public function editKategori($id)
     {
         $kategori = Kategori::with('subKategori')->whereId($id)->whereKorpusId(Auth::user()->korpus->id)->get();
-        dd($kategori);
-        return view("pic.edi_kategori")->with("kategori", $kategori);
+        // dd($kategori);
+        return view("pic.edit_kategori")->with("kategori", $kategori);
     }
 
     public function literatur(){
@@ -115,7 +115,7 @@ class PICController extends Controller
     public function reportLiteratur($id)
     {
         $literatur = Literatur::whereId($id)->whereKorpusId(Auth::user()->korpus->id)->firstOrFail();
-        $daftar_kata = collect(json_decode($literatur->json_konten))->map(function($value, $key){
+        $daftar_kata = collect(json_decode(strtolower($literatur->json_konten)))->map(function($value, $key){
             return collect($value)->put("posisi", $key);
         })->groupBy("kata")->sortKeys();
 

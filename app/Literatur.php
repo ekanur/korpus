@@ -26,4 +26,9 @@ class Literatur extends Model
     {
         return $this->hasOne("App\AnalisaLiteratur");
     }
+
+    public function analisaKolokasi()
+    {
+        return $this->hasMany("App\AnalisaKolokasi");
+    }
 }

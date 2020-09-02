@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AnalisaLiteratur extends Migration
+class AnalisaKolokasi extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class AnalisaLiteratur extends Migration
      */
     public function up()
     {
-        Schema::create('analisa_literatur', function (Blueprint $table) {
+        Schema::create('analisa_kolokasi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId("literatur_id")->constrained("literatur");
-            $table->integer("jumlah_kata");
-            $table->integer("jumlah_kata_dasar")->nullable();
-            $table->integer("jumlah_token")->nullable();
-            $table->integer("jumlah_kolokasi")->nullable();
-            $table->timestamp("analyze_on");
+            $table->integer("literatur_id")->constrained("literatur");
+            $table->integer("kolokasi_id")->constrained("kolokasi");
+            $table->integer("jumlah");
             $table->timestamps();
         });
     }
