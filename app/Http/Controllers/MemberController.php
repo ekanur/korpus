@@ -90,7 +90,7 @@ class MemberController extends Controller
         })->filter(function($value, $key){
             return $value['jumlah'] != 0;
         });
-        dd($analisa_kolokasi);
+        // dd($analisa_kolokasi);
 
         return $analisa_kolokasi;
     }
