@@ -79,4 +79,5 @@ Route::prefix("pic")->middleware("pic")->group(function(){
     Route::get("literatur", "PICController@literatur");
     Route::get("literatur/{id}", "PICController@analisaLiteratur");
     Route::get("report_literatur/{id}", "PICController@reportLiteratur");
+    Route::get("report_literatur/{id}/{kata}", "PICController@konkordansi");
 });

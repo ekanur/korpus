@@ -8,6 +8,9 @@ class Literatur extends Model
 {
     protected $table = "literatur";
     protected $fillable = ["json_konten"];
+    // protected $casts = [
+    //     'json_konten' => 'array',
+    // ];
 
     public function korpus()
     {

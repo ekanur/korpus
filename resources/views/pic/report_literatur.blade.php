@@ -140,7 +140,7 @@
                         @foreach($daftar_kata as $key => $value)
                             <tr>
                             <td scope="row">
-                                <a href="" class="h5">{{ $key }}</a>
+                            <a href="{{url("pic/report_literatur/".$literatur->id."/".$key)}}" class="h5">{{ $key }}</a>
                             </td>
                             <td class="budget">
                                 @if ($value[0]['tipe'] == 't')

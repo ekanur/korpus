@@ -129,4 +129,23 @@ class PICController extends Controller
     );
     }
 
+    public function konkordansi($id, $kata)
+    {
+        $literatur = Literatur::whereId($id)->whereJsonContains("json_konten", ['kata' => $kata])->firstOrFail();
+        $kata_ditemukan = collect(json_decode($literatur->json_konten))->where("kata", $kata);
+        // dd($kata_ditemukan);
+        $konkordansi = $kata_ditemukan->map(function($item, $key) use($literatur){
+            return "...".collect(json_decode($literatur->json_konten))->slice($key-20, 40)->implode("kata", " ")."...";
+        });
+
+        // dd($konkordansi);
+
+        $konkordansi = $konkordansi->map(function($item, $key) use($kata){
+            // dd($kata);
+            return str_replace($kata, "<strong>".$kata."</strong>", $item);
+        });
+
+        return view("pic.konkordansi")->with("konkordansi", $konkordansi)->with("kata", $kata)->with("literatur", $literatur);
+    }
+
 }
