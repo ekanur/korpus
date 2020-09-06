@@ -39,18 +39,18 @@
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>
-                            <th scope="col" class="sort" data-sort="name" width="15%">No</th>
-                            <th scope="col" class="sort" data-sort="budget" width="25%">Konkordansi</th>
+                            {{-- <th scope="col" class="sort" data-sort="name" width="1%">No</th> --}}
+                            <th scope="col" class="sort" data-sort="budget" width="99%">Konkordansi</th>
                         </tr>
                     </thead>
                     <tbody class="list">
                         @foreach($konkordansi as $konkordansi)
                             <tr>
-                            <td scope="row">
+                            {{-- <td scope="row">
                                 {{$loop->index+1}}
-                            </td>
+                            </td> --}}
                             <td class="budget">
-                                {!!$konkordansi!!}
+                                <p class="text-wrap">{!!$konkordansi!!}</p>
                             </td>
                         </tr>
                         @endforeach

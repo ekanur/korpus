@@ -142,7 +142,7 @@ class PICController extends Controller
 
         $konkordansi = $konkordansi->map(function($item, $key) use($kata){
             // dd($kata);
-            return str_replace($kata, "<strong>".$kata."</strong>", $item);
+            return str_replace($kata, "<u><strong>".$kata."</strong></u>", $item);
         });
 
         return view("pic.konkordansi")->with("konkordansi", $konkordansi)->with("kata", $kata)->with("literatur", $literatur);
