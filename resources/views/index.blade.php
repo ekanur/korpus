@@ -61,7 +61,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 class="card-title text-uppercase mb-0  text-muted">{{$korpus->jumlah_literatur}} Literatur</h5>
+                                        <h5 class="card-title text-uppercase mb-0  text-muted">{{$korpus->literatur_count}} Literatur</h5>
                                         <span class="h2 font-weight-bold mb-0" style="color:#10375c">{{$korpus->jenis}}</span>
                                     </div>
                                     <div class="col-auto">

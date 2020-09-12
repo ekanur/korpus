@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">Literatur</h5>
-                    <span class="h2 font-weight-bold mb-0">{{ $korpus->jumlah_literatur }}</span>
+                    <span class="h2 font-weight-bold mb-0">{{ number_format($korpus->literatur_count) }}</span>
                 </div>
                 <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">
@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">Kata</h5>
-                    <span class="h2 font-weight-bold mb-0">{{ $korpus->jumlah_kata }}</span>
+                    <span class="h2 font-weight-bold mb-0">{{ number_format($korpus->jumlah_kata) }}</span>
                 </div>
                 <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">Kata Dasar</h5>
-                    <span class="h2 font-weight-bold mb-0">{{ $korpus->kata_dasar }}</span>
+                    <span class="h2 font-weight-bold mb-0">{{ number_format($korpus->jumlah_kata_dasar) }}</span>
                 </div>
                 <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -79,7 +79,7 @@
             <div class="row">
                 <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">Token</h5>
-                    <span class="h2 font-weight-bold mb-0">{{ $korpus->token }}</span>
+                    <span class="h2 font-weight-bold mb-0">{{ number_format($korpus->jumlah_token) }}</span>
                 </div>
                 <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">

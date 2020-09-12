@@ -16,13 +16,13 @@
 
                       </ul>
 
-                          <form class="navbar-search navbar-search-light form-inline mr-sm-3" style="width: 700%;" id="navbar-search-main">
+                    <form action="{{url("cari")}}" method="get" class="navbar-search navbar-search-light form-inline mr-sm-3" style="width: 700%;" id="navbar-search-main">
                             <div class="form-group mb-0">
                                 <div class="input-group input-group-alternative input-group-merge">
                                     <!-- <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                                         </div> -->
-                                    <input class="form-control" placeholder="Pencarian Korpus ..." type="text">
+                                    <input class="form-control" placeholder="Pencarian Korpus ..." type="text" name="keyword">
                                     <div class="input-group-prepend">
                                         <!-- <span class="input-group-text"><i class="fas fa-search"></i></span> -->
                                         <button class="btn btn-secondary my-2 my-sm-0" type="submit" style="border-radius:0 2rem 2rem 0"><i class="fas fa-search"></i></button>

@@ -190,9 +190,18 @@ class AdminController extends Controller
 
     public function analisaKorpus($id)
     {
-        $korpus = Korpus::with("literatur")->findOrFail($id);
-        $korpus->jumlah_literatur = $korpus->literatur->count();
-
+        // $literatur = Literatur::with(["analisaLiteratur" => function($query){
+        //     $query->sum("jumlah_kata");
+        // }])->whereKorpusId($id)->get();
+        // dd($literatur);
+        $korpus = Korpus::withCount("literatur")->findOrFail($id);
+        foreach($korpus as $korpus){
+            echo $korpus->analisaLiteratur;
+        }
+        // $korpus = Korpus::with("literatur.analisaLiteratur")->findOrFail($id);
+        // $korpus->jumlah_literatur = $korpus->literatur->count();
+        // $korpus->jumlah_kata = $korpus->literatur
+        // dd($korpus->literatur->analisaLiteratur->count());
     }
 
 }

@@ -22,7 +22,7 @@ Route::get('kata', "KorpusController@kata");
 Route::get('kolokasi', "KorpusController@kolokasi");
 Route::get('literatur', "KorpusController@literatur");
 
-Route::get('cari/{keyword}', "KorpusController@cari");
+Route::get('cari', "KorpusController@cari");
 
 Route::get("tes", "ReadDocController@index");
 Route::post('upload', "ReadDocController@upload");
