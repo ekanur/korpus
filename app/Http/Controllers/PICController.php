@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\KataDasar;
 use App\AnalisaLiteratur;
+use Illuminate\Support\Facades\Hash;
 
 class PICController extends Controller
 {
@@ -31,6 +32,72 @@ class PICController extends Controller
     public function member()
     {
         return view("pic.member")->with("member", User::whereRole('member')->whereIssuedBy(Auth::user()->id)->get());
+    }
+
+    public function simpanMember(Request $request)
+    {
+        $validatedRequest = $request->validate([
+            'name' => 'required|min:3',
+            'username' => 'required|unique:users,username',
+            'email' => 'required|email',
+            'password' => 'required|min:3|same:ulangi_password',
+            'ulangi_password' => 'required'
+        ]);
+
+        if($validatedRequest){
+            $user = new User;
+            $user->name = $request->name;
+            $user->username = $request->username;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->role = "member";
+            $user->issued_by = Auth::user()->id;
+
+            if($user->save()){
+                return redirect()->back()->with("msg_success", "Berhasil menambahkan Member Baru.");
+            }
+
+            return redirect()->back()->with("msg_error", "Gagal menambahkan member baru.");
+        }
+    }
+
+    public function updateMember(Request $request)
+    {
+        $validatedRequest = $request->validate([
+            'name' => 'required|min:3',
+            'username' => 'required|unique:users,username,'.$request->id,
+            'email' => 'required|email'
+            ]);
+
+        if($validatedRequest){
+            $member = User::findOrFail($request->id);
+            $member->name = $request->name;
+            $member->username = $request->username;
+            $member->email = $request->email;
+            if(!$member->save()){
+                return redirect()->back()->with("msg_error", "Gagal mengupdate member baru.");
+
+            }
+
+            return redirect()->back()->with("msg_success", "Berhasil mengupdate member");
+
+        }
+
+        return redirect()->back()->with("msg_error", "Gagal mengupdate member baru.");
+    }
+
+    public function resetMember(Request $request)
+    {
+        $member = User::findOrFail($request->id);
+        $member->password = Hash::make("password");
+        $member->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil mereset password");
+    }
+
+    public function editMember($id)
+    {
+        return view("pic.edit_member")->with("member", User::whereRole('member')->whereIssuedBy(Auth::user()->id)->whereId($id)->firstOrFail());
     }
 
     public function simpanKategori(Request $request)
@@ -147,5 +214,7 @@ class PICController extends Controller
 
         return view("pic.konkordansi")->with("konkordansi", $konkordansi)->with("kata", $kata)->with("literatur", $literatur);
     }
+
+
 
 }

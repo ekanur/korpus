@@ -26,31 +26,33 @@
 
                 </div>
             </div>
-            <form action="{{url("pic/update_kategori")}}" method="post" enctype="">
-                <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
-                {{ csrf_field() }}
-                <input type="hidden" name="id" value="">
-                <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-username">Nama Kategori *</label>
-                        <input type="text" name="kategori" id="korpus" class="form-control" placeholder="Jenis Korpus" value="">
+            <div class="card-body">
+                <form action="{{url("pic/update_kategori")}}" method="post" enctype="">
+                    <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
+                    {{ csrf_field() }}
+                    <input type="hidden" name="id" value="">
+                    <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <label class="form-control-label" for="input-username">Nama Kategori *</label>
+                            <input type="text" name="kategori" id="korpus" class="form-control" placeholder="Kategori" value="">
 
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-username">Sub Kategori</label>
-                        <textarea name="sub_kategori" class="form-control" id="" cols="5" rows="4"></textarea>
-                        <small class="help-text">Gunakan koma (,) sebagai pemisah antara sub kategori</small>
-                      </div>
-                    </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <label class="form-control-label" for="input-username">Sub Kategori</label>
+                            <textarea name="sub_kategori" class="form-control" id="" cols="5" rows="4"></textarea>
+                            <small class="help-text">Gunakan koma (,) sebagai pemisah antara sub kategori</small>
+                          </div>
+                        </div>
 
-                </div>
-                  <div class="form-group">
-                      <input type="submit" class="form-control btn btn-success" name="simpan" value="Simpan"/>
-                  </div>
-              </form>
+                    </div>
+                      <div class="form-group">
+                          <input type="submit" class="form-control btn btn-success" name="simpan" value="Simpan"/>
+                      </div>
+                  </form>
+            </div>
             <!-- Card footer -->
             <div class="card-footer py-4">
 

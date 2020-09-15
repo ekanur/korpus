@@ -74,6 +74,10 @@ Route::prefix("member")->middleware("member")->group(function(){
 Route::prefix("pic")->middleware("pic")->group(function(){
     Route::get("", "PICController@index")->name("pic");
     Route::get("member", "PICController@member");
+    Route::post('member', "PICController@simpanMember");
+    Route::post('update_member', "PICController@updateMember");
+    Route::post('reset_password_member', "PICController@resetMember");
+    Route::get("member/{id}", "PICController@editMember");
     Route::post('kategori', "PICController@simpanKategori");
     Route::get("kategori/{id}", "PICController@editKategori");
     Route::get("literatur", "PICController@literatur");

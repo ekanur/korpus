@@ -8,7 +8,6 @@ use App\KataDasar;
 use App\Token;
 use Illuminate\Http\Request;
 use App\Korpus;
-use App\Literatur;
 use App\User;
 
 class AdminController extends Controller
