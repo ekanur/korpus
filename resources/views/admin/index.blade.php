@@ -13,7 +13,7 @@
                 @slot('type')
                     success
                 @endslot
-                {{session('msg_success')}}
+                {!! session('msg_success') !!}
             @endcomponent
         @elseif(null != session('msg_error'))
             @component('template.notif')

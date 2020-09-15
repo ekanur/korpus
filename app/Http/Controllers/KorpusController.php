@@ -48,7 +48,7 @@ class KorpusController extends Controller
         $korpus->jumlah_token = $jumlah_token;
 
         // dd($korpus);
-        return view("dashboard")->with("korpus", $korpus);
+        return view("dashboard")->with(["korpus" => $korpus, "literatur" => Literatur::where("korpus_id", session("korpus_id"))->get()]);
     }
 
     function kata() {

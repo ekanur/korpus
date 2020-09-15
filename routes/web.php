@@ -39,6 +39,7 @@ Route::prefix("admin")->middleware("admin")->group(function(){
     Route::get('/korpus/{id}', "AdminController@korpus");
     Route::post('/korpus', "AdminController@editKorpus");
     Route::post('/edit_user', "AdminController@updateUser");
+    Route::post('/reset_user', "AdminController@resetUser");
 
 
     Route::get("/kata_dasar", "AdminController@kataDasar");
@@ -54,6 +55,7 @@ Route::prefix("admin")->middleware("admin")->group(function(){
     Route::post("/hapus_token", "AdminController@hapusToken");
 
     Route::get('/analisa_korpus/{id}', "AdminController@analisaKorpus");
+    Route::get('/report_korpus/{id}', "AdminController@reportKorpus");
 
 });
 

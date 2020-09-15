@@ -9,6 +9,8 @@ use App\Token;
 use Illuminate\Http\Request;
 use App\Korpus;
 use App\User;
+use Illuminate\Support\Facades\Hash;
+use App\Literatur;
 
 class AdminController extends Controller
 {
@@ -108,6 +110,15 @@ class AdminController extends Controller
         return redirect()->back()->with('msg_success', "Berhasil memperbarui PIC");
     }
 
+    public function resetUser(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+        $user->password = Hash::make("password");
+        $user->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil mereset password.");
+    }
+
     public function kataDasar(){
 
         return view("admin.kata_dasar")->with('kata_dasar', KataDasar::all())->with('korpus', Korpus::all());
@@ -189,18 +200,48 @@ class AdminController extends Controller
 
     public function analisaKorpus($id)
     {
+        $start = microtime(true);
         // $literatur = Literatur::with(["analisaLiteratur" => function($query){
         //     $query->sum("jumlah_kata");
         // }])->whereKorpusId($id)->get();
         // dd($literatur);
-        $korpus = Korpus::withCount("literatur")->findOrFail($id);
-        foreach($korpus as $korpus){
-            echo $korpus->analisaLiteratur;
+        $korpus = Korpus::with("literatur", "literatur.analisaLiteratur")->withCount("literatur")->findOrFail($id);
+            // dd($korpus->literatur_count);
+        // foreach($korpus as $korpus){
+        //     echo $korpus->analisaLiteratur;
+        // }
+        $literatur = Literatur::with("analisaLiteratur")->has("analisaLiteratur")->whereKorpusId($id)->get();
+            // dd($literatur);
+        $array_jumlah = ["kata"=>0, "token"=>0, "kata_dasar"=>0];
+
+        foreach($literatur as $literatur){
+            $array_jumlah["kata"] = $literatur->analisaLiteratur->jumlah_kata;
+            $array_jumlah["token"] = $literatur->analisaLiteratur->jumlah_token;
+            $array_jumlah["kata_dasar"] = $literatur->analisaLiteratur->jumlah_kata_dasar;
         }
+        // dd($array_jumlah);
+        $korpus->jumlah_literatur = $korpus->literatur_count;
+        $korpus->jumlah_kata = $array_jumlah["kata"];
+        $korpus->kata_dasar = $array_jumlah["kata_dasar"];
+        $korpus->token = $array_jumlah["token"];
+        $korpus->save();
+
+        $time_consume = microtime(true) - $start;
+
+
+        return redirect()->back()->with("msg_success", "Selesai melakukan Analisa Korpus <strong>".$korpus->jenis."</strong> dalam <strong>".number_format($time_consume, 2)." detik</strong>.");
         // $korpus = Korpus::with("literatur.analisaLiteratur")->findOrFail($id);
         // $korpus->jumlah_literatur = $korpus->literatur->count();
         // $korpus->jumlah_kata = $korpus->literatur
         // dd($korpus->literatur->analisaLiteratur->count());
+    }
+
+    public function reportKorpus($id)
+    {
+        return view("admin.report_analisa_korpus")->with("korpus", Korpus::with(["literatur"=>function($query){
+            $query->orderBy("created_at", "desc");
+            $query->take(3);
+        }])->withCount("literatur")->findOrFail($id));
     }
 
 }

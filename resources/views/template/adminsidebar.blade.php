@@ -17,7 +17,7 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::is('admin/korpus/*')  or \Request::is('admin')) active @endif" href="{{url("admin/")}}" target="">
+                        <a class="nav-link @if(\Request::is('admin/korpus/*')  or \Request::is('admin') or \Request::is('admin/report_korpus/*')) active @endif" href="{{url("admin/")}}" target="">
                             <i class="ni ni-spaceship"></i>
                             <span class="nav-link-text">Korpus</span>
                         </a>

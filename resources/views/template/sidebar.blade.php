@@ -12,9 +12,9 @@
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link @if(\Request::is('dashboard/*')  or \Request::is('dashboard')) active @endif" href="{{url("dashboard")}}">
+                            <a class="nav-link @if(\Request::is('dashboard/*')  or \Request::is('dashboard') or \Request::is('literatur/*') or \Request::is('literatur')) active @endif" href="{{url("dashboard")}}">
                                 <i class="ni ni-tv-2 text-primary"></i>
-                                <span class="nav-link-text">Dashboard</span>
+                                <span class="nav-link-text">Literatur</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -29,12 +29,12 @@
                                 <span class="nav-link-text">Frekuensi Kolokasi</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link @if(\Request::is('literatur/*') or \Request::is('literatur')) active @endif" href="{{url("literatur")}}">
                                 <i class="ni ni-single-copy-04 text-orange"></i>
                                 <span class="nav-link-text">Literatur</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                     </ul>
                 </div>

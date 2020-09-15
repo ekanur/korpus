@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-4 text-right">
                     {{-- <a href="#" data-toggle="modal" data-target="#ubah_password" class="btn btn-sm btn-warning">Ubah Password</a> --}}
-                    <a href="#" data-toggle="modal" data-target="#reset_password" class="btn btn-sm btn-info">Reset Password</a></div>
+                <a href="#" data-toggle="modal" data-id={{$pic->id}} data-reset="{{$pic->name}}" data-target="#reset_password" class="btn btn-sm btn-warning">Reset Password</a></div>
 
               </div>
             </div>
@@ -40,7 +40,6 @@
                 {{ csrf_field() }}
             <input type="hidden" name="id" value="{{$pic->id}}">
             <input type="hidden" name="korpus_lama" value="{{$pic->korpus->id ?? null}}">
-                <h6 class="heading-small text-muted mb-4">Penanggung Jawab</h6>
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-md-12">
@@ -84,19 +83,43 @@
             </div>
           </div>
     </div>
+<div class="modal fade" id="reset_password" role="dialog" aria-labelledby="modal-form" aria-modal="true" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
 
+            <div class="modal-body p-0">
+                <div class="card-body px-lg-5 py-lg-4">
+                    <div class="text-center mb-4">
+                        <h3>Apakah anda akan mereset password <br/> <strong id="reset"></strong> ?</h3>
+                    </div>
+                    <p>
+                        Setelah di-reset password akan berubah menjadi <kbd>password</kbd>
+                    </p>
+                    <form action="{{url("admin/reset_user")}}" method="post" enctype="">
+                        <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <button data-dismiss="modal" class="form-control btn btn-primary">Tidak</button>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <input type="submit" class="form-control btn btn-success" name="simpan" value="Ya"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>
-@endsection
-
-@section('breadcrumb')
-<nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-    <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-        <li class="breadcrumb-item"><a href="{{url("")}}"><i class="fas fa-home"></i></a></li>
-        <li class="breadcrumb-item"><a href="{{url("admin/")}}">Admin Panel</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Pengelola Korpus</li>
-    </ol>
-</nav>
 @endsection
 
 @section("sidebar")
@@ -110,21 +133,14 @@
 @section('js')
 <script>
     $(document).ready(function(){
-        $("select[name='korpus']").change(function(){
-            var korpus_id = $(this).val();
-            $.get("{{url('api/korpus')}}/"+korpus_id+"/kategori", function(data){
+        $('#reset_password').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var reset = button.data('reset')
 
-            })
-                    .done(function(data){
-                        var items = [];
-                        $.each(data, function(index, value){
-//                                console.log(value);
-
-                            items.push("<option value='"+value.id+"'>"+value.kategori+"</option>");
-                        });
-                        $("select[name='kategori']").empty();
-                        $(items.join("")).appendTo("select[name='kategori']");
-                    });
+            var modal = $(this)
+            modal.find("input[name='id']").val(id)
+            modal.find('#reset').text(reset)
         });
     });
 </script>
