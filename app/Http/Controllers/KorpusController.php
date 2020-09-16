@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AnalisaKolokasi;
 use Illuminate\Http\Request;
 use App\Korpus;
 use App\KataDasar;
@@ -53,16 +54,22 @@ class KorpusController extends Controller
 
     function kata() {
         $korpus = Korpus::findOrFail(session("korpus_id"));
-        $kata = KataDasar::where("korpus_id", session("korpus_id"))->get();
+        // $literatur = Literatur::whereKorpusId(session("korpus_id"))->whereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  't', NULL, '$[*].tipe') is not null")->paginate(10);
+        $literatur = Literatur::whereKorpusId(session("korpus_id"))->paginate(10);
+        $literatur = $literatur->map(function($value){
+            return json_decode($value->json_konten);
+        })->flatten(1)->groupBy("kata")->sortKeys();
+        // dd($literatur);
 
-        return view("kata")->with(["kata" => $kata, "korpus"=>$korpus, "judul"=>"Kata"]);
+        return view("kata")->with(["kata" => $literatur, "korpus"=>$korpus, "judul"=>"Kata"]);
     }
 
     function kolokasi() {
         $korpus = Korpus::findOrFail(session("korpus_id"));
-        $kata = Kolokasi::where("korpus_id", session("korpus_id"))->get();
 
-        return view("kata")->with(["kata" => $kata, "korpus"=>$korpus, "judul"=>"Kolokasi"]);
+        $kata = Kolokasi::with("analisaKolokasi")->has("analisaKolokasi")->whereKorpusId(session("korpus_id"))->get();
+        // dd($kata);
+        return view("kolokasi")->with(["kata" => $kata, "korpus"=>$korpus, "judul"=>"Kolokasi"]);
     }
 
     function literatur() {
@@ -125,33 +132,10 @@ class KorpusController extends Controller
                     return str_ireplace($keyword, "&nbsp;<strong><u>".$keyword."</u></strong>&nbsp;", $line);
                 });
             }
+        }else{
+            $literatur = Literatur::whereKorpusId(session('session_id'))->paginate(10);
+            // $literatur->konten = MemberController::getContent($literatur->path);
         }
-        // $keyword = ($request->keyword == trim($request->keyword) && strpos($request->keyword, ' ') !== false)? explode(" ", $request->keyword):array($request->keyword);
-        // $literatur = Literatur::whereKorpusId(session("korpus_id"));
-        // if (sizeof($keyword) > 1) {
-        //     // echo 'has spaces, but not at beginning or end';
-        //     // $keyword = explode(" ", strtolower($request->keyword));
-        //     $literatur = $literatur->whereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  '".$keyword[0]."', NULL, '$[*].kata') is not null");
-        //     // unset($keyword[0]);
-        //     foreach($keyword as $cari){
-        //         $literatur = $literatur->orWhereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  '".$cari."', NULL, '$[*].kata') is not null");
-        //     }
-        // }else{
-        //     $literatur = $literatur->whereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  '".$keyword[0]."', NULL, '$[*].kata') is not null");
-        // }
-        // // dd($keyword);
-
-
-        // $literatur = $literatur->paginate(20);
-        // $literatur->getCollection()->transform(function($value) use($keyword){
-        //     $hasil = collect(json_decode($value->json_konten))->whereIn("kata", $keyword);
-        //     // dd($hasil);
-        //     return $hasil;
-        // });
-
-        // dd($literatur);
-
-        // return view("hasil_cari")->with(["literatur" => $literatur , "korpus" => Korpus::find(session("korpus_id"))]);
-            return view("hasil_cari")->with("kata_ditemukan", $kata_ditemukan)->with("korpus", Korpus::find(session("korpus_id")));
+    return view("hasil_cari")->with("kata_ditemukan", $kata_ditemukan)->with("korpus", Korpus::find(session("korpus_id")));
     }
 }

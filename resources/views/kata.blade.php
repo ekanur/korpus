@@ -11,7 +11,7 @@
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header border-0 shadow">
-                            <h3 class="mb-0">Frekuensi {{$judul}}</h3>
+                            <h3 class="mb-0">Daftar Kata</h3>
                         </div>
                         <!-- Light table -->
                         <div class="table-responsive">
@@ -22,42 +22,23 @@
                                         <th scope="col" class="sort" data-sort="kata">{{$judul}}</th>
                                         <th scope="col" class="sort" data-sort="frekuensi">Frekuensi</th>
                                         <th scope="col" class="sort" data-sort="status">Persentase</th>
-                                        <th scope="col" class="sort" data-sort="frekuensi">Frekuensi Dokumen</th>
-                                        <th scope="col" class="sort" data-sort="status">Persentase</th>
+                                        {{-- <th scope="col" class="sort" data-sort="frekuensi">Frekuensi Dokumen</th>
+                                        <th scope="col" class="sort" data-sort="status">Persentase</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody class="list">
-                                        @foreach($kata as $kata)
+                                        @foreach($kata as $key => $value)
                                         <tr>
                                         <td>
-                                            {{ $kata->kata_dasar ?? $kata->kolokasi}}
+                                            {{ $key }}
                                         </td>
                                         <td>
-                                            {{ $kata->frekuensi_kata }}
+                                            {{ count($value) }}
                                         </td>
                                         <td>
-                                            <div class="d-flex align-items-center">
-                                                <span class="completion mr-2">{{ $kata->frekuensi_kata_persen }}%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{$kata->frekuensi_kata_persen}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$kata->frekuens_kata_persen}}%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {{ round(count($value)/count($kata), 3) }}
                                         </td>
-                                        <td>
-                                            {{ $kata->frekuensi_dokumen }}
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <span class="completion mr-2">{{ $kata->frekuensi_dokumen_persen }}%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $kata->frekuensi_dokumen_persen }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $kata->frekuensi_dokumen_persen }}%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
+
                                         </tr>
                                         @endforeach
                                 </tbody>

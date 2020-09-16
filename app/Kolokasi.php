@@ -14,4 +14,9 @@ class Kolokasi extends Model
         return $this->belongsTo("App\Korpus");
     }
 
+    public function analisaKolokasi()
+    {
+        return $this->hasMany("App\AnalisaKolokasi");
+    }
+
 }
