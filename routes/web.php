@@ -20,7 +20,9 @@ Route::get('pilih_korpus', "KorpusController@pilihKorpus");
 Route::get('dashboard', "KorpusController@dashboard");
 Route::get('kata', "KorpusController@kata");
 Route::get('kolokasi', "KorpusController@kolokasi");
-Route::get('literatur', "KorpusController@literatur");
+// Route::get('literatur', "KorpusController@literatur");
+Route::get('literatur/{id}', "KorpusController@viewLiteratur");
+Route::get('literatur/{id}/{kata}', "KorpusController@konkordansi");
 
 Route::get('cari', "KorpusController@cari");
 

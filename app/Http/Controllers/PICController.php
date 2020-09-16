@@ -192,8 +192,7 @@ class PICController extends Controller
         unset($literatur->path);
         // dd($daftar_kata['yang']);
 
-        return view("pic.report_literatur")->with("literatur", $literatur)->with("daftar_kata", $daftar_kata
-    );
+        return view("pic.report_literatur")->with("literatur", $literatur)->with("daftar_kata", $daftar_kata);
     }
 
     public function konkordansi($id, $kata)
@@ -214,7 +213,5 @@ class PICController extends Controller
 
         return view("pic.konkordansi")->with("konkordansi", $konkordansi)->with("kata", $kata)->with("literatur", $literatur);
     }
-
-
 
 }

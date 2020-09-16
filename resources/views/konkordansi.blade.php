@@ -1,9 +1,8 @@
 @extends("template.layout")
 
 @section("header")
-    @include("template.dashboard_header")
+    @include("template.header")
 @endsection
-
 @section("content")
 <div class="row">
     <div class="col-xl-12 order-xl-1">
@@ -67,16 +66,9 @@
 @endsection
 
 @section("sidebar")
-    @include("template.picsidebar")
+    @include("template.sidebar")
 @endsection
 
 @section("footer")
     @include("template.footer")
 @endsection
-
-@section('js')
-<script>
-
-</script>
-@endsection
-

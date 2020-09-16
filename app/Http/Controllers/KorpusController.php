@@ -72,6 +72,39 @@ class KorpusController extends Controller
         return view("literatur")->with(["literatur" => $literatur, "korpus"=>$korpus]);
     }
 
+    public function viewLiteratur($id)
+    {
+        $literatur = Literatur::whereId($id)->whereKorpusId(session("korpus_id"))->firstOrFail();
+        $literatur->analisaKolokasi()->where("jumlah", "!=", "0")->get();
+        $daftar_kata = collect(json_decode(strtolower($literatur->json_konten)))->map(function($value, $key){
+            return collect($value)->put("posisi", $key);
+        })->groupBy("kata")->sortKeys();
+
+        // $literatur = collect($literatur)->except(['json_konten', 'path']);
+        unset($literatur->json_konten);
+        unset($literatur->path);
+        return view("detail_literatur")->with("literatur", $literatur)->with("korpus", Korpus::find(session("korpus_id")))->with("daftar_kata", $daftar_kata);
+    }
+
+    public function konkordansi($id, $kata)
+    {
+        $literatur = Literatur::whereId($id)->whereJsonContains("json_konten", ['kata' => $kata])->firstOrFail();
+        $kata_ditemukan = collect(json_decode($literatur->json_konten))->where("kata", $kata);
+        // dd($kata_ditemukan);
+        $konkordansi = $kata_ditemukan->map(function($item, $key) use($literatur){
+            return "...".collect(json_decode($literatur->json_konten))->slice($key-20, 40)->implode("kata", " ")."...";
+        });
+
+        // dd($konkordansi);
+
+        $konkordansi = $konkordansi->map(function($item, $key) use($kata){
+            // dd($kata);
+            return str_replace($kata, "<u><strong>".$kata."</strong></u>", $item);
+        });
+
+        return view("konkordansi")->with("konkordansi", $konkordansi)->with("kata", $kata)->with("literatur", $literatur)->with("korpus", Korpus::find(session("korpus_id")));
+    }
+
     public function cari(Request $request){
         $keyword = ($request->keyword == trim($request->keyword) && strpos($request->keyword, ' ') !== false)? explode(" ", $request->keyword):array($request->keyword);
         $literatur = Literatur::whereKorpusId(session("korpus_id"));
