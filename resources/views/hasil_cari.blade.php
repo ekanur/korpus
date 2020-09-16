@@ -16,20 +16,21 @@
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col" class="sort" data-sort="name" width="40%"></th>
-                                        <th scope="col" class="sort" width="10%" data-sort="completion"></th>
+                                        <th scope="col" class="sort" data-sort="name" width="40%">No.</th>
+                                        <th scope="col" class="sort" width="10%" data-sort="completion">Hasil Pencarian</th>
                                         <!-- <th scope="col"></th> -->
                                     </tr>
                                 </thead>
                                 <tbody class="list">
-                                    @foreach($literatur as $literatur)
+                                    @foreach($kata_ditemukan as $kata_ditemukan)
                                         <tr>
                                         <td class="budget">
+                                            {{$loop->iteration}}
                                             {{-- {{$literatur->kategori->kategori}} - <small class="text-muted">{{$literatur->kategori->subKategori}}</small> --}}
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                {{-- {{$literatur->jumlah_kata}} --}}
+                                                {!!$kata_ditemukan[0]!!}
                                             </div>
                                         </td>
 

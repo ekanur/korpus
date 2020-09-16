@@ -12,7 +12,7 @@
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link @if(\Request::is('dashboard/*')  or \Request::is('dashboard') or \Request::is('literatur/*') or \Request::is('literatur')) active @endif" href="{{url("dashboard")}}">
+                            <a class="nav-link @if(\Request::is('dashboard/*')  or \Request::is('dashboard') or \Request::is('literatur/*') or \Request::is('literatur') or \Request::is('cari*')) active @endif" href="{{url("dashboard")}}">
                                 <i class="ni ni-tv-2 text-primary"></i>
                                 <span class="nav-link-text">Literatur</span>
                             </a>

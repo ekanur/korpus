@@ -19,10 +19,16 @@
                     <form action="{{url("cari")}}" method="get" class="navbar-search navbar-search-light form-inline mr-sm-3" style="width: 700%;" id="navbar-search-main">
                             <div class="form-group mb-0">
                                 <div class="input-group input-group-alternative input-group-merge">
-                                    <!-- <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                        </div> -->
-                                    <input class="form-control" placeholder="Pencarian Korpus ..." type="text" name="keyword">
+                                    @if(\Request::is("literatur/*") or \Request::get('pencarian') == 'literatur')
+                                    <div class="input-group-prepend" style="max-width: 150px;margin-right:10px">
+                                        <select name="pencarian" id="" class="form-control col-sm-12">
+                                            <option value="literatur">Dalam Literatur</option>
+                                            <option value="korpus">Dalam Korpus</option>
+                                        </select>
+                                    </div>
+                                    <input type="hidden" name="id" value="{{ \Request::get('id') ?? $literatur->id }}">
+                                    @endif
+                                    <input class="form-control" placeholder="Kata Kunci ..." type="text" name="keyword" value="{{\Request::get('keyword') ?? ''}}">
                                     <div class="input-group-prepend">
                                         <!-- <span class="input-group-text"><i class="fas fa-search"></i></span> -->
                                         <button class="btn btn-secondary my-2 my-sm-0" type="submit" style="border-radius:0 2rem 2rem 0"><i class="fas fa-search"></i></button>

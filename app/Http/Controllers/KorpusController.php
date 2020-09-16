@@ -106,32 +106,52 @@ class KorpusController extends Controller
     }
 
     public function cari(Request $request){
-        $keyword = ($request->keyword == trim($request->keyword) && strpos($request->keyword, ' ') !== false)? explode(" ", $request->keyword):array($request->keyword);
-        $literatur = Literatur::whereKorpusId(session("korpus_id"));
-        if (sizeof($keyword) > 1) {
-            // echo 'has spaces, but not at beginning or end';
-            // $keyword = explode(" ", strtolower($request->keyword));
-            $literatur = $literatur->whereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  '".$keyword[0]."', NULL, '$[*].kata') is not null");
-            // unset($keyword[0]);
-            foreach($keyword as $cari){
-                $literatur = $literatur->orWhereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  '".$cari."', NULL, '$[*].kata') is not null");
+        $pencarian = $request->pencarian ?? "korpus";
+        $keyword = $request->keyword;
+        $kata_ditemukan = array();
+
+        if($pencarian == 'literatur'){
+            $literatur = Literatur::find($request->id);
+            // dd(json_decode($literatur->json_konten));
+            $konten = implode(" ", array_map(function($konten){
+                return $konten->kata;
+            }, json_decode($literatur->json_konten)));
+
+            preg_match_all("/[^.]* ".$request->keyword." [^.]*\./i", $konten, $result, PREG_OFFSET_CAPTURE);
+            // dd(collect($result[0]));
+            if(sizeof($result[0])>0){
+
+                $kata_ditemukan = collect($result[0])->map(function($line) use($keyword){
+                    return str_ireplace($keyword, "&nbsp;<strong><u>".$keyword."</u></strong>&nbsp;", $line);
+                });
             }
-        }else{
-            $literatur = $literatur->whereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  '".$keyword[0]."', NULL, '$[*].kata') is not null");
         }
-        // dd($keyword);
+        // $keyword = ($request->keyword == trim($request->keyword) && strpos($request->keyword, ' ') !== false)? explode(" ", $request->keyword):array($request->keyword);
+        // $literatur = Literatur::whereKorpusId(session("korpus_id"));
+        // if (sizeof($keyword) > 1) {
+        //     // echo 'has spaces, but not at beginning or end';
+        //     // $keyword = explode(" ", strtolower($request->keyword));
+        //     $literatur = $literatur->whereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  '".$keyword[0]."', NULL, '$[*].kata') is not null");
+        //     // unset($keyword[0]);
+        //     foreach($keyword as $cari){
+        //         $literatur = $literatur->orWhereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  '".$cari."', NULL, '$[*].kata') is not null");
+        //     }
+        // }else{
+        //     $literatur = $literatur->whereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  '".$keyword[0]."', NULL, '$[*].kata') is not null");
+        // }
+        // // dd($keyword);
 
 
-        $literatur = $literatur->paginate(20);
-        $literatur->getCollection()->transform(function($value) use($keyword){
-            $hasil = collect(json_decode($value->json_konten))->whereIn("kata", $keyword);
-            // dd($hasil);
-            return $hasil;
-        });
+        // $literatur = $literatur->paginate(20);
+        // $literatur->getCollection()->transform(function($value) use($keyword){
+        //     $hasil = collect(json_decode($value->json_konten))->whereIn("kata", $keyword);
+        //     // dd($hasil);
+        //     return $hasil;
+        // });
 
-        dd($literatur);
+        // dd($literatur);
 
-        return view("hasil_cari")->with(["literatur" => $literatur , "korpus" => Korpus::find(session("korpus_id"))]);
-
+        // return view("hasil_cari")->with(["literatur" => $literatur , "korpus" => Korpus::find(session("korpus_id"))]);
+            return view("hasil_cari")->with("kata_ditemukan", $kata_ditemukan)->with("korpus", Korpus::find(session("korpus_id")));
     }
 }
