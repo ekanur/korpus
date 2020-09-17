@@ -16,8 +16,8 @@
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col" class="sort" data-sort="name" width="40%">No.</th>
-                                        <th scope="col" class="sort" width="10%" data-sort="completion">Hasil Pencarian</th>
+                                        <th scope="col" class="sort" data-sort="name" width="1%">No.</th>
+                                        <th scope="col" class="sort" width="99%" data-sort="completion">Hasil Pencarian</th>
                                         <!-- <th scope="col"></th> -->
                                     </tr>
                                 </thead>
