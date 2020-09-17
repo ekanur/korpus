@@ -30,7 +30,7 @@
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                {!!$kata_ditemukan[0]!!}
+                                                <p class="text-wrap">{!!$kata_ditemukan[0]!!}</p>
                                             </div>
                                         </td>
 
