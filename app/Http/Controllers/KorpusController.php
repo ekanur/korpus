@@ -49,13 +49,14 @@ class KorpusController extends Controller
         $korpus->jumlah_token = $jumlah_token;
 
         // dd($korpus);
-        return view("dashboard")->with(["korpus" => $korpus, "literatur" => Literatur::where("korpus_id", session("korpus_id"))->get()]);
+        return view("dashboard")->with(["korpus" => $korpus, "literatur" => Literatur::has("analisaLiteratur")->where("korpus_id", session("korpus_id"))->get()]);
     }
 
     function kata() {
         $korpus = Korpus::findOrFail(session("korpus_id"));
         // $literatur = Literatur::whereKorpusId(session("korpus_id"))->whereRaw("JSON_SEARCH(LOWER(json_konten), 'all',  't', NULL, '$[*].tipe') is not null")->paginate(10);
-        $literatur = Literatur::whereKorpusId(session("korpus_id"))->paginate(10);
+        $literatur = Literatur::has("analisaLiteratur")->whereKorpusId(session("korpus_id"))->get();
+        // dd($literatur);
         $literatur = $literatur->map(function($value){
             return json_decode($value->json_konten);
         })->flatten(1)->groupBy("kata")->sortKeys();
@@ -74,7 +75,7 @@ class KorpusController extends Controller
 
     function literatur() {
         $korpus = Korpus::findOrFail(session("korpus_id"));
-        $literatur = Literatur::where("korpus_id", session("korpus_id"))->get();
+        $literatur = Literatur::has("analisaLiteratur")->where("korpus_id", session("korpus_id"))->get();
 
         return view("literatur")->with(["literatur" => $literatur, "korpus"=>$korpus]);
     }
@@ -118,7 +119,7 @@ class KorpusController extends Controller
         $kata_ditemukan = array();
 
         if($pencarian == 'literatur'){
-            $literatur = Literatur::find($request->id);
+            $literatur = Literatur::has("analisaLiteratur")->with("analisaLiteratur")->find($request->id);
             // dd(json_decode($literatur->json_konten));
             $konten = implode(" ", array_map(function($konten){
                 return $konten->kata;
@@ -133,8 +134,40 @@ class KorpusController extends Controller
                 });
             }
         }else{
-            $literatur = Literatur::whereKorpusId(session('session_id'))->paginate(10);
+            $literatur = Literatur::has("analisaLiteratur")->whereKorpusId(session('korpus_id'))->get();
+            $literatur = $literatur->map(function($value, $key){
+                return array("konten"=>implode(" ", array_map(function($konten){
+                                                return $konten->kata;
+                                            }, json_decode($value->json_konten))),
+                            "judul" => $value->judul,
+                            "id" => $value->id,
+                            "uploaded_by" => $value->uploadedBy->name
+                );
+
+            });
+
+            $kata_ditemukan = $literatur->map(function($value, $key) use($keyword){
+                preg_match_all("/[^.]* ".$keyword." [^.]*\./i", $value['konten'], $result, PREG_OFFSET_CAPTURE);
+                // dd($result);
+                // $value['kata_ditemukan'] = $result;
+                // // dd($value['kata_ditemukan']);
+                // unset($value["konten"]);
+
+                return array("judul"=>$value['judul'], "id"=>$value["id"], "uploaded_by"=>$value["uploaded_by"], "hasil_pencarian"=>collect($result)->flatten(1));
+            });
+            // $kata_ditemukan = $kata_ditemukan->each(function($value, $key) use($keyword){
+            //     $value['hasil_pencarian']->map(function($value) use($keyword){
+            //         return str_ireplace($keyword, "&nbsp;<strong><u>".$keyword."</u></strong>&nbsp;", $value);
+            //     });
+            // });
+
+            $kata_ditemukan = $kata_ditemukan->filter(function($value){
+                return sizeof($value["hasil_pencarian"]) != 0;
+            });
+            // $kata_ditemukan = array_push($litera)
+            // dd($kata_ditemukan);
             // $literatur->konten = MemberController::getContent($literatur->path);
+            return view("hasil_cari_korpus")->with("kata_ditemukan", $kata_ditemukan)->with("korpus", Korpus::find(session("korpus_id")))->with("keyword", $keyword);
         }
     return view("hasil_cari")->with("kata_ditemukan", $kata_ditemukan)->with("korpus", Korpus::find(session("korpus_id")));
     }

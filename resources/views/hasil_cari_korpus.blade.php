@@ -1,0 +1,57 @@
+@extends("template.layout")
+
+@section("header")
+    @include("template.header")
+@endsection
+@section("content")
+    <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <!-- Card header -->
+                        <div class="card-header border-0">
+                            <h3 class="mb-0">Hasil Pencarian Dalam Korpus</h3>
+                        </div>
+                        <!-- Light table -->
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                        {{-- <th scope="col" class="sort" data-sort="name" width="5%">No.</th> --}}
+                                        <th scope="col" class="sort" width="95%" data-sort="completion">Hasil Pencarian</th>
+                                        <!-- <th scope="col"></th> -->
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+                                    @foreach($kata_ditemukan as $kata_ditemukan)
+                                        <tr>
+                                        <td>
+                                                @foreach ($kata_ditemukan["hasil_pencarian"] as $hasil_pencarian)
+                                                    <h4><a href="{{url("/literatur/".$kata_ditemukan["id"])}}">{{strtoupper($kata_ditemukan["judul"])}}</a></h4>
+                                                    <p class="text-wrap">{!!str_ireplace($keyword, "&nbsp;<strong><u>".$keyword."</u></strong>&nbsp;", $hasil_pencarian[0])!!}</p>
+                                                    <small>oleh <strong>{{$kata_ditemukan["uploaded_by"]}}</strong></small>
+                                                @endforeach
+                                        </td>
+
+                                    </tr>
+                                    @endforeach
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Card footer -->
+                        <div class="card-footer py-4">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+@endsection
+
+@section("sidebar")
+    @include("template.sidebar")
+@endsection
+
+@section("footer")
+    @include("template.footer")
+@endsection
