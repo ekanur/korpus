@@ -22,7 +22,7 @@ Route::get('kata', "KorpusController@kata");
 Route::get('kolokasi', "KorpusController@kolokasi");
 // Route::get('literatur', "KorpusController@literatur");
 Route::get('literatur/{id}', "KorpusController@viewLiteratur");
-Route::get('literatur/{id}/{kata}', "KorpusController@konkordansi");
+// Route::get('literatur/{id}/{kata}', "KorpusController@konkordansi");
 
 Route::get('cari', "KorpusController@cari");
 
@@ -87,5 +87,5 @@ Route::prefix("pic")->middleware("pic")->group(function(){
     Route::get("literatur", "PICController@literatur");
     Route::get("literatur/{id}", "PICController@analisaLiteratur");
     Route::get("report_literatur/{id}", "PICController@reportLiteratur");
-    Route::get("report_literatur/{id}/{kata}", "PICController@konkordansi");
+    // Route::get("report_literatur/{id}/{kata}", "PICController@konkordansi");
 });

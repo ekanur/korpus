@@ -9,7 +9,7 @@
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Hasil Pencarian</h3>
+                        <h3 class="mb-0">Hasil Pencarian <em>"{{$keyword}}"</em>&nbsp; Pada Literatur {{strtoupper($judul_literatur)}}</h3>
                         </div>
                         <!-- Light table -->
                         <div class="table-responsive">

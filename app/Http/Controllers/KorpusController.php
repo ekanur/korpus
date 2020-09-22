@@ -84,10 +84,12 @@ class KorpusController extends Controller
     {
         $literatur = Literatur::whereId($id)->whereKorpusId(session("korpus_id"))->firstOrFail();
         $literatur->analisaKolokasi()->where("jumlah", "!=", "0")->get();
-        $daftar_kata = collect(json_decode(strtolower($literatur->json_konten)))->map(function($value, $key){
-            return collect($value)->put("posisi", $key);
+        $daftar_kata = collect(json_decode(strtolower($literatur->json_konten)))->each(function($value, $key){
+            $value->kata = str_replace(array('.', ','), '' , $value->kata);
+        })->filter(function($value){
+            return (!preg_match('/[^a-z]+/i',$value->kata));
         })->groupBy("kata")->sortKeys();
-
+        // dd($daftar_kata);
         // $literatur = collect($literatur)->except(['json_konten', 'path']);
         unset($literatur->json_konten);
         unset($literatur->path);
@@ -115,7 +117,7 @@ class KorpusController extends Controller
 
     public function cari(Request $request){
         $pencarian = $request->pencarian ?? "korpus";
-        $keyword = $request->keyword;
+        $keyword = preg_quote($request->keyword);
         $kata_ditemukan = array();
 
         if($pencarian == 'literatur'){
@@ -169,6 +171,6 @@ class KorpusController extends Controller
             // $literatur->konten = MemberController::getContent($literatur->path);
             return view("hasil_cari_korpus")->with("kata_ditemukan", $kata_ditemukan)->with("korpus", Korpus::find(session("korpus_id")))->with("keyword", $keyword);
         }
-    return view("hasil_cari")->with("kata_ditemukan", $kata_ditemukan)->with("korpus", Korpus::find(session("korpus_id")));
+    return view("hasil_cari")->with("kata_ditemukan", $kata_ditemukan)->with("korpus", Korpus::find(session("korpus_id")))->with("judul_literatur", $literatur->judul)->with("keyword", $keyword);
     }
 }

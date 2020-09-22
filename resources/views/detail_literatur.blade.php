@@ -139,12 +139,12 @@
                         @foreach($daftar_kata as $key => $value)
                             <tr>
                             <td scope="row">
-                            <a href="{{url("literatur/".$literatur->id."/".$key)}}" class="h5">{{ $key }}</a>
+                            <a href="{{url("cari?pencarian=literatur&id=".$literatur->id."&keyword=".$key)}}" class="h5">{{ $key }}</a>
                             </td>
                             <td class="budget">
-                                @if ($value[0]['tipe'] == 't')
+                                @if ($value[0]->tipe == 't')
                                     <p class="badge badge-warning">Token</p>
-                                @elseif($value[0]['tipe'] == 'k')
+                                @elseif($value[0]->tipe == 'k')
                                     <p class="badge badge-success">Kata Dasar</p>
                                 @else
                                     <em class="text-muted">Belum tersedia di database</em>
