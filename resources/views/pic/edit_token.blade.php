@@ -21,32 +21,22 @@
             <div class="card-header border-0 shadow">
                 <div class="row align-text-center">
                     <div class="col">
-                        <h3 class="mb-0">Edit Kata Dasar</h3>
+                        <h3 class="mb-0">Edit Token</h3>
                     </div>
 
                 </div>
             </div>
-            <form action="{{url("admin/update_kata_dasar")}}" method="post" enctype="">
+            <form action="{{url("pic/update_token")}}" method="post" enctype="">
                 <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
                 {{ csrf_field() }}
-                <input type="hidden" name="id" value="{{$kata_dasar->id}}">
+                <input type="hidden" name="id" value="{{$token->id}}">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-4">
+
+                        <div class="col-lg-12">
                           <div class="form-group">
-                            <label class="form-control-label" for="input-username">Korpus</label>
-                            <!--<input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">-->
-                            <select name="korpus" class="form-control">
-                                @foreach($korpus as $korpus_data)
-                                    <option @if ($korpus_data->id === $kata_dasar->korpus_id) selected @endif value="{{$korpus_data->id}}">{{$korpus_data->jenis}}</option>
-                                @endforeach
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form-group">
-                            <label class="form-control-label" for="input-first-name">kata_dasar</label>
-                          <input required type="text" name="kata_dasar" id="input-first-name" class="form-control" placeholder="kata_dasar" value="{{ $kata_dasar->kata_dasar }}">
+                            <label class="form-control-label" for="input-first-name">token</label>
+                          <input required type="text" name="token" id="input-first-name" class="form-control" placeholder="token" value="{{ $token->token }}">
                         </div>
                     </div>
                     <div class="col-lg-2">
@@ -73,7 +63,7 @@
 @endsection
 
 @section("sidebar")
-    @include("template.adminsidebar")
+    @include("template.picsidebar")
 @endsection
 
 @section("footer")

@@ -23,6 +23,24 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link @if(\Request::is('pic/kolokasi/*')  or \Request::is('pic/kolokasi')) active @endif" href="{{url("pic/kolokasi")}}" target="">
+                            <i class="ni ni-palette"></i>
+                            <span class="nav-link-text">Kolokasi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(\Request::is('pic/kata_dasar/*')  or \Request::is('pic/kata_dasar')) active @endif" href="{{url("pic/kata_dasar")}}" target="">
+                            <i class="ni ni-bullet-list-67"></i>
+                            <span class="nav-link-text">Kata Dasar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(\Request::is('pic/token/*')  or \Request::is('pic/token')) active @endif" href="{{url("pic/token")}}" target="">
+                            <i class="ni ni-caps-small"></i>
+                            <span class="nav-link-text">Token</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link @if(\Request::is('pic/member/*')  or \Request::is('pic/member')) active @endif" href="{{url("pic/member")}}" target="">
                             <i class="ni ni-single-02"></i>
                             <span class="nav-link-text">Member</span>

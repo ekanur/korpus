@@ -46,7 +46,7 @@
                                 {{$loop->iteration}}
                             </td>
                             <td>
-                                <a href="{{url('/admin/token/'.$token->id)}}">{{$token->token}}</a>
+                                <a href="{{url('/pic/token/'.$token->id)}}">{{$token->token}}</a>
                             </td>
                             <td>
                                 {{$token->korpus->jenis}}
@@ -81,23 +81,12 @@
                     <div class="text-center text-muted mb-4">
                         Tambah Token Baru
                     </div>
-                    <form action="{{url("admin/token")}}" method="post" enctype="">
+                    <form action="{{url("pic/token")}}" method="post" enctype="">
                         <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
                         {{ csrf_field() }}
                         <div class="pl-lg-4">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">Korpus</label>
-                                        <!--<input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">-->
-                                        <select name="korpus" class="form-control">
-                                            @foreach($korpus as $korpus_data)
-                                            <option value="{{$korpus_data->id}}">{{$korpus_data->jenis}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-first-name">Token</label>
                                         <input required type="text" name="token" id="input-first-name" class="form-control" placeholder="Token" value="">
@@ -123,23 +112,12 @@
                     <div class="text-center text-muted mb-4">
                         Edit Kolokasi
                     </div>
-                    <form action="{{url("admin/edit_token")}}" method="post" enctype="">
+                    <form action="{{url("pic/edit_token")}}" method="post" enctype="">
                         <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
                         {{ csrf_field() }}
                         <div class="pl-lg-4">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">Korpus</label>
-                                        <!--<input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">-->
-                                        <select name="korpus" class="form-control">
-                                            @foreach($korpus as $korpus)
-                                            <option value="{{$korpus->id}}">{{$korpus->jenis}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-first-name">Kolokasi</label>
                                         <input type="text" name="kolokasi" id="input-first-name" class="form-control" placeholder="Kolokasi" value="">
@@ -165,7 +143,7 @@
                     <div class="text-center mb-4">
                         <h3>Apakah anda akan menghapus Token <strong id="kata_dasar"></strong> ?</h3>
                     </div>
-                    <form action="{{url("admin/hapus_token")}}" method="post" enctype="">
+                    <form action="{{url("pic/hapus_token")}}" method="post" enctype="">
                         <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
                         {{ csrf_field() }}
                         <input type="hidden" name="id" value="">
@@ -191,7 +169,7 @@
 @endsection
 
 @section("sidebar")
-@include("template.adminsidebar")
+@include("template.picsidebar")
 @endsection
 
 @section("footer")

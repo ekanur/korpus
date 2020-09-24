@@ -47,7 +47,7 @@
                                 {{$loop->iteration}}
                             </td>
                             <td>
-                            <a href="{{url("/admin/kolokasi/".$kolokasi->id)}}">{{$kolokasi->kolokasi}}</a>
+                            <a href="{{url("/pic/kolokasi/".$kolokasi->id)}}">{{$kolokasi->kolokasi}}</a>
                             </td>
                             <td>
                                 {{$kolokasi->korpus->jenis}}
@@ -82,22 +82,12 @@
                     <div class="text-center text-muted mb-4">
                        Tambah Kolokasi Baru
                     </div>
-                    <form action="{{url("admin/kolokasi")}}" method="post" enctype="">
+                    <form action="{{url("pic/kolokasi")}}" method="post" enctype="">
                         <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
                         {{ csrf_field() }}
                           <div class="row">
-                            <div class="col-lg-6">
-                              <div class="form-group">
-                                <label class="form-control-label" for="input-username">Korpus</label>
-                                <!--<input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">-->
-                                <select name="korpus" class="form-control">
-                                    @foreach($korpus as $korpus_data)
-                                    <option value="{{$korpus_data->id}}">{{$korpus_data->jenis}}</option>
-                                    @endforeach
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-lg-6">
+
+                            <div class="col-lg-12">
                               <div class="form-group">
                                 <label class="form-control-label" for="input-first-name">Kolokasi</label>
                                 <input required type="text" name="kolokasi" id="input-first-name" class="form-control" placeholder="Kolokasi" value="">
@@ -124,7 +114,7 @@
                         <h3>Apakah anda akan menghapus Kolokasi <strong id="kolokasi"></strong> ?</h3>
                     </div>
 
-                    <form action="{{url("admin/hapus_kolokasi")}}" method="post" enctype="">
+                    <form action="{{url("pic/hapus_kolokasi")}}" method="post" enctype="">
                         <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
                         {{ csrf_field() }}
                         <input type="hidden" name="id" value="">
@@ -150,7 +140,7 @@
 @endsection
 
 @section("sidebar")
-    @include("template.adminsidebar")
+    @include("template.picsidebar")
 @endsection
 
 @section("footer")

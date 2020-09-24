@@ -7,6 +7,7 @@ use App\Kolokasi;
 use App\User;
 use App\Literatur;
 use App\Token;
+use App\Korpus;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -212,6 +213,124 @@ class PICController extends Controller
         });
 
         return view("pic.konkordansi")->with("konkordansi", $konkordansi)->with("kata", $kata)->with("literatur", $literatur);
+    }
+
+    public function kolokasi(){
+
+        return view("pic.kolokasi")->with('kolokasi', Kolokasi::whereKorpusId(Auth::user()->korpus->id)->get());
+    }
+
+    public function simpanKolokasi(Request $request)
+    {
+        $kolokasi = new Kolokasi();
+        $kolokasi->korpus_id = Auth::user()->korpus->id;
+        $kolokasi->kolokasi = $request->kolokasi;
+        $kolokasi->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil menyimpan Kolokasi Baru");
+    }
+
+    public function editKolokasi($id)
+    {
+        $kolokasi = Kolokasi::find($id);
+
+        return view("pic.edit_kolokasi")->with("kolokasi", $kolokasi);
+    }
+
+    public function updateKolokasi(Request $request)
+    {
+        $kolokasi = Kolokasi::find($request->id);
+        $kolokasi->korpus_id = Auth::user()->korpus->id;
+        $kolokasi->kolokasi = $request->kolokasi;
+        $kolokasi->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil mengubah Kolokasi");
+    }
+
+    public function hapusKolokasi(Request $request)
+    {
+        Kolokasi::destroy($request->id);
+
+        return redirect()->back()->with("msg_success", "Berhasil menghapus Kolokasi");
+    }
+
+    public function kataDasar(){
+
+        return view("pic.kata_dasar")->with('kata_dasar', KataDasar::whereKorpusId(Auth::user()->korpus->id)->get());
+    }
+
+    public function editKataDasar($id)
+    {
+        $kata_dasar = KataDasar::findOrFail($id);
+
+        return view("pic.edit_kata_dasar")->with("kata_dasar", $kata_dasar)->with("korpus", Korpus::all());
+
+    }
+
+    public function updateKataDasar(Request $request)
+    {
+        $kata_dasar = KataDasar::find($request->id);
+        $kata_dasar->kata_dasar = $request->kata_dasar;
+        $kata_dasar->korpus_id = Auth::user()->korpus->id;
+        $kata_dasar->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil mengubah Kata Dasar");
+    }
+
+    public function simpanKataDasar(Request $request)
+    {
+        $kata_dasar = new KataDasar();
+        $kata_dasar->korpus_id = Auth::user()->korpus->id;
+        $kata_dasar->kata_dasar = $request->kata_dasar;
+        $kata_dasar->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil menyimpan Kata Dasar Baru");
+    }
+
+    public function hapusKataDasar(Request $request)
+    {
+        KataDasar::destroy($request->id);
+
+        return redirect()->back()->with("msg_success", "Berhasil menghapus Kata Dasar");
+    }
+
+    public function token(){
+
+        return view("pic.token")->with('token', Token::whereKorpusId(Auth::user()->korpus->id)->get());
+    }
+
+    public function editToken($id)
+    {
+        $token = Token::findOrFail($id);
+
+        return view("pic.edit_token")->with('token', $token)->with("korpus", Korpus::all());
+    }
+
+    public function updateToken(Request $request)
+    {
+        $token = Token::find($request->id);
+        $token->token = $request->token;
+        $token->korpus_id = Auth::user()->korpus->id;
+        $token->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil mengubah Token");
+    }
+
+    public function simpanToken(Request $request)
+    {
+        $token = new Token();
+        $token->korpus_id = Auth::user()->korpus->id;
+        $token->token = $request->token;
+        $token->save();
+
+        return redirect()->back()->with("msg_success", "Berhasil menyimpan Token Baru");
+    }
+
+    public function hapusToken(Request $request)
+    {
+        Token::destroy($request->id);
+
+        return redirect()->back()->with("msg_success", "Berhasil menghapus Token");
     }
 
 }

@@ -31,30 +31,13 @@ Route::post('upload', "ReadDocController@upload");
 
 Route::prefix("admin")->middleware("admin")->group(function(){
     Route::get("/", "AdminController@index")->name("admin");
-    Route::get("/kolokasi", "AdminController@kolokasi");
-    Route::post('/kolokasi', "AdminController@simpanKolokasi");
-    Route::get("/kolokasi/{id}", "AdminController@editKolokasi");
-    Route::post("/update_kolokasi", "AdminController@updateKolokasi");
-    Route::post("/hapus_kolokasi", "AdminController@hapusKolokasi");
+
     Route::get('/user', "AdminController@user");
     Route::get('/user/{id}', "AdminController@editUser");
     Route::get('/korpus/{id}', "AdminController@korpus");
     Route::post('/korpus', "AdminController@editKorpus");
     Route::post('/edit_user', "AdminController@updateUser");
     Route::post('/reset_user', "AdminController@resetUser");
-
-
-    Route::get("/kata_dasar", "AdminController@kataDasar");
-    Route::get("/kata_dasar/{id}", "AdminController@editKataDasar");
-    Route::post("/update_kata_dasar", "AdminController@updateKataDasar");
-    Route::post("/kata_dasar", "AdminController@simpanKataDasar");
-    Route::post("/hapus_kataDasar", "AdminController@hapusKataDasar");
-
-    Route::get("/token", "AdminController@token");
-    Route::get("/token/{id}", "AdminController@editToken");
-    Route::post("/token", "AdminController@simpanToken");
-    Route::post("/update_token", "AdminController@updateToken");
-    Route::post("/hapus_token", "AdminController@hapusToken");
 
     Route::get('/analisa_korpus/{id}', "AdminController@analisaKorpus");
     Route::get('/report_korpus/{id}', "AdminController@reportKorpus");
@@ -88,4 +71,22 @@ Route::prefix("pic")->middleware("pic")->group(function(){
     Route::get("literatur/{id}", "PICController@analisaLiteratur");
     Route::get("report_literatur/{id}", "PICController@reportLiteratur");
     // Route::get("report_literatur/{id}/{kata}", "PICController@konkordansi");
+
+    Route::get("/kolokasi", "PICController@kolokasi");
+    Route::post('/kolokasi', "PICController@simpanKolokasi");
+    Route::get("/kolokasi/{id}", "PICController@editKolokasi");
+    Route::post("/update_kolokasi", "PICController@updateKolokasi");
+    Route::post("/hapus_kolokasi", "PICController@hapusKolokasi");
+
+    Route::get("/kata_dasar", "PICController@kataDasar");
+    Route::get("/kata_dasar/{id}", "PICController@editKataDasar");
+    Route::post("/update_kata_dasar", "PICController@updateKataDasar");
+    Route::post("/kata_dasar", "PICController@simpanKataDasar");
+    Route::post("/hapus_kataDasar", "PICController@hapusKataDasar");
+
+    Route::get("/token", "PICController@token");
+    Route::get("/token/{id}", "PICController@editToken");
+    Route::post("/token", "PICController@simpanToken");
+    Route::post("/update_token", "PICController@updateToken");
+    Route::post("/hapus_token", "PICController@hapusToken");
 });

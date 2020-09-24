@@ -19,45 +19,6 @@ class AdminController extends Controller
         return view("admin.index")->with('korpus', Korpus::all()->sortBy('urutan'));
     }
 
-    public function kolokasi(){
-
-        return view("admin.kolokasi")->with('kolokasi', Kolokasi::all())->with('korpus', Korpus::all());
-    }
-
-    public function simpanKolokasi(Request $request)
-    {
-        $kolokasi = new Kolokasi();
-        $kolokasi->korpus_id = $request->korpus;
-        $kolokasi->kolokasi = $request->kolokasi;
-        $kolokasi->save();
-
-        return redirect()->back()->with("msg_success", "Berhasil menyimpan Kolokasi Baru");
-    }
-
-    public function editKolokasi($id)
-    {
-        $kolokasi = Kolokasi::find($id);
-
-        return view("admin.edit_kolokasi")->with("kolokasi", $kolokasi)->with('korpus', Korpus::all());
-    }
-
-    public function updateKolokasi(Request $request)
-    {
-        $kolokasi = Kolokasi::find($request->id);
-        $kolokasi->korpus_id = $request->korpus;
-        $kolokasi->kolokasi = $request->kolokasi;
-        $kolokasi->save();
-
-        return redirect()->back()->with("msg_success", "Berhasil mengubah Kolokasi");
-    }
-
-    public function hapusKolokasi(Request $request)
-    {
-        Kolokasi::destroy($request->id);
-
-        return redirect()->back()->with("msg_success", "Berhasil menghapus Kolokasi");
-    }
-
     public function korpus($id)
     {
         return view("admin.korpus")->with('korpus', Korpus::find($id));
@@ -119,84 +80,7 @@ class AdminController extends Controller
         return redirect()->back()->with("msg_success", "Berhasil mereset password.");
     }
 
-    public function kataDasar(){
 
-        return view("admin.kata_dasar")->with('kata_dasar', KataDasar::all())->with('korpus', Korpus::all());
-    }
-
-    public function editKataDasar($id)
-    {
-        $kata_dasar = KataDasar::findOrFail($id);
-
-        return view("admin.edit_kata_dasar")->with("kata_dasar", $kata_dasar)->with("korpus", Korpus::all());
-
-    }
-
-    public function updateKataDasar(Request $request)
-    {
-        $kata_dasar = KataDasar::find($request->id);
-        $kata_dasar->kata_dasar = $request->kata_dasar;
-        $kata_dasar->korpus_id = $request->korpus;
-        $kata_dasar->save();
-
-        return redirect()->back()->with("msg_success", "Berhasil mengubah Kata Dasar");
-    }
-
-    public function simpanKataDasar(Request $request)
-    {
-        $kata_dasar = new KataDasar();
-        $kata_dasar->korpus_id = $request->korpus;
-        $kata_dasar->kata_dasar = $request->kata_dasar;
-        $kata_dasar->save();
-
-        return redirect()->back()->with("msg_success", "Berhasil menyimpan Kata Dasar Baru");
-    }
-
-    public function hapusKataDasar(Request $request)
-    {
-        KataDasar::destroy($request->id);
-
-        return redirect()->back()->with("msg_success", "Berhasil menghapus Kata Dasar");
-    }
-
-    public function token(){
-
-        return view("admin.token")->with('token', Token::all())->with('korpus', Korpus::all());
-    }
-
-    public function editToken($id)
-    {
-        $token = Token::findOrFail($id);
-
-        return view("admin.edit_token")->with('token', $token)->with("korpus", Korpus::all());
-    }
-
-    public function updateToken(Request $request)
-    {
-        $token = Token::find($request->id);
-        $token->token = $request->token;
-        $token->korpus_id = $request->korpus;
-        $token->save();
-
-        return redirect()->back()->with("msg_success", "Berhasil mengubah Token");
-    }
-
-     public function simpanToken(Request $request)
-    {
-        $token = new Token();
-        $token->korpus_id = $request->korpus;
-        $token->token = $request->token;
-        $token->save();
-
-        return redirect()->back()->with("msg_success", "Berhasil menyimpan Token Baru");
-    }
-
-    public function hapusToken(Request $request)
-    {
-        Token::destroy($request->id);
-
-        return redirect()->back()->with("msg_success", "Berhasil menghapus Token");
-    }
 
     public function analisaKorpus($id)
     {

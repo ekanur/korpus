@@ -11,7 +11,9 @@
             <div>
                 <i class="ni ni-single-02"></i>
                 <span>
-                    {{strtoupper(Auth::user()->role)}}
+                    {{strtoupper(Auth::user()->role)}} @unless ("pic" != Auth::user()->role)
+                        - {{Auth::user()->korpus->jenis}}
+                    @endunless
                 </span>
             </div>
           </button>
@@ -23,10 +25,10 @@
                                     <i class="ni ni-app"></i>
                                     <span>Dashboard</span>
                                 </a>
-                                <a href="#!" class="dropdown-item">
+                                {{-- <a href="#!" class="dropdown-item">
                                     <i class="ni ni-single-02"></i>
                                     <span>Profile</span>
-                                </a>
+                                </a> --}}
                                 <!-- <a href="#!" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Settings</span>
@@ -35,10 +37,10 @@
                 <i class="ni ni-calendar-grid-58"></i>
                 <span>Activity</span>
             </a> -->
-                                <a href="#!" class="dropdown-item">
+                                {{-- <a href="#!" class="dropdown-item">
                                     <i class="ni ni-support-16"></i>
                                     <span>Support</span>
-                                </a>
+                                </a> --}}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
