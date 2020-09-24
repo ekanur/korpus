@@ -58,11 +58,21 @@ class KorpusController extends Controller
         $literatur = Literatur::has("analisaLiteratur")->whereKorpusId(session("korpus_id"))->get();
         // dd($literatur);
         $literatur = $literatur->map(function($value){
-            return json_decode($value->json_konten);
-        })->flatten(1)->groupBy("kata")->sortKeys();
+            return json_decode(strtolower($value->json_konten));
+        })->flatten(1);
         // dd($literatur);
 
-        return view("kata")->with(["kata" => $literatur, "korpus"=>$korpus, "judul"=>"Kata"]);
+        // $literatur = Literatur::whereId($id)->whereKorpusId(session("korpus_id"))->firstOrFail();
+        // $literatur->analisaKolokasi()->where("jumlah", "!=", "0")->get();
+        $daftar_kata = $literatur->each(function($value, $key){
+            $value->kata = str_replace(array('.', ','), '' , $value->kata);
+        })->filter(function($value){
+            return (!preg_match('/[^a-z]+/i',$value->kata));
+        })->groupBy("kata")->sortKeys();
+        // dd($daftar_kata);
+        // $literatur = collect($literatur)->except(['json_konten', 'path']);
+
+        return view("kata")->with(["kata" => $daftar_kata, "korpus"=>$korpus, "judul"=>"Kata"]);
     }
 
     function kolokasi() {

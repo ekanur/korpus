@@ -109,7 +109,7 @@
                         <th scope="col" class="sort" data-sort="name" width="40%">Judul</th>
                         <th scope="col" class="sort" data-sort="budget" width="20%">Kategori</th>
                         <!-- <th scope="col" class="sort" data-sort="status">Sub Kategori</th> -->
-                        <th scope="col" width="10%">Jumlah Kata</th>
+                        <th scope="col" width="10%">Tahun Terbit</th>
                         <th scope="col" class="sort" width="10%" data-sort="completion">Kata Dasar</th>
                         <!-- <th scope="col"></th> -->
                     </tr>
@@ -139,7 +139,7 @@
                         </td>
                         <td>
                             <div class="d-flex align-items-center">
-                                {{(null == $literatur->analisaLiteratur)? "Belum dianalisa": $literatur->analisaLiteratur->jumlah_kata}}
+                                {{$literatur->tahun_terbit}}
                             </div>
                         </td>
                         <td>

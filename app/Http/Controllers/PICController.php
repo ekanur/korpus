@@ -184,14 +184,17 @@ class PICController extends Controller
     {
         $literatur = Literatur::whereId($id)->whereKorpusId(Auth::user()->korpus->id)->firstOrFail();
         $literatur->analisaKolokasi()->where("jumlah", "!=", "0")->get();
-        $daftar_kata = collect(json_decode(strtolower($literatur->json_konten)))->map(function($value, $key){
-            return collect($value)->put("posisi", $key);
+        $daftar_kata = collect(json_decode(strtolower($literatur->json_konten)))->each(function($value, $key){
+            $value->kata = str_replace(array('.', ','), '' , $value->kata);
+        })->filter(function($value){
+            return (!preg_match('/[^a-z]+/i',$value->kata));
         })->groupBy("kata")->sortKeys();
-
+        // dd($daftar_kata);
         // $literatur = collect($literatur)->except(['json_konten', 'path']);
         unset($literatur->json_konten);
         unset($literatur->path);
-        // dd($daftar_kata['yang']);
+
+        // dd($literatur);
 
         return view("pic.report_literatur")->with("literatur", $literatur)->with("daftar_kata", $daftar_kata);
     }

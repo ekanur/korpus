@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Kata</h5>
-                        <span class="h2 font-weight-bold mb-0">{{ $literatur->analisaLiteratur->jumlah_kata }}</span>
+                        <span class="h2 font-weight-bold mb-0">{{ count($daftar_kata) }}</span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">

@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Kata</h5>
-                        <span class="h2 font-weight-bold mb-0">{{ $literatur->analisaLiteratur->jumlah_kata }}</span>
+                        <span class="h2 font-weight-bold mb-0">{{ count($daftar_kata) }}</span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">
@@ -143,9 +143,9 @@
                             <a href="{{url("pic/report_literatur/".$literatur->id."/".$key)}}" class="h5">{{ $key }}</a>
                             </td>
                             <td class="budget">
-                                @if ($value[0]['tipe'] == 't')
+                                @if ($value[0]->tipe == 't')
                                     <p class="badge badge-warning">Token</p>
-                                @elseif($value[0]['tipe'] == 'k')
+                                @elseif($value[0]->tipe == 'k')
                                     <p class="badge badge-success">Kata Dasar</p>
                                 @else
                                     <em class="text-muted">Belum tersedia di database</em>
