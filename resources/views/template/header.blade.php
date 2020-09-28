@@ -81,37 +81,42 @@
                                             <div class="form-group">
                                                 <label for="searchKategori" class="form-control-label">Pilih Kategori</label>
                                                 <select class="form-control" id="searchKorpus">
-                                                    <option>Kategori 1</option>
-                                                    <option>Kategori 2</option>
-                                                    <option>Kategori 3</option>
-                                                    <option>Kategori 4</option>
-                                                    <option>Kategori 5</option>
+                                                    {{-- @foreach ($kategori)
+                                                    <option value="{{$kategori->id}}">{{$kategori->kategori}}</option>
+                                                    @endforeach --}}
                                                 </select>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="searchSubkategori" class="form-control-label">Pilih Subkategori</label>
-                                                <select class="form-control" id="searchSubkategori">
-                                                    <option>Subkategori 1</option>
-                                                    <option>Subkategori 2</option>
-                                                    <option>Subkategori 3</option>
-                                                    <option>Subkategori 4</option>
-                                                </select>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="searchSubkategori" class="form-control-label">Terbit Mulai</label>
+                                                        <select name="tahun_terbit" id="" class="form-control">
+                                                            @for ($i = date("Y"); $i >= date("Y")-80 ; $i--)
+                                                                <option value="{{$i}}">{{$i}}</option>
+                                                            @endfor
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="searchSubkategori" class="form-control-label">Hingga</label>
+                                                        <select name="hingga" id="" class="form-control">
+                                                            @for ($i = date("Y"); $i >= date("Y")-80 ; $i--)
+                                                                <option value="{{$i}}">{{$i}}</option>
+                                                            @endfor
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="searchSubkategori" class="form-control-label">Tahun Terbit</label>
-                                                <select name="tahun_terbit" id="" class="form-control">
-    @for ($i = date("Y"); $i >= date("Y")-80 ; $i--)
-        <option value="{{$i}}">{{$i}}</option>
-    @endfor
-</select>
-                                            </div>
+
+
                                             <div class="form-group">
                                                 <label for="searchKata" class="form-control-label">Kata Kunci</label>
                                                 <input type="text" class="form-control" id="searchKata" placeholder="Kata Kunci">
                                             </div>
 
                                             <div class="text-center">
-                                                <button type="button" class="btn btn-primary my-2">Cari</button>
+                                                <button type="submit" class="btn btn-primary my-2">Cari</button>
                                             </div>
                                         </form>
                                     </div>

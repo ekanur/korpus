@@ -97,7 +97,7 @@
                             <div class="col-lg-12">
                               <div class="form-group">
                                 <label class="form-control-label" for="input-username">Nama Kategori *</label>
-                                <input type="text" name="kategori" id="korpus" class="form-control" placeholder="Jenis Korpus" value="">
+                                <input type="text" name="kategori" id="korpus" class="form-control" placeholder="Jenis Korpus" value="" required>
 
                               </div>
                             </div>
