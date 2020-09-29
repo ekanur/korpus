@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(User::class); //admin & pic
         // $this->call(korpus::class);
         factory(App\Korpus::class, 5)->create()->each(function($korpus){
-            $korpus->kategori()->saveMany(factory(App\Kategori::class, 5)->make());
+            $korpus->kategori()->saveMany(factory(App\Kategori::class, 2)->make());
             $korpus->kataDasar()->saveMany(factory(App\KataDasar::class, 8)->make());
             $korpus->kolokasi()->saveMany(factory(App\Kolokasi::class, 8)->make());
             $korpus->token()->saveMany(factory(App\Token::class, 8)->make());
