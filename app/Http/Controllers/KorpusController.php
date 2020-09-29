@@ -146,7 +146,20 @@ class KorpusController extends Controller
                 });
             }
         }else{
-            $literatur = Literatur::has("analisaLiteratur")->whereKorpusId(session('korpus_id'))->get();
+            $kategori = $request->kategori ?? null;
+            $tahun_terbit = $request->tahun_terbit ?? null;
+            $hingga = $request->hingga ?? null;
+
+            $literatur = Literatur::has("analisaLiteratur")->whereKorpusId(session('korpus_id'));
+            if(false == is_null($kategori)){
+                $literatur = $literatur->whereKategoriId($kategori);
+            }
+
+            if(false == is_null($tahun_terbit) && false == is_null($hingga)){
+                $literatur = $literatur->whereBetween("tahun_terbit", [$tahun_terbit, $hingga]);
+            }
+            $literatur = $literatur->get();
+
             $literatur = $literatur->map(function($value, $key){
                 return array("konten"=>implode(" ", array_map(function($konten){
                                                 return $konten->kata;

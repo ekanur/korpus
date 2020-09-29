@@ -6,6 +6,7 @@
 @section("content")
     <div class="row">
                 <div class="col">
+                    @include("template.filter")
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header border-0">

@@ -6,35 +6,7 @@
 @section("content")
     <div class="row">
                 <div class="col">
-                    {{-- <div class="card">
-                        <div class="card-header">
-                            <form action="{{url("cari")}}" method="get">
-                                <div class="form-row">
-
-                                    <div class="col">
-                                        <small class="help-text">
-                                            Kategori
-                                        </small>
-                                      <select name="kategori" id="" class="form-control">
-                                          <option value="">Semua</option>
-                                          <option value="">Semua</option>
-                                          <option value="">Semua</option>
-                                      </select>
-                                    </div>
-                                    <div class="col">
-                                        <small class="help-text">
-                                            Tahun Terbit
-                                        </small>
-                                        <select name="tahun_terbit" id="" class="form-control">
-                                            @for ($i = date("Y"); $i >= date("Y")-80 ; $i--)
-                                                <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                  </div>
-                            </form>
-                        </div>
-                    </div> --}}
+                    @include("template.filter")
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header border-0">

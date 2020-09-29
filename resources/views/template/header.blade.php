@@ -1,3 +1,5 @@
+{{-- {{dd($kategori)}} --}}
+{{-- {{dd($kategori)}} --}}
 <nav class="navbar navbar-top navbar-expand navbar-dark border-bottom">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="">
@@ -36,8 +38,10 @@
                                     </div>
                                 </div>
                             </div>
-                                <small class="form-text pl-3">   atau gunakan <a href="" type="button" data-toggle="modal" data-target="#modal-form">Pencarian Lanjutan</a></small>
+                                <p>
+                                    <small class="form-text pl-4">   atau gunakan <a href="" type="button" data-toggle="modal" data-target="#modal-form">Pencarian Lanjutan</a></small>
 
+                                </p>
                             </div>
                             {{-- <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
                                     <span aria-hidden="true">×</span>
@@ -80,10 +84,11 @@
                                             </div>-->
                                             <div class="form-group">
                                                 <label for="searchKategori" class="form-control-label">Pilih Kategori</label>
-                                                <select class="form-control" id="searchKorpus">
-                                                    {{-- @foreach ($kategori)
+                                                <select class="form-control" id="searchKorpus" name="kategori">
+                                                    <option value="">Semua</option>
+                                                    @foreach ($kategori_literatur as $kategori)
                                                     <option value="{{$kategori->id}}">{{$kategori->kategori}}</option>
-                                                    @endforeach --}}
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="row">
@@ -91,6 +96,7 @@
                                                     <div class="form-group">
                                                         <label for="searchSubkategori" class="form-control-label">Terbit Mulai</label>
                                                         <select name="tahun_terbit" id="" class="form-control">
+                                                            <option value="">Semua</option>
                                                             @for ($i = date("Y"); $i >= date("Y")-80 ; $i--)
                                                                 <option value="{{$i}}">{{$i}}</option>
                                                             @endfor
@@ -101,6 +107,7 @@
                                                     <div class="form-group">
                                                         <label for="searchSubkategori" class="form-control-label">Hingga</label>
                                                         <select name="hingga" id="" class="form-control">
+                                                            <option value="">Semua</option>
                                                             @for ($i = date("Y"); $i >= date("Y")-80 ; $i--)
                                                                 <option value="{{$i}}">{{$i}}</option>
                                                             @endfor
@@ -112,7 +119,7 @@
 
                                             <div class="form-group">
                                                 <label for="searchKata" class="form-control-label">Kata Kunci</label>
-                                                <input type="text" class="form-control" id="searchKata" placeholder="Kata Kunci">
+                                                <input type="text" class="form-control" id="searchKata" name="keyword" placeholder="Kata Kunci">
                                             </div>
 
                                             <div class="text-center">

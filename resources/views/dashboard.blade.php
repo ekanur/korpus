@@ -1,3 +1,4 @@
+{{-- {{dd($kategori)}} --}}
 @extends("template.layout")
 
 @section("header")
