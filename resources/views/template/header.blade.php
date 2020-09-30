@@ -17,37 +17,37 @@
                         </li>
 
                       </ul>
-
+                    @unless (\Request::is("cari") or \Request::is("cari/*"))
                     <form action="{{url("cari")}}" method="get" class="navbar-search navbar-search-light form-inline mr-sm-3" id="">
-                            <div class="form-group mb-0">
-                                <div class="col-12">
-                                <div class="input-group input-group-alternative input-group-merge">
-                                    @if(\Request::is("literatur/*") or \Request::get('pencarian') == 'literatur')
-                                    <div class="input-group-prepend" style="max-width: 150px;margin-right:10px">
-                                        <select name="pencarian" id="" class="form-control col-sm-12">
-                                            <option value="literatur">Dalam Literatur</option>
-                                            <option value="korpus">Dalam Korpus</option>
-                                        </select>
-                                    </div>
-                                    <input type="hidden" name="id" value="{{ \Request::get('id') ?? $literatur->id }}">
-                                    @endif
-                                    <input class="form-control" placeholder="Kata Kunci ..." type="text" name="keyword" value="{{\Request::get('keyword') ?? ''}}">
-                                    <div class="input-group-prepend">
-                                        <!-- <span class="input-group-text"><i class="fas fa-search"></i></span> -->
-                                        <button class="btn btn-success my-2 my-sm-0" type="submit" style="border-radius:0 2rem 2rem 0"><i class="fas fa-search"></i></button>
-                                    </div>
+                        <div class="form-group mb-0">
+                            <div class="col-12">
+                            <div class="input-group input-group-alternative input-group-merge">
+                                @if(\Request::is("literatur/*") or \Request::get('pencarian') == 'literatur')
+                                <div class="input-group-prepend" style="max-width: 150px;margin-right:10px">
+                                    <select name="pencarian" id="" class="form-control col-sm-12">
+                                        <option value="literatur">Dalam Literatur</option>
+                                        <option value="korpus">Dalam Korpus</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" name="id" value="{{ \Request::get('id') ?? $literatur->id }}">
+                                @endif
+                                <input class="form-control" placeholder="Kata Kunci ..." type="text" name="keyword" value="{{\Request::get('keyword') ?? ''}}">
+                                <div class="input-group-prepend">
+                                    <!-- <span class="input-group-text"><i class="fas fa-search"></i></span> -->
+                                    <button class="btn btn-success my-2 my-sm-0" type="submit" style="border-radius:0 2rem 2rem 0"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
-                                <p>
-                                    <small class="form-text pl-4">   atau gunakan <a href="" type="button" data-toggle="modal" data-target="#modal-form">Pencarian Lanjutan</a></small>
+                        </div>
+                            <p>
+                                <small class="form-text pl-4">   atau gunakan <a href="" type="button" data-toggle="modal" data-target="#modal-form">Pencarian Lanjutan</a></small>
 
-                                </p>
-                            </div>
-                            {{-- <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button> --}}
-                        </form>
-
+                            </p>
+                        </div>
+                        {{-- <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button> --}}
+                    </form>
+                    @endunless
 
                     @auth
                         @include("template.adminmenu")
