@@ -56,8 +56,8 @@
     <label class="form-control-label" for="input-username">Korpus</label>
     <!--<input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">-->
     <select name="korpus" class="form-control">
-        @foreach($korpus as $korpus)
-        <option value="{{$korpus->id}}">{{$korpus->jenis}}</option>
+        @foreach($korpus as $korpus_data)
+        <option value="{{$korpus_data->id}}">{{$korpus_data->jenis}}</option>
         @endforeach
     </select>
   </div>
@@ -65,9 +65,11 @@
 <div class="col-lg-6">
   <div class="form-group">
     <label class="form-control-label" for="input-email">Kategori</label>
-    <!--<input type="email" id="input-email" class="form-control" placeholder="jesse@example.com">-->
-    <select class="form-control" name="kategori">
 
+    <select class="form-control" name="kategori">
+        @foreach ($korpus[0]->kategori as $kategori)
+        <option value="{{$kategori->id}}">{{$kategori->kategori}}</option>
+        @endforeach
     </select>
   </div>
 </div>

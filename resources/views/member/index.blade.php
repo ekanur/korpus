@@ -95,38 +95,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="edit" role="dialog" aria-labelledby="modal-form" aria-modal="true" >
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-
-            <div class="modal-body p-0">
-                <div class="card-body px-lg-5 py-lg-4">
-                    <div class="text-center text-muted mb-4">
-                       Edit Korpus
-                    </div>
-                    <form action="{{url("admin/korpus")}}" method="post" enctype="">
-                        <!--<h6 class="heading-small text-muted mb-4">User information</h6>-->
-                        {{ csrf_field() }}
-                        <input type="hidden" name="id" value="">
-                        <div class="row">
-                            <div class="col-lg-12">
-                              <div class="form-group">
-                                <label class="form-control-label" for="input-username">Korpus</label>
-                                <input type="text" name="korpus" id="korpus" class="form-control" placeholder="Jenis Korpus" value="">
-
-                              </div>
-                            </div>
-
-                        </div>
-                          <div class="form-group">
-                              <input type="submit" class="form-control btn btn-success" name="simpan" value="Simpan"/>
-                          </div>
-                      </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 
 @section("sidebar")

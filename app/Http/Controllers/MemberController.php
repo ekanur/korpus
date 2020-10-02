@@ -18,7 +18,8 @@ class MemberController extends Controller
 
     public function literatur()
     {
-        $korpus = Korpus::all();
+        $korpus = Korpus::with("kategori")->get();
+        // dd($korpus[0]);
         return view("member.literatur")->with('korpus', $korpus);
     }
 
