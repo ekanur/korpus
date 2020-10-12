@@ -29,12 +29,12 @@
                                 <span class="nav-link-text">Frekuensi Kolokasi</span>
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a class="nav-link @if(\Request::is('literatur/*') or \Request::is('literatur')) active @endif" href="{{url("literatur")}}">
-                                <i class="ni ni-single-copy-04 text-orange"></i>
-                                <span class="nav-link-text">Literatur</span>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{asset("manual/korpus pengunjung.pdf")}}">
+                                <i class="ni ni-book-bookmark text-orange"></i>
+                                <span class="nav-link-text">Panduan Pengunjung</span>
                             </a>
-                        </li> --}}
+                        </li>
 
                     </ul>
                 </div>

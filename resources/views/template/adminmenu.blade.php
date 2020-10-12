@@ -25,10 +25,10 @@
                                     <i class="ni ni-app"></i>
                                     <span>Dashboard</span>
                                 </a>
-                                {{-- <a href="#!" class="dropdown-item">
-                                    <i class="ni ni-single-02"></i>
-                                    <span>Profile</span>
-                                </a> --}}
+                                <a href="{{asset("/manual/korpus ".Auth::user()->role.".pdf")}}" class="dropdown-item">
+                                    <i class="ni ni-book-bookmark"></i>
+                                    <span>Petunjuk Penggunaan</span>
+                                </a>
                                 <!-- <a href="#!" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Settings</span>
