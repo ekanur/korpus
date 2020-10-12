@@ -155,12 +155,13 @@
             var button = $(event.relatedTarget)
             var id = button.data('id')
             var kolokasi = button.data('kolokasi')
+            console.log(kolokasi)
 
             var modal = $(this)
             modal.find("input[name='id']").val(id)
             modal.find('#kolokasi').text(kolokasi)
         });
-
+    });
 
 </script>
 @endsection
