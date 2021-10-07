@@ -24,7 +24,9 @@ Route::get('kolokasi', "KorpusController@kolokasi");
 Route::get('literatur/{id}', "KorpusController@viewLiteratur");
 // Route::get('literatur/{id}/{kata}', "KorpusController@konkordansi");
 
-Route::get('cari', "KorpusController@cari");
+Route::group(['middleware' => ['sanitize']], function(){
+    Route::get('cari', "KorpusController@cari");
+});
 
 Route::get("tes", "ReadDocController@index");
 Route::post('upload', "ReadDocController@upload");

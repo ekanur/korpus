@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'member' => \App\Http\Middleware\Member::class,
         'pic' => \App\Http\Middleware\PIC::class,
+        'sanitize' => \App\Http\Middleware\XssSanitaze::class
     ];
 }

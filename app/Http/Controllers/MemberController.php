@@ -72,10 +72,15 @@ class MemberController extends Controller
 
     public function parseJson($konten)
     {
+        // $json_konten = array_map(function($value){
+        //     return array("kata"=>$value, "tipe"=>'');
+        // }, explode(" ", $konten));
+        // $json_konten = explode(" ", $konten);
+
         $json_konten = array_map(function($value){
             return array("kata"=>$value, "tipe"=>'');
-        }, explode(" ", $konten));
-
+        }, preg_split("/[\s]+/", $konten));
+        // dd($json_konten);
         return json_encode($json_konten);
     }
 

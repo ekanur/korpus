@@ -29,7 +29,7 @@
                                                 @foreach ($kata_ditemukan["hasil_pencarian"] as $hasil_pencarian)
                                                 <tr>
                                                     <td>
-                                                    <p class="text-wrap">{!!str_ireplace($keyword, "&nbsp;<strong><u>".$keyword."</u></strong>&nbsp;", $hasil_pencarian[0])!!}</p>
+                                                    <p class="text-wrap">...{!!str_replace($keyword, "&nbsp;<strong><u>".$keyword."</u></strong>&nbsp;", $hasil_pencarian)!!}...</p>
                                                 </td>
                                                 <td class="align-middle">
                                                     <a href="{{url("/literatur/".$kata_ditemukan["id"])}}" class="btn btn-sm btn-info align-middle">Lihat Literatur &raquo;</a>

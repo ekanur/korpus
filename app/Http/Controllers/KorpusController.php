@@ -140,10 +140,16 @@ class KorpusController extends Controller
             preg_match_all("/[^.]* ".$request->keyword." [^.]*\./i", $konten, $result, PREG_OFFSET_CAPTURE);
             // dd(collect($result[0]));
             if(sizeof($result[0])>0){
-
+                // dd($result[0]);
                 $kata_ditemukan = collect($result[0])->map(function($line) use($keyword){
-                    return str_ireplace($keyword, "&nbsp;<strong><u>".$keyword."</u></strong>&nbsp;", $line);
-                });
+                    // dd($line[0]);
+                    $re = '/(([a-zA-Z0-9!@#$&()\\-`.+,\"]* ){0,5})('.$keyword.')(( [a-zA-Z0-9!@#$&()\\-`.+,\"]*){0,5})/'; 
+                    preg_match_all($re, $line[0], $matches);
+                    // dd($matches);
+                    return $matches[0];
+                    // return str_ireplace($keyword, "&nbsp;<strong><u>".$keyword."</u></strong>&nbsp;", $line);
+                })->collapse();
+                // dd($kata_ditemukan);
             }
         }else{
             $kategori = $request->kategori ?? null;
@@ -172,20 +178,25 @@ class KorpusController extends Controller
             });
 
             $kata_ditemukan = $literatur->map(function($value, $key) use($keyword){
-                preg_match_all("/[^.]* ".$keyword." [^.]*\./i", $value['konten'], $result, PREG_OFFSET_CAPTURE);
+
+                $re = '/(([a-zA-Z0-9!@#$&()\\-`.+,\"]* ){0,5})('.$keyword.')(( [a-zA-Z0-9!@#$&()\\-`.+,\"]*){0,5})/'; 
+                preg_match_all($re, $value['konten'], $matches);
+                // dd($matches);
+                // return $matches[0];
+                // preg_match_all("/[^.]* ".$keyword." [^.]*\./i", $value['konten'], $result, PREG_OFFSET_CAPTURE);
                 // dd($result);
                 // $value['kata_ditemukan'] = $result;
                 // // dd($value['kata_ditemukan']);
                 // unset($value["konten"]);
 
-                return array("judul"=>$value['judul'], "id"=>$value["id"], "uploaded_by"=>$value["uploaded_by"], "hasil_pencarian"=>collect($result)->flatten(1));
+                return array("judul"=>$value['judul'], "id"=>$value["id"], "uploaded_by"=>$value["uploaded_by"], "hasil_pencarian"=>collect($matches[0]));
             });
             // $kata_ditemukan = $kata_ditemukan->each(function($value, $key) use($keyword){
             //     $value['hasil_pencarian']->map(function($value) use($keyword){
             //         return str_ireplace($keyword, "&nbsp;<strong><u>".$keyword."</u></strong>&nbsp;", $value);
             //     });
             // });
-
+            // dd($kata_ditemukan);
             $kata_ditemukan = $kata_ditemukan->filter(function($value){
                 return sizeof($value["hasil_pencarian"]) != 0;
             });
@@ -194,6 +205,7 @@ class KorpusController extends Controller
             // $literatur->konten = MemberController::getContent($literatur->path);
             return view("hasil_cari_korpus")->with("kata_ditemukan", $kata_ditemukan)->with("korpus", Korpus::find(session("korpus_id")))->with("keyword", $keyword);
         }
+        
     return view("hasil_cari")->with("kata_ditemukan", $kata_ditemukan)->with("korpus", Korpus::find(session("korpus_id")))->with("judul_literatur", $literatur->judul)->with("keyword", $keyword);
     }
 }

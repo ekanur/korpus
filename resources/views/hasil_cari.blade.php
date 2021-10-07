@@ -31,7 +31,11 @@
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <p class="text-wrap">{!!$kata_ditemukan[0]!!}</p>
+                                                <p class="text-wrap">...
+                                                    {!!
+                                                    str_replace($keyword, "&nbsp;<strong><u>".$keyword."</u></strong>&nbsp;", $kata_ditemukan)
+                                                    !!}
+                                                    ...</p>
                                             </div>
                                         </td>
 
